@@ -11,17 +11,28 @@ namespace DungeonCrawler.Code.Entities.Enemies
         // Pathing / Targeting
         private Entity _pathingTarget;
         private float _timeSinceLastTargetUpdate = 0;
-        private float _targetingRange = 100;
+        private float _timeBetweenTargetUpdates = 10; // in milliseconds
+        private float _targetingRange = 500;
 
         public BasicEnemy(Camera camera, EntityManager entityManager)
             : base(camera, entityManager)
         {
             SetupTextures(SPRITESHEET_PATH);
+
+            MoveSpeed = 3;
         }
 
         private void Pathfind()
         {
             if (_pathingTarget == null) return;
+
+            // Vertical
+            if (EntityManager.Player.WorldPosition.Y < WorldPosition.Y) MoveUp();
+            else if (EntityManager.Player.WorldPosition.Y > WorldPosition.Y) MoveDown();
+
+            // Horizontal
+            if (EntityManager.Player.WorldPosition.X < WorldPosition.X) MoveLeft();
+            else if (EntityManager.Player.WorldPosition.X > WorldPosition.X) MoveRight();
         }
 
         /// <summary>
@@ -44,9 +55,23 @@ namespace DungeonCrawler.Code.Entities.Enemies
             _timeSinceLastTargetUpdate = 0;
         }
 
+        /// <summary>
+        /// Update target if cheks pass
+        /// </summary>
+        /// <param name="gametime"></param>
+        private void TryUpdateTarget(GameTime gametime)
+        {
+            // Timer check
+            if (_timeSinceLastTargetUpdate <= _timeBetweenTargetUpdates) return;
+
+            UpdateTarget();
+        }
+
         protected override void Update(GameTime gametime)
         {
-            if (_timeSinceLastTargetUpdate <= 0) UpdateTarget();
+            _timeSinceLastTargetUpdate += gametime.ElapsedGameTime.Milliseconds;
+            TryUpdateTarget(gametime);
+            Pathfind();
 
             base.Update(gametime);
         }
