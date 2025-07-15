@@ -1,13 +1,37 @@
-﻿using DungeonCrawler.Code.Utils;
+﻿using DungeonCrawler.Code.Entities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using DungeonCrawler.Code.Utils;
+using DungeonCrawler.Code.Utils.Drawables;
 
 namespace DungeonCrawler.Code.UI
 {
-    internal class Camera : UIComponent
+    internal class Camera
     {
-        public Point ScreenSize;
-        public Vector2 WorldPosition;
-        public Point CenterPosition => ScreenRectangle.Center;
+        #region Publics
+
+        public Point ScreenSize { get; private set; }
+        public Vector2 WorldPosition
+        {
+            get
+            {
+                return _trackedEntity == null ?
+                    b_worldPosition :
+                    _trackedEntity.WorldPosition + _trackedEntityOffset;
+            }
+            set
+            {
+                if (_trackedEntity == null)
+                {
+                    b_worldPosition = value;
+                }
+            }
+        }
+        public Rectangle CameraRectangle { get; private set; }
+        public Point CenterPosition => CameraRectangle.Center;
+
+        public OnCameraSizeChangeHandler OnCameraSizeChange { get; set; }
+        public delegate void OnCameraSizeChangeHandler(Rectangle cameraRectangle);
 
         // Zoom Stuff
         public float ZoomLevel = 1;
@@ -15,23 +39,70 @@ namespace DungeonCrawler.Code.UI
         public float MaxZoomLevel = 5;
         public float ZoomSpeed = 1;
 
-        public Camera(Vector4 anchorPoints, Point4 padding, Point offset)
-            : base(anchorPoints, padding, offset)
+        public Camera(SpriteBatch graphics)
         {
-
+            _graphics = graphics;
         }
 
-        public Camera()
-            : base(new Vector4(0f, 1f, 0f, 1f), new Point4(0, 0, 0, 0), new Point(0, 0))
+        public void DrawImage(Texture2D texture, Vector2 position, Rectangle sourceRectangle, GameConstants.GameLayers layer)
         {
-
+            _graphics.Draw(
+                texture,
+                position,
+                sourceRectangle,
+                Color.White,
+                0,
+                new Vector2(0, 0),
+                1,
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(layer)
+                );
+        }
+    
+        public void DrawImageToWorld(IWorldDrawable drawable)
+        {
+            _graphics.Draw(
+                drawable.Texture,
+                drawable.Position,
+                drawable.SourceRectangle,
+                drawable.Color,
+                drawable.Rotation,
+                drawable.Origin,
+                drawable.Scale,
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(drawable.Layer)
+                );
         }
 
-        /// <summary>
-        /// Update the cameras size
-        /// </summary>
-        /// <param name="width">New width of camera</param>
-        /// <param name="height">New height of camera</param>
+        public void DrawImageToScreen(IScreenDrawable drawable)
+        {
+            _graphics.Draw(
+                drawable.Texture,
+                drawable.DestinationRectangle,
+                drawable.SourceRectangle,
+                drawable.Color,
+                drawable.Rotation,
+                drawable.Origin,
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(drawable.Layer)
+                );
+        }
+
+        public void DrawText(IDrawableText drawableText)
+        {
+            _graphics.DrawString(
+                drawableText.Font,
+                drawableText.Text,
+                drawableText.Position,
+                drawableText.Color,
+                drawableText.Rotation,
+                drawableText.Origin,
+                drawableText.Scale,
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(drawableText.Layer)
+                );
+        }
+
         public void UpdateSize(int width, int height)
         {
             ScreenSize = new Point(
@@ -39,20 +110,17 @@ namespace DungeonCrawler.Code.UI
                 height
                 );
 
-            UpdateScreenRectangle();
+            UpdateCameraRectangle();
         }
 
-        protected override void UpdateScreenRectangle()
+        public void FollowEntity(Entity entity)
         {
-            Rectangle myRectangle = new Rectangle
-                (
-                    0,
-                    0,
-                    ScreenSize.X,
-                    ScreenSize.Y
-                );
-            ScreenRectangle = myRectangle;
-            OnScreenRectangleUpdated?.Invoke();
+            FollowEntity(entity, Vector2.Zero);
+        }
+        public void FollowEntity(Entity entity, Vector2 offset)
+        {
+            _trackedEntity = entity;
+            _trackedEntityOffset = offset;
         }
 
         /// <summary>
@@ -76,5 +144,29 @@ namespace DungeonCrawler.Code.UI
             if (ZoomLevel < MinZoomLevel) ZoomLevel = MinZoomLevel;
             else if (ZoomLevel > MaxZoomLevel) ZoomLevel = MaxZoomLevel;
         }
+
+        #endregion
+
+        #region Privates
+
+        private Entity _trackedEntity;
+        private Vector2 _trackedEntityOffset = Vector2.Zero;
+        private Vector2 b_worldPosition;
+        private SpriteBatch _graphics;
+
+        private void UpdateCameraRectangle()
+        {
+            Rectangle newRectangle = new Rectangle
+                (
+                0,
+                0,
+                ScreenSize.X,
+                ScreenSize.Y
+                );
+
+            CameraRectangle = newRectangle;
+        }
+
+        #endregion
     }
 }

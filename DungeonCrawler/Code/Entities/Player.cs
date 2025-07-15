@@ -14,12 +14,12 @@ namespace DungeonCrawler.Code.Entities
             : base(camera, entityManager)
         {
             SetupTextures(SPRITESHEET_PATH);
+            Camera.FollowEntity(this);
         }
 
         protected override void Update(GameTime gametime)
         {
             CheckMovement();
-            CenterCameraOnPosition();
 
             base.Update(gametime);
         }
@@ -41,14 +41,6 @@ namespace DungeonCrawler.Code.Entities
             if (InputProvider.IsKeyDown(InputMap.MoveDown)) MoveDown();
             if (InputProvider.IsKeyDown(InputMap.MoveLeft)) MoveLeft();
             if (InputProvider.IsKeyDown(InputMap.MoveRight)) MoveRight();
-        }
-
-        /// <summary>
-        /// Center the camera on the player
-        /// </summary>
-        private void CenterCameraOnPosition()
-        {
-            Camera.WorldPosition = WorldPosition;
         }
     }
 }

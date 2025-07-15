@@ -94,7 +94,6 @@ namespace DungeonCrawler.Code.UI
             graphics.Draw(drawTexture, ScreenRectangle, _currentColor);
 
             // Text
-            Vector2 fontSize = TextFont.MeasureString(Text);
             Vector2 textPos = new Vector2( // Center Text
                 (ScreenRectangle.X + ScreenRectangle.Width / 2) - _textSize.X / 2,
                 (ScreenRectangle.Y + ScreenRectangle.Height / 2) - _textSize.Y / 2);
