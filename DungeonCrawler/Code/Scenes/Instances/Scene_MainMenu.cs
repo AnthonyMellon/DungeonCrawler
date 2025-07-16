@@ -19,12 +19,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
         {
             _content = content;
             _game = game;
+            _camera = ObjectBin.GetObject<Camera>("MainCamera") as Camera;
 
-            _camera = new Camera();
-            _camera.UpdateSize(GameValues.ScreenSize.X, GameValues.ScreenSize.Y);
-            GameEvents.OnScreenSizeChange += _camera.UpdateSize;
-
-            AddChild(_camera);
             LoadContent();
             BuildUI();
         }
@@ -37,7 +33,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private void BuildUI()
         {
             // Build Components
-            UI_Panel basePanel = _camera.AddChild(
+            UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
                     anchorPoints: new Vector4(0f, 1f, 0f, 1f),

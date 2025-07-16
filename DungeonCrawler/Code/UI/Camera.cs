@@ -6,7 +6,7 @@ using DungeonCrawler.Code.Utils.Drawables;
 
 namespace DungeonCrawler.Code.UI
 {
-    internal class Camera
+    internal class Camera        
     {
         #region Publics
 
@@ -30,7 +30,8 @@ namespace DungeonCrawler.Code.UI
         public Rectangle CameraRectangle { get; private set; }
         public Point CenterPosition => CameraRectangle.Center;
 
-        public OnCameraSizeChangeHandler OnCameraSizeChange { get; set; }
+        public OnCameraSizeChangeHandler OnCameraSizeChange { get; set; }        
+
         public delegate void OnCameraSizeChangeHandler(Rectangle cameraRectangle);
 
         // Zoom Stuff
@@ -43,38 +44,8 @@ namespace DungeonCrawler.Code.UI
         {
             _graphics = graphics;
         }
-
-        public void DrawImage(Texture2D texture, Vector2 position, Rectangle sourceRectangle, GameConstants.GameLayers layer)
-        {
-            _graphics.Draw(
-                texture,
-                position,
-                sourceRectangle,
-                Color.White,
-                0,
-                new Vector2(0, 0),
-                1,
-                SpriteEffects.None,
-                GameConstants.GameLayerToLayer(layer)
-                );
-        }
     
-        public void DrawImageToWorld(IWorldDrawable drawable)
-        {
-            _graphics.Draw(
-                drawable.Texture,
-                drawable.Position,
-                drawable.SourceRectangle,
-                drawable.Color,
-                drawable.Rotation,
-                drawable.Origin,
-                drawable.Scale,
-                SpriteEffects.None,
-                GameConstants.GameLayerToLayer(drawable.Layer)
-                );
-        }
-
-        public void DrawImageToScreen(IScreenDrawable drawable)
+        public void DrawSprite(IDrawableSprite drawable)
         {
             _graphics.Draw(
                 drawable.Texture,
@@ -82,25 +53,30 @@ namespace DungeonCrawler.Code.UI
                 drawable.SourceRectangle,
                 drawable.Color,
                 drawable.Rotation,
-                drawable.Origin,
+                drawable.Origin,                
                 SpriteEffects.None,
                 GameConstants.GameLayerToLayer(drawable.Layer)
                 );
         }
 
-        public void DrawText(IDrawableText drawableText)
+        public void DrawText(SpriteFont font, string text, Vector2 position, Color color, GameConstants.GameLayers layer)
         {
             _graphics.DrawString(
-                drawableText.Font,
-                drawableText.Text,
-                drawableText.Position,
-                drawableText.Color,
-                drawableText.Rotation,
-                drawableText.Origin,
-                drawableText.Scale,
+                font,
+                text,
+                position,
+                color,
+                0,              // Rotation
+                Vector2.Zero,   // Origin
+                1,              // Scale
                 SpriteEffects.None,
-                GameConstants.GameLayerToLayer(drawableText.Layer)
+                GameConstants.GameLayerToLayer(layer)
                 );
+        }
+
+        public void Draw()
+        {
+
         }
 
         public void UpdateSize(int width, int height)

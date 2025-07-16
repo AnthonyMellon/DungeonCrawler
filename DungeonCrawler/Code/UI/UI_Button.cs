@@ -1,5 +1,6 @@
 ﻿using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.Utils;
+using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -22,51 +23,12 @@ namespace DungeonCrawler.Code.UI
         /// Current frames mouse status
         /// </summary>
         private bool _currMouse;
-        /// <summary>
-        /// The size of the text string (not the font size)
-        /// </summary>
-        private Vector2 _textSize;
 
         private Color _baseColor;
         private Color _hoverColor;
         private Texture2D _texture;
 
-        /// <summary>
-        /// Text to be drawn on button
-        /// </summary>
-        public string Text
-        {
-            get
-            {
-                return b_text;
-            }
-            set
-            {
-                b_text = value;
-                UpdateTextSize();
-            }
-        }
-        private string b_text;
-
-        /// <summary>
-        /// Font for text being drawn on button
-        /// </summary>
-        public SpriteFont TextFont
-        {
-            get
-            {
-                if (b_textFont == null) return DefaultContent.DefaultFont;
-
-                return b_textFont;
-            }
-            set
-            {
-                b_textFont = value;
-                UpdateTextSize();
-            }
-        }
-        private SpriteFont b_textFont;
-
+        private DrawableText _text;
 
         public UI_Button(
             Vector4 anchorPoints,
@@ -82,8 +44,9 @@ namespace DungeonCrawler.Code.UI
             _baseColor = baseColor;
             _hoverColor = hoverColor;
             _texture = texture;
-            Text = text;
-            TextFont = textFont;
+
+            _text = new DrawableText(text, Vector2.Zero, Color.Black, textFont);
+            OnScreenRectangleUpdated += () => _text.CenterTextToRectangle(ScreenRectangle);
         }
 
         protected override void Draw(GameTime gametime, SpriteBatch graphics)
@@ -94,11 +57,7 @@ namespace DungeonCrawler.Code.UI
             graphics.Draw(drawTexture, ScreenRectangle, _currentColor);
 
             // Text
-            Vector2 textPos = new Vector2( // Center Text
-                (ScreenRectangle.X + ScreenRectangle.Width / 2) - _textSize.X / 2,
-                (ScreenRectangle.Y + ScreenRectangle.Height / 2) - _textSize.Y / 2);
-            graphics.DrawString(TextFont, Text, textPos, Color.Black);
-
+            graphics.DrawString(_text.Font, _text.Text, _text.Position, Color.Black);
         }
 
         protected override void Update(GameTime gametime)
@@ -139,21 +98,6 @@ namespace DungeonCrawler.Code.UI
             if (_currMouse && !_prevMouse)
             {
                 OnClick?.Invoke();
-            }
-        }
-
-        /// <summary>
-        /// Update the text size (not the font size)
-        /// </summary>
-        private void UpdateTextSize()
-        {
-            if (Text == null || TextFont == null)
-            {
-                _textSize = new Vector2(0, 0);
-            }
-            else
-            {
-                _textSize = TextFont.MeasureString(Text);
             }
         }
     }

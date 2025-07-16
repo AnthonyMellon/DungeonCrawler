@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using DungeonCrawler.Code.UI;
 
 namespace DungeonCrawler
 {
@@ -62,6 +63,8 @@ namespace DungeonCrawler
 
             //Content
             GameValues.GameContent = Content;
+
+            ObjectBin.RegisterObject("MainCamera", new Camera(_spriteBatch));
         }
 
         protected override void Update(GameTime gameTime)

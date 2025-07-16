@@ -121,8 +121,6 @@ namespace DungeonCrawler.Code.UI
 
         private void UpdateScreenRectangleAuto()
         {
-            //Debug.WriteLine($"Update {AutoUpdateScreenRectangle}");
-
             if (!AutoUpdateScreenRectangle) return;
             UpdateScreenRectangle();
         }
