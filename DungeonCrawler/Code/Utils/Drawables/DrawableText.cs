@@ -1,17 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
     internal class DrawableText
     {
         public string Text
-        { 
+        {
             get
             {
                 return _text;
@@ -25,7 +20,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public SpriteFont Font
         {
-            get 
+            get
             {
                 return _font;
             }
@@ -36,15 +31,17 @@ namespace DungeonCrawler.Code.Utils.Drawables
             }
         }
         public Vector2 Size { get; private set; }
-        public Vector2 Position;
-        public Color Color;
+        public Vector2 Position { get; private set; }
+        public Color Color { get; private set; }
+        public GameConstants.GameLayers Layer { get; private set; }
 
-        public DrawableText(string text, Vector2 position, Color color, SpriteFont font)
+        public DrawableText(string text, Vector2 position, Color color, SpriteFont font, GameConstants.GameLayers layer)
         {
             Text = text;
             Position = position;
             Color = color;
             Font = font;
+            Layer = layer;
         }
 
         public DrawableText(string text, Vector2 position, Color color)
@@ -67,7 +64,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         private void UpdateTextSize()
         {
-            if(Text == null || Font == null)
+            if (Text == null || Font == null)
             {
                 Size = Vector2.Zero;
             }

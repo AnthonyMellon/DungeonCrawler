@@ -19,7 +19,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         {
             _content = content;
             _game = game;
-            _camera = ObjectBin.GetObject<Camera>("MainCamera") as Camera;
+            _camera = ObjectBin.GetObject("MainCamera") as Camera;
 
             LoadContent();
             BuildUI();

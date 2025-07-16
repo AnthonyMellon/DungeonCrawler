@@ -9,26 +9,7 @@ namespace DungeonCrawler.Code.UI
 {
     internal class UI_Button : UIComponent
     {
-        private bool _isHovering;
-        private Color _currentColor;
-        /// <summary>
-        /// Acion to trigger when the mouse is clicked on
-        /// </summary>
         public Action OnClick;
-        /// <summary>
-        /// Last frames mouse status
-        /// </summary>
-        private bool _prevMouse;
-        /// <summary>
-        /// Current frames mouse status
-        /// </summary>
-        private bool _currMouse;
-
-        private Color _baseColor;
-        private Color _hoverColor;
-        private Texture2D _texture;
-
-        private DrawableText _text;
 
         public UI_Button(
             Vector4 anchorPoints,
@@ -45,19 +26,30 @@ namespace DungeonCrawler.Code.UI
             _hoverColor = hoverColor;
             _texture = texture;
 
-            _text = new DrawableText(text, Vector2.Zero, Color.Black, textFont);
-            OnScreenRectangleUpdated += () => _text.CenterTextToRectangle(ScreenRectangle);
+            _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI);
+            OnScreenRectangleUpdated += () => _butttonText.CenterTextToRectangle(ScreenRectangle);
+
+            _backgroundSprite = new DrawableSprite(texture, ScreenRectangle, baseColor, GameConstants.GameLayers.UI);
         }
 
-        protected override void Draw(GameTime gametime, SpriteBatch graphics)
+        private bool _isHovering;
+        private bool _prevMouse;
+        private bool _currMouse;
+
+        private Color _baseColor;
+        private Color _hoverColor;
+        private Texture2D _texture;
+
+        private DrawableText _butttonText;
+        private DrawableSprite _backgroundSprite;
+
+        protected override void Draw(GameTime gametime, Camera camera)
         {
             Texture2D drawTexture = _texture == null ? DefaultContent.DefaultCapsule : _texture;
 
-            // Background
-            graphics.Draw(drawTexture, ScreenRectangle, _currentColor);
+            camera.DrawSprite(_backgroundSprite);
+            camera.DrawText(_butttonText);
 
-            // Text
-            graphics.DrawString(_text.Font, _text.Text, _text.Position, Color.Black);
         }
 
         protected override void Update(GameTime gametime)
@@ -70,29 +62,19 @@ namespace DungeonCrawler.Code.UI
             CheckForClick();
         }
 
-        /// <summary>
-        /// Check if the mouse is hovering over the button
-        /// </summary>
         private void CheckForHover()
         {
             Rectangle mouseRectangle = new Rectangle(InputProvider.MousePosition, new Point(1, 1));
             _isHovering = InputProvider.IsMouseInWindow && ScreenRectangle.Intersects(mouseRectangle);
         }
 
-        /// <summary>
-        /// Highlight the button if the mouse is hovering over it
-        /// </summary>
         private void Highlight()
         {
-            _currentColor = _isHovering ? _hoverColor : _baseColor;
+            _backgroundSprite.SetColor(_isHovering ? _hoverColor : _baseColor);
         }
 
-        /// <summary>
-        /// Check if the button was clicked on
-        /// </summary>
         private void CheckForClick()
         {
-            // THe button can't be interacted with if it's not being hovered over
             if (!_isHovering) return;
 
             if (_currMouse && !_prevMouse)

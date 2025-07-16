@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using DungeonCrawler.Code.Utils;
+using System.Collections.Generic;
 
 namespace DungeonCrawler.Code.UI
 {
@@ -21,7 +22,7 @@ namespace DungeonCrawler.Code.UI
             _color = color;
         }
 
-        protected override void Draw(GameTime gametime, SpriteBatch graphics)
+        protected override void Draw(GameTime gametime, Camera camera)
         {
             // only draw if there is a texture to draw, this allows for invisible panels
             if (_texture != null)
@@ -29,7 +30,7 @@ namespace DungeonCrawler.Code.UI
                 // Default to white color if none is given
                 Color color = _color != null ? _color.Value : Color.White;
 
-                graphics.Draw(_texture, ScreenRectangle, color);
+                graphics.Draw(_texture, ScreenRectangle, color);                
             }
         }
     }

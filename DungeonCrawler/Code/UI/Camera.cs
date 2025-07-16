@@ -45,38 +45,33 @@ namespace DungeonCrawler.Code.UI
             _graphics = graphics;
         }
     
-        public void DrawSprite(IDrawableSprite drawable)
+        public void DrawSprite(DrawableSprite sprite)
         {
             _graphics.Draw(
-                drawable.Texture,
-                drawable.DestinationRectangle,
-                drawable.SourceRectangle,
-                drawable.Color,
-                drawable.Rotation,
-                drawable.Origin,                
+                sprite.Texture,
+                sprite.DestinationRectangle,
+                sprite.SourceRectangle,
+                sprite.Color,
+                0,              // Rotation
+                Vector2.Zero,   // Origin       currently no use for these values  
                 SpriteEffects.None,
-                GameConstants.GameLayerToLayer(drawable.Layer)
+                GameConstants.GameLayerToLayer(sprite.Layer)
                 );
         }
 
-        public void DrawText(SpriteFont font, string text, Vector2 position, Color color, GameConstants.GameLayers layer)
+        public void DrawText(DrawableText text)
         {
             _graphics.DrawString(
-                font,
-                text,
-                position,
-                color,
+                text.Font,
+                text.Text,
+                text.Position,
+                text.Color,
                 0,              // Rotation
                 Vector2.Zero,   // Origin
-                1,              // Scale
+                1,              // Scale        currently no use for these values
                 SpriteEffects.None,
-                GameConstants.GameLayerToLayer(layer)
+                GameConstants.GameLayerToLayer(text.Layer)
                 );
-        }
-
-        public void Draw()
-        {
-
         }
 
         public void UpdateSize(int width, int height)

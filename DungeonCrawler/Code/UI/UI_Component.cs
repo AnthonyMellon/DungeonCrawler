@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using DungeonCrawler.Code.Utils;
+using System.Collections.Generic;
 
 namespace DungeonCrawler.Code.UI
 {
@@ -172,6 +173,6 @@ namespace DungeonCrawler.Code.UI
 
         protected override void Update(GameTime gametime) { }
 
-        protected override void Draw(GameTime gametime, SpriteBatch graphics) { }
+        protected override void Draw(GameTime gametime, Camera camera) { }
     }
 }

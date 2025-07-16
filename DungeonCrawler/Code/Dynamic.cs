@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonCrawler.Code.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace DungeonCrawler.Code
 {
@@ -56,17 +58,12 @@ namespace DungeonCrawler.Code
         /// </summary>
         /// <param name="gametime"></param>
         protected abstract void Update(GameTime gametime);
-
-        /// <summary>
-        /// The draw method to be called by this Dynamics parent
-        /// </summary>
-        /// <param name="gametime"></param>
-        /// <param name="graphics"></param>
-        public virtual void DoDraw(GameTime gametime, SpriteBatch graphics)
+        
+        public virtual void DoDraw(GameTime gametime, Camera camera)
         {
             if (!IsActive) return;
 
-            Draw(gametime, graphics);
+            Draw(gametime, camera);
 
             // Draw all children
             for (int i = 0; i < Children.Count; i++)
@@ -74,22 +71,11 @@ namespace DungeonCrawler.Code
                 Dynamic child = Children[i];
                 if (child == null) continue;
 
-                child.DoDraw(gametime, graphics);
+                child.DoDraw(gametime, camera);
             }
         }
+        protected abstract void Draw(GameTime gametime, Camera camera);
 
-        /// <summary>
-        /// Override this method to add behaviour to the draw loop
-        /// </summary>
-        /// <param name="gametime"></param>
-        /// <param name="graphics"></param>
-        protected abstract void Draw(GameTime gametime, SpriteBatch graphics);
-
-        /// <summary>
-        /// Attach a child Dynamic to this Dynamic
-        /// </summary>
-        /// <param name="child">The child to be attached</param>
-        /// <returns></returns>
         public Dynamic AddChild(Dynamic child)
         {
             Children.Add(child);
@@ -98,10 +84,6 @@ namespace DungeonCrawler.Code
             return child;
         }
 
-        /// <summary>
-        /// Attach a list of child Dynamics to this component
-        /// </summary>
-        /// <param name="children">The list of child Dynamics to be attached</param>
         public void AddChildren(List<Dynamic> children)
         {
             for (int i = 0; i < children.Count; i++)
@@ -110,10 +92,6 @@ namespace DungeonCrawler.Code
             }
         }
 
-        /// <summary>
-        /// Remove a child Dynamic from this Dynamic
-        /// </summary>
-        /// <param name="child">The child to be removed</param>
         public void RemoveChild(Dynamic child)
         {
             if (!Children.Contains(child)) return;
@@ -122,9 +100,6 @@ namespace DungeonCrawler.Code
             Children.Remove(child);
         }
 
-        /// <summary>
-        /// Destroys all children attached to this Dynamic
-        /// </summary>
         public void DestroyChildren()
         {
             for (int i = Children.Count - 1; i >= 0; i--)
@@ -133,9 +108,6 @@ namespace DungeonCrawler.Code
             }
         }
 
-        /// <summary>
-        /// Destroy this Dynamic and perfrom any necessary cleanup
-        /// </summary>
         public void Destroy()
         {
             OnDestroy?.Invoke(this);
@@ -143,9 +115,6 @@ namespace DungeonCrawler.Code
             Parent = null;
         }
 
-        protected virtual void OnParentSet(Dynamic oldParent, Dynamic newParent)
-        {
-
-        }
+        protected virtual void OnParentSet(Dynamic oldParent, Dynamic newParent) { }
     }
 }
