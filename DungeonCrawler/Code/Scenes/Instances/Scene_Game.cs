@@ -21,8 +21,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
         public override void Init(ContentManager content, Game game)
         {
             _camera = ObjectBin.GetObject(GameConstants.MAIN_CAMERA) as Camera;
-            _camera.UpdateSize(GameValues.ScreenSize.X, GameValues.ScreenSize.Y);
-            GameEvents.OnScreenSizeChange += _camera.UpdateSize;
 
             _entityManager = AddChild(new EntityManager(_camera)) as EntityManager;
             _entityManager.BuildPlayer();
@@ -45,7 +43,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 (
                     anchorPoints: new Vector4(0f, 1f, 0f, 1f),
                     padding: new Point4(0, 0, 0, 0),
-                    offset: new Point(0, 0)
+                    offset: new Point(0, 0),
+                    fitType: UIComponent.FitTypes.Screen
                 )) as UI_Panel;
 
             // Menu Bar
@@ -83,9 +82,5 @@ namespace DungeonCrawler.Code.Scenes.Instances
         protected override void Draw(GameTime gametime, Camera camera) { }
 
         protected override void Update(GameTime gametime) { }
-
-        public override void OnEnter() { }
-
-        public override void OnExit() { }
     }
 }

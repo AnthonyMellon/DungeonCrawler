@@ -95,9 +95,5 @@ namespace DungeonCrawler.Code.Scenes.Instances
         protected override void Draw(GameTime gametime, Camera camera) { }
 
         protected override void Update(GameTime gametime) { }
-
-        public override void OnEnter() { }
-
-        public override void OnExit() { }
     }
 }

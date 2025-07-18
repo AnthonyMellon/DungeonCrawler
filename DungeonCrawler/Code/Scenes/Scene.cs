@@ -28,9 +28,6 @@ namespace DungeonCrawler.Code.Scenes
         /// <param name="game"></param>
         public abstract void Init(ContentManager content, Game game);
 
-        public abstract void OnEnter();
-        public abstract void OnExit();
-
         public override void DoDraw(GameTime gameTime, Camera camera)
         {
             //Extra stuff for the scene to begin the sprite batch

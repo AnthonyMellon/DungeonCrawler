@@ -45,14 +45,13 @@ namespace DungeonCrawler.Code.Scenes
         public static void UpdateScene(ContentManager content, Game game)
         {
             if (_nextScene == null) return;
-
-            _currentScene.OnExit();
-
+            
+            _currentScene.IsEnabled = false;
             _currentScene = _nextScene;
             _nextScene = null;
 
             if (!_currentScene.Initialised) _currentScene.DoInit(content, game);
-            _currentScene.OnEnter();
+            _currentScene.IsEnabled = true;
 
         }
 
