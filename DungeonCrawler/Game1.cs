@@ -14,6 +14,7 @@ namespace DungeonCrawler
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Camera _mainCamera;
 
         public Game1()
         {
@@ -57,14 +58,15 @@ namespace DungeonCrawler
                 _graphics.PreferredBackBufferHeight);
 
             // Scene Manager (the first scene added will be the default scene)
-            SceneManager.AddedScenes.Add("MainMenu", new Scene_MainMenu());
-            SceneManager.AddedScenes.Add("Game", new Scene_Game());
+            SceneManager.AddedScenes.Add(GameConstants.MainMenu, new Scene_MainMenu(_spriteBatch));
+            SceneManager.AddedScenes.Add(GameConstants.Game, new Scene_Game(_spriteBatch));
             SceneManager.Init(Content, this);
 
             //Content
             GameValues.GameContent = Content;
 
-            ObjectBin.RegisterObject("MainCamera", new Camera(_spriteBatch));
+            _mainCamera = new Camera(_spriteBatch);
+            ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
         }
 
         protected override void Update(GameTime gameTime)
@@ -86,7 +88,7 @@ namespace DungeonCrawler
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SceneManager.Draw(gameTime, _spriteBatch);
+            SceneManager.Draw(gameTime, _mainCamera);
 
             _spriteBatch.Begin();
             _spriteBatch.DrawString(DefaultContent.DefaultFont, "DEVELOPMENT BUILD", new Vector2(5, _graphics.PreferredBackBufferHeight - 20), Color.White);

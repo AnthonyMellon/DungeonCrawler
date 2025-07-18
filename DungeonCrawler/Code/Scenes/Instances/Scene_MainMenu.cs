@@ -15,11 +15,16 @@ namespace DungeonCrawler.Code.Scenes.Instances
         // Images
         Texture2D _background;
 
+        public Scene_MainMenu(SpriteBatch graphics) :
+            base(graphics)
+        {
+        }
+
         public override void Init(ContentManager content, Game game)
         {
             _content = content;
             _game = game;
-            _camera = ObjectBin.GetObject("MainCamera") as Camera;
+            _camera = ObjectBin.GetObject(GameConstants.MAIN_CAMERA) as Camera;
 
             LoadContent();
             BuildUI();
@@ -88,10 +93,10 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private void EnterGame()
         {
-            SceneManager.SetNextScene("Game");
+            SceneManager.SetNextScene(GameConstants.Game);
         }
 
-        protected override void Draw(GameTime gametime, SpriteBatch graphics) { }
+        protected override void Draw(GameTime gametime, Camera camera) { }
 
         protected override void Update(GameTime gametime) { }
 

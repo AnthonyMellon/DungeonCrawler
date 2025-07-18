@@ -23,13 +23,12 @@ namespace DungeonCrawler.Code.UI
             base(anchorPoints, padding, offset)
         {
             _baseColor = baseColor;
-            _hoverColor = hoverColor;
-            _texture = texture;
+            _hoverColor = hoverColor;            
 
             _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI);
             OnScreenRectangleUpdated += () => _butttonText.CenterTextToRectangle(ScreenRectangle);
 
-            _backgroundSprite = new DrawableSprite(texture, ScreenRectangle, baseColor, GameConstants.GameLayers.UI);
+            _backgroundTexture = new DrawableTexture(texture, ScreenRectangle, baseColor, GameConstants.GameLayers.UI);
         }
 
         private bool _isHovering;
@@ -37,17 +36,16 @@ namespace DungeonCrawler.Code.UI
         private bool _currMouse;
 
         private Color _baseColor;
-        private Color _hoverColor;
-        private Texture2D _texture;
+        private Color _hoverColor;        
 
         private DrawableText _butttonText;
-        private DrawableSprite _backgroundSprite;
+        private DrawableTexture _backgroundTexture;
 
         protected override void Draw(GameTime gametime, Camera camera)
-        {
-            Texture2D drawTexture = _texture == null ? DefaultContent.DefaultCapsule : _texture;
+        {           
+            if (_backgroundTexture.Texture == null) _backgroundTexture.Texture = DefaultContent.DefaultCapsule;
 
-            camera.DrawSprite(_backgroundSprite);
+            camera.DrawTexture(_backgroundTexture);
             camera.DrawText(_butttonText);
 
         }
@@ -70,7 +68,7 @@ namespace DungeonCrawler.Code.UI
 
         private void Highlight()
         {
-            _backgroundSprite.SetColor(_isHovering ? _hoverColor : _baseColor);
+            _backgroundTexture.Color = _isHovering ? _hoverColor : _baseColor;
         }
 
         private void CheckForClick()

@@ -13,9 +13,14 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private Camera _camera;
         private EntityManager _entityManager;
 
+        public Scene_Game(SpriteBatch graphics) :
+            base(graphics)
+        {
+        }
+
         public override void Init(ContentManager content, Game game)
         {
-            _camera = new Camera();
+            _camera = ObjectBin.GetObject(GameConstants.MAIN_CAMERA) as Camera;
             _camera.UpdateSize(GameValues.ScreenSize.X, GameValues.ScreenSize.Y);
             GameEvents.OnScreenSizeChange += _camera.UpdateSize;
 
@@ -24,19 +29,18 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
             //TEMP ENEMIES
             BasicEnemy enemy1 = _entityManager.BuildNewEnemy() as BasicEnemy;
-            enemy1.WorldPosition = new Vector2(100, 100);
+            enemy1.WorldPosition = new Point(100, 100);
             BasicEnemy enemy2 = _entityManager.BuildNewEnemy() as BasicEnemy;
-            enemy2.WorldPosition = new Vector2(-100, -200);
+            enemy2.WorldPosition = new Point(-100, -200);
             //TEMP ENEMIES
-
-            AddChild(_camera);
+            //
             BuildUI();
         }
 
         private void BuildUI()
         {
             // Base Panel
-            UI_Panel basePanel = _camera.AddChild(
+            UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
                     anchorPoints: new Vector4(0f, 1f, 0f, 1f),
@@ -75,10 +79,10 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private void QuitToMainMenu()
         {
-            SceneManager.SetNextScene("MainMenu");
+            SceneManager.SetNextScene(GameConstants.MainMenu);
         }
 
-        protected override void Draw(GameTime gametime, SpriteBatch graphics) { }
+        protected override void Draw(GameTime gametime, Camera camera) { }
 
         protected override void Update(GameTime gametime) { }
 

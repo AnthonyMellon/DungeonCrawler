@@ -15,7 +15,7 @@ namespace DungeonCrawler.Code.UI
             Color color) :
             base(anchorPoints, padding, offset)
         {
-            _backgroundSprite = new DrawableSprite(texture, ScreenRectangle, color, GameConstants.GameLayers.UI);
+            _backgroundSprite = new DrawableTexture(texture, ScreenRectangle, color, GameConstants.GameLayers.UI);
         }
 
         public UI_Panel(
@@ -25,7 +25,7 @@ namespace DungeonCrawler.Code.UI
             Texture2D texture) :
             base(anchorPoints, padding, offset)
         {
-            _backgroundSprite = new DrawableSprite(texture, ScreenRectangle, Color.White, GameConstants.GameLayers.UI);
+            _backgroundSprite = new DrawableTexture(texture, ScreenRectangle, Color.White, GameConstants.GameLayers.UI);
         }
 
         public UI_Panel(
@@ -37,13 +37,13 @@ namespace DungeonCrawler.Code.UI
             _backgroundSprite = null;
         }
 
-        private DrawableSprite _backgroundSprite;
+        private DrawableTexture _backgroundSprite;
 
         protected override void Draw(GameTime gametime, Camera camera)
         {
             if (_backgroundSprite != null)
             {
-                camera.DrawSprite(_backgroundSprite);
+                camera.DrawTexture(_backgroundSprite);
             }
         }
     }

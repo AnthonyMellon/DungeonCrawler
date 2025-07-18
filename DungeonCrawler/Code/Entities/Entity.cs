@@ -1,98 +1,83 @@
 ﻿using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
+using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace DungeonCrawler.Code.Entities
 {
     internal class Entity : Dynamic
     {
-        // Sprite Stuff
-        private static Point TEXTURE_SIZE = new Point(256, 256);
-        protected GameTexture SpriteSheet;
-        protected Dictionary<Textures, Rectangle> TextureRectangles = new Dictionary<Textures, Rectangle>()
+        #region publics       
+        public SpriteSheet SpriteSheet { get; set; }
+        public Point WorldPosition
         {
-                { Textures.Front, new Rectangle(new Point(TEXTURE_SIZE.X * 0, TEXTURE_SIZE.Y * 0), TEXTURE_SIZE) },
-                { Textures.Back, new Rectangle(new Point(TEXTURE_SIZE.X * 1, TEXTURE_SIZE.Y * 0), TEXTURE_SIZE) },
-                { Textures.Left, new Rectangle(new Point(TEXTURE_SIZE.X * 0, TEXTURE_SIZE.Y * 1), TEXTURE_SIZE) },
-                { Textures.Right, new Rectangle(new Point(TEXTURE_SIZE.X * 1, TEXTURE_SIZE.Y * 1), TEXTURE_SIZE) }
-        };
-        protected Textures CurrentTexture = Textures.Front;
-        private const float SCALE = 0.25f;
+            get
+            {
+                return _worldPosition;
+            }
+            set
+            {
+                _worldPosition = value;
+                _sprite.SetDestinationRectangle(
+                    _camera.WorldPositionToScreenPosition(value)
+                    );
+            }
+        }
+        public int MoveSpeed { get; set; } = 5;
+        public EntityManager EntityManager { get; private set; }
 
-        // Camera Stuff
-        protected Camera Camera;
-        private Vector2 ScreenPosition => (WorldPosition - Camera.WorldPosition) + new Vector2(Camera.CenterPosition.X, Camera.CenterPosition.Y);
-
-        // Movement
-        public Vector2 WorldPosition = new Vector2(0, 0);
-        protected float MoveSpeed = 5;
-
-        // The manager this entity is added to
-        protected EntityManager EntityManager;
-
-        protected enum Textures
+        public void MoveUp()
         {
-            Front,
-            Back,
-            Left,
-            Right
+            Move(new Point(0, -1 * MoveSpeed));
+            _sprite.CurrentSpriteName = GameConstants.EntityDirections.Back;
+
+        }
+        public void MoveDown()
+        {
+            Move(new Point(0, MoveSpeed));
+            _sprite.CurrentSpriteName = GameConstants.EntityDirections.foward;
+        }
+        public void MoveLeft()
+        {
+            Move(new Point(-1 * MoveSpeed, 0));
+            _sprite.CurrentSpriteName = GameConstants.EntityDirections.Left;
+        }
+        public void MoveRight()
+        {
+            Move(new Point(MoveSpeed, 0));
+            _sprite.CurrentSpriteName = GameConstants.EntityDirections.Right;
         }
 
         public Entity(Camera camera, EntityManager entityManager)
         {
-            Camera = camera;
+            _camera = camera;
             EntityManager = entityManager;
+
+            _sprite = new DrawableSprite(
+                SpriteSheet,
+                camera.WorldPositionToScreenPosition(WorldPosition),
+                GameConstants.EntityDirections.foward,
+                GameConstants.GameLayers.World);
         }
+        #endregion
 
+        #region privates        
+        private DrawableSprite _sprite;
+        private Camera _camera;
+        private Point _worldPosition;
 
-        protected void SetupTextures(string spriteSheetPath)
-        {
-            SpriteSheet = new GameTexture(spriteSheetPath);
-        }
-
-        protected void Move(Vector2 moveVector)
+        private void Move(Point moveVector)
         {
             WorldPosition += moveVector;
+            _sprite.SetDestinationRectangle(WorldPosition);
         }
 
-        protected void MoveUp()
+        protected override void Draw(GameTime gametime, Camera camera)
         {
-            Move(new Vector2(0, -1 * MoveSpeed));
-            CurrentTexture = Textures.Back;
-        }
-        protected void MoveDown()
-        {
-            Move(new Vector2(0, MoveSpeed));
-            CurrentTexture = Textures.Front;
-        }
-        protected void MoveLeft()
-        {
-            Move(new Vector2(-1 * MoveSpeed, 0));
-            CurrentTexture = Textures.Left;
-        }
-        protected void MoveRight()
-        {
-            Move(new Vector2(MoveSpeed, 0));
-            CurrentTexture = Textures.Right;
-        }
-
-        protected override void Draw(GameTime gametime, SpriteBatch graphics)
-        {
-            graphics.Draw(
-                texture: SpriteSheet.Texture,
-                position: ScreenPosition,
-                sourceRectangle: TextureRectangles[CurrentTexture],
-                color: Color.White,
-                rotation: 0,
-                origin: new Vector2(0, 0),
-                scale: SCALE,
-                effects: SpriteEffects.None,
-                layerDepth: 0
-                );
+            camera.DrawSprite(_sprite);
         }
 
         protected override void Update(GameTime gametime) { }
+        #endregion
     }
 }

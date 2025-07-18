@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonCrawler.Code.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -30,12 +31,19 @@ namespace DungeonCrawler.Code.Scenes
         public abstract void OnEnter();
         public abstract void OnExit();
 
-        public override void DoDraw(GameTime gameTime, SpriteBatch graphics)
+        public override void DoDraw(GameTime gameTime, Camera camera)
         {
             //Extra stuff for the scene to begin the sprite batch
-            graphics.Begin(blendState: BlendState.NonPremultiplied);
-            base.DoDraw(gameTime, graphics);
-            graphics.End();
+            _graphics.Begin(blendState: BlendState.NonPremultiplied);
+            base.DoDraw(gameTime, camera);
+            _graphics.End();
         }
+
+        public Scene(SpriteBatch graphics)
+        {
+            _graphics = graphics;
+        }
+
+        private SpriteBatch _graphics;
     }
 }

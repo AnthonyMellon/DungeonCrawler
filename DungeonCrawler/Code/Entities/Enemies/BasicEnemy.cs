@@ -1,13 +1,11 @@
 ﻿using DungeonCrawler.Code.UI;
+using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 
 namespace DungeonCrawler.Code.Entities.Enemies
 {
     internal class BasicEnemy : Entity
-    {
-        // Sprite stuff
-        private const string SPRITESHEET_PATH = "Images/Spritesheets/TempEnemy";
-
+    {        
         // Pathing / Targeting
         private Entity _pathingTarget;
         private float _timeSinceLastTargetUpdate = 0;
@@ -17,8 +15,8 @@ namespace DungeonCrawler.Code.Entities.Enemies
         public BasicEnemy(Camera camera, EntityManager entityManager)
             : base(camera, entityManager)
         {
-            SetupTextures(SPRITESHEET_PATH);
-
+            SpriteSheet = new SpriteSheet(GameConstants.ENEMY_SPRITESHEET_PATH,
+                GameConstants.ENEMY_SPRITE_RECTANGLES);
             MoveSpeed = 3;
         }
 
@@ -40,10 +38,9 @@ namespace DungeonCrawler.Code.Entities.Enemies
         /// </summary>
         private void UpdateTarget()
         {
-            Vector2 playerPosition = EntityManager.Player.WorldPosition;
-
-            // If the player is close
-            if (Vector2.Distance(WorldPosition, playerPosition) <= _targetingRange)
+            Point playerPosition = EntityManager.Player.WorldPosition;
+                      
+            if (GetDistanceToPlayer() <= _targetingRange)
             {
                 _pathingTarget = EntityManager.Player;
             }
@@ -53,6 +50,15 @@ namespace DungeonCrawler.Code.Entities.Enemies
             }
 
             _timeSinceLastTargetUpdate = 0;
+        }
+
+        private float GetDistanceToPlayer()
+        {
+            Point playerPosition = EntityManager.Player.WorldPosition;
+
+            return Vector2.Distance(
+                new Vector2(WorldPosition.X, WorldPosition.Y),
+                new Vector2(playerPosition.X, playerPosition.Y));
         }
 
         /// <summary>

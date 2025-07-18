@@ -11,7 +11,7 @@ namespace DungeonCrawler.Code.UI
         #region Publics
 
         public Point ScreenSize { get; private set; }
-        public Vector2 WorldPosition
+        public Point WorldPosition
         {
             get
             {
@@ -43,12 +43,14 @@ namespace DungeonCrawler.Code.UI
         public Camera(SpriteBatch graphics)
         {
             _graphics = graphics;
+
+
         }
     
         public void DrawSprite(DrawableSprite sprite)
         {
             _graphics.Draw(
-                sprite.Texture,
+                sprite.SpriteSheet.Sheet,
                 sprite.DestinationRectangle,
                 sprite.SourceRectangle,
                 sprite.Color,
@@ -59,6 +61,21 @@ namespace DungeonCrawler.Code.UI
                 );
         }
 
+
+        public void DrawTexture(DrawableTexture texture)
+        {
+            _graphics.Draw
+                (
+                texture.Texture,
+                texture.DestinationRectangle,
+                texture.Texture.Bounds,
+                texture.Color,
+                0,              // Rotation
+                Vector2.Zero,   // Origin       currently no use for these values
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(texture.Layer)
+                );
+        }
         public void DrawText(DrawableText text)
         {
             _graphics.DrawString(
@@ -86,9 +103,9 @@ namespace DungeonCrawler.Code.UI
 
         public void FollowEntity(Entity entity)
         {
-            FollowEntity(entity, Vector2.Zero);
+            FollowEntity(entity, Point.Zero);
         }
-        public void FollowEntity(Entity entity, Vector2 offset)
+        public void FollowEntity(Entity entity, Point offset)
         {
             _trackedEntity = entity;
             _trackedEntityOffset = offset;
@@ -98,7 +115,7 @@ namespace DungeonCrawler.Code.UI
         /// Move the camera around the world
         /// </summary>
         /// <param name="pannValue">Vector2 to add to current world position</param>
-        public void Pan(Vector2 pannValue)
+        public void Pan(Point pannValue)
         {
             WorldPosition += pannValue;
         }
@@ -116,13 +133,19 @@ namespace DungeonCrawler.Code.UI
             else if (ZoomLevel > MaxZoomLevel) ZoomLevel = MaxZoomLevel;
         }
 
+        public Point WorldPositionToScreenPosition(Point worldPosition)
+        {
+            Point screenPosition = (worldPosition - WorldPosition) + CenterPosition;
+            return screenPosition;
+        }
+
         #endregion
 
         #region Privates
 
         private Entity _trackedEntity;
-        private Vector2 _trackedEntityOffset = Vector2.Zero;
-        private Vector2 b_worldPosition;
+        private Point _trackedEntityOffset = Point.Zero;
+        private Point b_worldPosition;
         private SpriteBatch _graphics;
 
         private void UpdateCameraRectangle()
