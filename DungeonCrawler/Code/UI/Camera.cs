@@ -77,9 +77,9 @@ namespace DungeonCrawler.Code.UI
                 );
         }
         public void DrawText(DrawableText text)
-        {
+        {            
             _graphics.DrawString(
-                text.Font,
+                text.Font == null ? DefaultContent.DefaultFont : text.Font,
                 text.Text,
                 text.Position,
                 text.Color,

@@ -45,9 +45,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 (
                     anchorPoints: new Vector4(0f, 1f, 0f, 1f),
                     padding: new Point4(0, 0, 0, 0),
-                    offset: new Point(0, 0),
-                    texture: null,
-                    color: Color.Red
+                    offset: new Point(0, 0)
                 )) as UI_Panel;
 
             // Menu Bar

@@ -26,8 +26,8 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public DrawableSprite(SpriteSheet spriteSheet, Rectangle destinationRectangle, string currentSpriteName, Color color, GameConstants.GameLayers layer)
         {
             SpriteSheet = spriteSheet;
-            SetDestinationRectangle(destinationRectangle);
             CurrentSpriteName = currentSpriteName;
+            SetDestinationRectangle(destinationRectangle);
             Color = color;
             Layer = layer;
         }
@@ -35,8 +35,8 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public DrawableSprite(SpriteSheet spriteSheet, Rectangle destinationRectangle, string currentSpriteName, GameConstants.GameLayers layer)
         {
             SpriteSheet = spriteSheet;
-            SetDestinationRectangle(destinationRectangle);
             CurrentSpriteName = currentSpriteName;
+            SetDestinationRectangle(destinationRectangle);
             Color = Color.White;
             Layer = layer;
         }
@@ -44,18 +44,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public DrawableSprite(SpriteSheet spriteSheet, Point position, string currentSpriteName, GameConstants.GameLayers layer)
         {
             SpriteSheet = spriteSheet;
-            SetDestinationRectangle(position);
             CurrentSpriteName = currentSpriteName;
+            SetDestinationRectangle(position);
             Color = Color.White;
-            Layer = layer;
-        }
-
-        public DrawableSprite(SpriteSheet spriteSheet, Rectangle destinationRectangle, Color color, GameConstants.GameLayers layer)
-        {
-            SpriteSheet = spriteSheet;
-            SetDestinationRectangle(destinationRectangle);
-            SourceRectangle = spriteSheet.Sheet.Bounds;
-            Color = color;
             Layer = layer;
         }
 

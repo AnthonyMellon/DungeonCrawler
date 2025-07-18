@@ -8,7 +8,22 @@ namespace DungeonCrawler.Code.Entities
     internal class Entity : Dynamic
     {
         #region publics       
-        public SpriteSheet SpriteSheet { get; set; }
+        public SpriteSheet SpriteSheet
+        {
+            get
+            {
+                return _spriteSheet;
+            }
+            set
+            {
+                _spriteSheet = value;
+                _sprite = new DrawableSprite(
+                    SpriteSheet,
+                    _camera.WorldPositionToScreenPosition(WorldPosition),
+                    GameConstants.EntityDirections.foward,
+                    GameConstants.GameLayers.World);
+            }
+        }
         public Point WorldPosition
         {
             get
@@ -52,16 +67,11 @@ namespace DungeonCrawler.Code.Entities
         {
             _camera = camera;
             EntityManager = entityManager;
-
-            _sprite = new DrawableSprite(
-                SpriteSheet,
-                camera.WorldPositionToScreenPosition(WorldPosition),
-                GameConstants.EntityDirections.foward,
-                GameConstants.GameLayers.World);
         }
         #endregion
 
         #region privates        
+        private SpriteSheet _spriteSheet;
         private DrawableSprite _sprite;
         private Camera _camera;
         private Point _worldPosition;

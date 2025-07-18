@@ -12,7 +12,7 @@ namespace DungeonCrawler.Code.Entities
         {
             SpriteSheet = new SpriteSheet(
                 GameConstants.PLAYER_SPRITESHEET_PATH,
-                GameConstants.PLAYER_SPRITE_RECTANGLES);            
+                GameConstants.PLAYER_SPRITE_RECTANGLES);
             camera.FollowEntity(this);
         }
 
