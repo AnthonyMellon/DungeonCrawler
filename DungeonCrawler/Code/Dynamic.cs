@@ -7,6 +7,7 @@ namespace DungeonCrawler.Code
 {
     internal abstract class Dynamic
     {
+        #region publics
         public bool IsEnabled
         {
             get
@@ -21,37 +22,26 @@ namespace DungeonCrawler.Code
                 else OnDisable();
             }
         }
-        private bool _isEnabled;
-
-        public delegate void OnDestroyHandler(Dynamic self);
-        public OnDestroyHandler OnDestroy;        
 
         public Dynamic Parent
         {
             get
             {
-                return b_parent;
+                return _parent;
             }
             private set
             {
-                Dynamic oldParent = b_parent;
-                b_parent = value;
-                OnParentSet(oldParent, b_parent);
+                Dynamic oldParent = _parent;
+                _parent = value;
+                OnParentSet(oldParent, _parent);
             }
         }
-        private Dynamic b_parent;
 
         public List<Dynamic> Children { get; private set; } = new List<Dynamic>();
 
-        public Dynamic(bool enabled)
-        {
-            IsEnabled = enabled;
-        }        
+        public delegate void OnDestroyHandler(Dynamic self);
+        public OnDestroyHandler OnDestroy;
 
-        /// <summary>
-        /// The update method to be called by this Dynamics parent
-        /// </summary>
-        /// <param name="gametime"></param>
         public void DoUpdate(GameTime gametime)
         {
             if (!IsEnabled) return;
@@ -68,12 +58,6 @@ namespace DungeonCrawler.Code
             }
         }
 
-        /// <summary>
-        /// Override this method to add behaviour to the update loop
-        /// </summary>
-        /// <param name="gametime"></param>
-        protected abstract void Update(GameTime gametime);
-
         public virtual void DoDraw(GameTime gametime, Camera camera)
         {
             if (!IsEnabled) return;
@@ -89,7 +73,6 @@ namespace DungeonCrawler.Code
                 child.DoDraw(gametime, camera);
             }
         }
-        protected abstract void Draw(GameTime gametime, Camera camera);
 
         public Dynamic AddChild(Dynamic child)
         {
@@ -130,8 +113,22 @@ namespace DungeonCrawler.Code
             Parent = null;
         }
 
+        public Dynamic(bool enabled)
+        {
+            IsEnabled = enabled;
+        }
+        #endregion
+
+        #region privates
+        private bool _isEnabled;
+        private Dynamic _parent;
+
+        protected abstract void Update(GameTime gametime);
+        protected abstract void Draw(GameTime gametime, Camera camera);
         protected virtual void OnParentSet(Dynamic oldParent, Dynamic newParent) { }
         protected virtual void OnEnable() { }
         protected virtual void OnDisable() { }
+        #endregion
+
     }
 }
