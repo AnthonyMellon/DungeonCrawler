@@ -1,20 +1,30 @@
 ﻿using DungeonCrawler.Code.UI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace DungeonCrawler.Code
 {
     internal abstract class Dynamic
     {
-        /// <summary>
-        /// This component and its children should recieve updates and do draws
-        /// </summary>
-        public bool IsActive = true;
+        public bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                _isEnabled = value;
+
+                if (value == true) OnEnable();
+                else OnDisable();
+            }
+        }
+        private bool _isEnabled;
 
         public delegate void OnDestroyHandler(Dynamic self);
-        public OnDestroyHandler OnDestroy;
+        public OnDestroyHandler OnDestroy;        
 
         public Dynamic Parent
         {
@@ -33,13 +43,18 @@ namespace DungeonCrawler.Code
 
         public List<Dynamic> Children { get; private set; } = new List<Dynamic>();
 
+        public Dynamic(bool enabled)
+        {
+            IsEnabled = enabled;
+        }        
+
         /// <summary>
         /// The update method to be called by this Dynamics parent
         /// </summary>
         /// <param name="gametime"></param>
         public void DoUpdate(GameTime gametime)
         {
-            if (!IsActive) return;
+            if (!IsEnabled) return;
 
             Update(gametime);
 
@@ -58,10 +73,10 @@ namespace DungeonCrawler.Code
         /// </summary>
         /// <param name="gametime"></param>
         protected abstract void Update(GameTime gametime);
-        
+
         public virtual void DoDraw(GameTime gametime, Camera camera)
         {
-            if (!IsActive) return;
+            if (!IsEnabled) return;
 
             Draw(gametime, camera);
 
@@ -116,5 +131,7 @@ namespace DungeonCrawler.Code
         }
 
         protected virtual void OnParentSet(Dynamic oldParent, Dynamic newParent) { }
+        protected virtual void OnEnable() { }
+        protected virtual void OnDisable() { }
     }
 }

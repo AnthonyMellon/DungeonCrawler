@@ -13,7 +13,8 @@ namespace DungeonCrawler.Code.Entities
         public Player Player { get; private set; }
         public List<Entity> Enemies { get; private set; } = new List<Entity>();
 
-        public EntityManager(Camera camera)
+        public EntityManager(Camera camera, bool enabled = true) :
+            base(enabled)
         {
             _camera = camera;
         }

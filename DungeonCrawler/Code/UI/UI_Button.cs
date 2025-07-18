@@ -26,9 +26,9 @@ namespace DungeonCrawler.Code.UI
             _hoverColor = hoverColor;            
 
             _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI);
-            OnScreenRectangleUpdated += () => _butttonText.CenterTextToRectangle(ScreenRectangle);
+            OnDrawRectangleUpdated += UpdateDestinationRectangle;
 
-            _backgroundTexture = new DrawableTexture(texture, ScreenRectangle, baseColor, GameConstants.GameLayers.UI);
+            _backgroundTexture = new DrawableTexture(texture, DrawRectangle, baseColor, GameConstants.GameLayers.UI);
         }
 
         private bool _isHovering;
@@ -60,10 +60,18 @@ namespace DungeonCrawler.Code.UI
             CheckForClick();
         }
 
+        private void UpdateDestinationRectangle()
+        {
+            if (_backgroundTexture == null) return;
+
+            _backgroundTexture.DestinationRectangle = DrawRectangle;
+            _butttonText.CenterTextToRectangle(DrawRectangle);
+        }
+
         private void CheckForHover()
         {
             Rectangle mouseRectangle = new Rectangle(InputProvider.MousePosition, new Point(1, 1));
-            _isHovering = InputProvider.IsMouseInWindow && ScreenRectangle.Intersects(mouseRectangle);
+            _isHovering = InputProvider.IsMouseInWindow && DrawRectangle.Intersects(mouseRectangle);
         }
 
         private void Highlight()

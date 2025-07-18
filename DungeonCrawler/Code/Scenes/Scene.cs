@@ -39,7 +39,8 @@ namespace DungeonCrawler.Code.Scenes
             _graphics.End();
         }
 
-        public Scene(SpriteBatch graphics)
+        public Scene(SpriteBatch graphics, bool enabled = false) :
+            base(enabled)
         {
             _graphics = graphics;
         }

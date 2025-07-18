@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
-using System.Drawing;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace DungeonCrawler.Code.Utils
 {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
@@ -22,6 +23,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
         {
             get
             {
+                if (_font == null) return DefaultContent.DefaultFont;
                 return _font;
             }
             set

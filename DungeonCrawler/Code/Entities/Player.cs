@@ -23,7 +23,7 @@ namespace DungeonCrawler.Code.Entities
         }
         private void CheckMovement()
         {
-            if (!IsActive) return;
+            if (!IsEnabled) return;
 
             if (InputProvider.IsKeyDown(InputMap.MoveUp)) MoveUp();
             if (InputProvider.IsKeyDown(InputMap.MoveDown)) MoveDown();

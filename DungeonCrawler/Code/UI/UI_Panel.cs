@@ -12,40 +12,37 @@ namespace DungeonCrawler.Code.UI
             Point4 padding,
             Point offset,
             Texture2D texture,
-            Color color) :
-            base(anchorPoints, padding, offset)
+            Color color,
+            FitTypes fitType = FitTypes.Parent) :
+            base(anchorPoints, padding, offset, fitType)
         {
             _backgroundSprite = new DrawableTexture(
                 texture == null ? DefaultContent.DefaultRectangle : texture,
-                ScreenRectangle,
+                DrawRectangle,
                 color,
                 GameConstants.GameLayers.UI);
+            OnDrawRectangleUpdated += UpdateDestinationRectangle;
         }
 
         public UI_Panel(
             Vector4 anchorPoints,
             Point4 padding,
             Point offset,
-            Texture2D texture) :
-            base(anchorPoints, padding, offset)
-        {
-            _backgroundSprite = new DrawableTexture(
-                texture == null ? DefaultContent.DefaultRectangle : texture,
-                ScreenRectangle,
-                Color.White,
-                GameConstants.GameLayers.UI);
-        }
-
-        public UI_Panel(
-            Vector4 anchorPoints,
-            Point4 padding,
-            Point offset) :
-            base(anchorPoints, padding, offset)
+            FitTypes fitType = FitTypes.Parent) :
+            base(anchorPoints, padding, offset, fitType)
         {
             _backgroundSprite = null;
+            OnDrawRectangleUpdated += UpdateDestinationRectangle;
         }
 
         private DrawableTexture _backgroundSprite;
+
+        private void UpdateDestinationRectangle()
+        {
+            if (_backgroundSprite == null) return;
+
+            _backgroundSprite.DestinationRectangle = DrawRectangle;
+        }
 
         protected override void Draw(GameTime gametime, Camera camera)
         {

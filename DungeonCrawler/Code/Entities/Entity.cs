@@ -63,7 +63,8 @@ namespace DungeonCrawler.Code.Entities
             _sprite.CurrentSpriteName = GameConstants.EntityDirections.Right;
         }
 
-        public Entity(Camera camera, EntityManager entityManager)
+        public Entity(Camera camera, EntityManager entityManager, bool enabled = true) :
+            base(enabled)
         {
             _camera = camera;
             EntityManager = entityManager;

@@ -24,6 +24,7 @@ namespace DungeonCrawler.Code.Scenes
 
             // Default to the first scene
             _currentScene = AddedScenes.ElementAt(0).Value;
+            _currentScene.IsEnabled = true;
             _currentScene.DoInit(content, game);
         }
 

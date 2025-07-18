@@ -37,7 +37,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private void BuildUI()
         {
-            // Build Components
             UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
@@ -45,11 +44,11 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     padding: new Point4(0, 0, 0, 0),
                     offset: new Point(0, 0),
                     texture: _background,
-                    color: Color.White
+                    color: Color.White,
+                    UIComponent.FitTypes.Screen
                 )) as UI_Panel;
-
-            // Menu Buttons
-            UI_Panel buttonPanel = basePanel.AddChild(
+            
+            UI_Panel menuButtonPanel = basePanel.AddChild(
                 new UI_Panel
                 (
                     anchorPoints: new Vector4(0.0f, 0.0f, 0.0f, 1.0f),
@@ -58,9 +57,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     texture: DefaultContent.DefaultRectangle,
                     color: new Color(Color.Gray, 100)
                 )) as UI_Panel;
-
-            // Play Button
-            UI_Button playButton = buttonPanel.AddChild(
+            
+            UI_Button playButton = menuButtonPanel.AddChild(
                 new UI_Button
                 (
                     anchorPoints: new Vector4(0.5f, 0.5f, 0.5f, 0.5f),
@@ -73,10 +71,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     null
                 )) as UI_Button;
             playButton.OnClick += EnterGame;
-
-
-            // Quit Game Button
-            UI_Button quitButton = buttonPanel.AddChild(
+            
+            UI_Button quitButton = menuButtonPanel.AddChild(
                 new UI_Button
                 (
                     anchorPoints: new Vector4(0.5f, 0.5f, 0.5f, 0.5f),
