@@ -8,36 +8,37 @@ namespace DungeonCrawler.Code.Scenes.Instances
 {
     internal class Scene_MainMenu : Scene
     {
-        private Game _game;
-        private ContentManager _content;
-        private Camera _camera;
-
-        // Images
-        Texture2D _background;
-
-        public Scene_MainMenu(SpriteBatch graphics) :
-            base(graphics)
-        {
-        }
-
+        #region publics
         public override void Init(ContentManager content, Game game)
         {
             _content = content;
-            _game = game;
-            _camera = ObjectBin.GetObject(GameConstants.MAIN_CAMERA) as Camera;
+            _game = game;            
 
             LoadContent();
             BuildUI();
         }
 
+        public Scene_MainMenu(SpriteBatch graphics) :
+            base(graphics)
+        {
+
+        }
+        #endregion
+
+        #region privates
+        private Game _game;
+        private ContentManager _content;
+        private Texture2D _background;
+        private UI_Panel _basePanel;
+
         private void LoadContent()
         {
-            _background = _content.Load<Texture2D>("Images/TempMenuBackground");
+            _background = _content.Load<Texture2D>(GameConstants.MENU_BACKGROUND_PATH);
         }
 
         private void BuildUI()
         {
-            UI_Panel basePanel = AddChild(
+            _basePanel = AddChild(
                 new UI_Panel
                 (
                     anchorPoints: new Vector4(0f, 1f, 0f, 1f),
@@ -47,8 +48,13 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     color: Color.White,
                     UIComponent.FitTypes.Screen
                 )) as UI_Panel;
-            
-            UI_Panel menuButtonPanel = basePanel.AddChild(
+
+            BuildMenuButtons();
+        }
+
+        private void BuildMenuButtons()
+        {
+            UI_Panel menuButtonPanel = _basePanel.AddChild(
                 new UI_Panel
                 (
                     anchorPoints: new Vector4(0.0f, 0.0f, 0.0f, 1.0f),
@@ -57,7 +63,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     texture: DefaultContent.DefaultRectangle,
                     color: new Color(Color.Gray, 100)
                 )) as UI_Panel;
-            
+
             UI_Button playButton = menuButtonPanel.AddChild(
                 new UI_Button
                 (
@@ -71,7 +77,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     null
                 )) as UI_Button;
             playButton.OnClick += EnterGame;
-            
+
             UI_Button quitButton = menuButtonPanel.AddChild(
                 new UI_Button
                 (
@@ -95,5 +101,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
         protected override void Draw(GameTime gametime, Camera camera) { }
 
         protected override void Update(GameTime gametime) { }
+        #endregion
     }
 }

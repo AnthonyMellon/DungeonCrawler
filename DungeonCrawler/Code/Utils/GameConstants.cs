@@ -55,6 +55,10 @@ namespace DungeonCrawler.Code.Utils
         public static readonly string Game = "Game";
         #endregion
 
+        #region MainMenu
+        public const string MENU_BACKGROUND_PATH = "Images/TempMenuBackground";
+        #endregion
+
         #region Misc
         public static readonly string MAIN_CAMERA = "MainCamera";
         #endregion
