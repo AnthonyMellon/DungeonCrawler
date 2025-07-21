@@ -41,28 +41,6 @@ namespace DungeonCrawler.Code.Entities
         public int MoveSpeed { get; set; } = 5;
         public EntityManager EntityManager { get; private set; }
 
-        public void MoveUp()
-        {
-            Move(new Point(0, -1 * MoveSpeed));
-            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.Back;
-
-        }
-        public void MoveDown()
-        {
-            Move(new Point(0, MoveSpeed));
-            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.foward;
-        }
-        public void MoveLeft()
-        {
-            Move(new Point(-1 * MoveSpeed, 0));
-            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.Left;
-        }
-        public void MoveRight()
-        {
-            Move(new Point(MoveSpeed, 0));
-            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.Right;
-        }
-
         public void Move(Point moveVector)
         {
             WorldPosition += moveVector;

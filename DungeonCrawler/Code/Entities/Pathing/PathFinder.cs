@@ -18,8 +18,8 @@ namespace DungeonCrawler.Code.Entities.Pathing
         {
             Point MoveVector = Point.Zero;
 
-            if (_currentPathPoint.Y > currentPosition.Y) MoveVector += PointExtras.Up;
-            else if (_currentPathPoint.Y < currentPosition.Y) MoveVector += PointExtras.Down;
+            if (_currentPathPoint.Y < currentPosition.Y) MoveVector += PointExtras.Up;
+            else if (_currentPathPoint.Y > currentPosition.Y) MoveVector += PointExtras.Down;
 
             if (_currentPathPoint.X < currentPosition.X) MoveVector += PointExtras.Left;
             else if (_currentPathPoint.X > currentPosition.X) MoveVector += PointExtras.Right;

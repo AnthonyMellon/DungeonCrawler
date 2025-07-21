@@ -1,6 +1,7 @@
 ﻿using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
+using DungeonCrawler.Code.Utils.Math;
 using Microsoft.Xna.Framework;
 
 namespace DungeonCrawler.Code.Entities
@@ -25,10 +26,13 @@ namespace DungeonCrawler.Code.Entities
         {
             if (!IsEnabled) return;
 
-            if (InputProvider.IsKeyDown(InputMap.MoveUp)) MoveUp();
-            if (InputProvider.IsKeyDown(InputMap.MoveDown)) MoveDown();
-            if (InputProvider.IsKeyDown(InputMap.MoveLeft)) MoveLeft();
-            if (InputProvider.IsKeyDown(InputMap.MoveRight)) MoveRight();
+            Point moveVector = Point.Zero;
+            if (InputProvider.IsKeyDown(InputMap.MoveUp)) moveVector += PointExtras.Up;
+            if (InputProvider.IsKeyDown(InputMap.MoveDown)) moveVector += PointExtras.Down;
+            if (InputProvider.IsKeyDown(InputMap.MoveLeft)) moveVector += PointExtras.Left;
+            if (InputProvider.IsKeyDown(InputMap.MoveRight)) moveVector += PointExtras.Right;
+            moveVector = new Point(moveVector.X * MoveSpeed, moveVector.Y * MoveSpeed);
+            Move(moveVector);
         }
     }
 }
