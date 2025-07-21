@@ -28,8 +28,8 @@ namespace DungeonCrawler.Code.Utils
         }
         #endregion
 
-        #region Player
-        public const string PLAYER_SPRITESHEET_PATH = "Images/Spritesheets/TempCharacter";
+        #region Sprite Sheet Rectangles
+        
         public static readonly Dictionary<string, Rectangle> PLAYER_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
             {EntityDirections.foward, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
@@ -37,10 +37,6 @@ namespace DungeonCrawler.Code.Utils
             {EntityDirections.Left, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
             {EntityDirections.Right, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
         };
-        #endregion
-
-        #region Enemy
-        public const string ENEMY_SPRITESHEET_PATH = "Images/Spritesheets/TempEnemy";
         public static readonly Dictionary<string, Rectangle> ENEMY_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
             {EntityDirections.foward, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
@@ -50,17 +46,19 @@ namespace DungeonCrawler.Code.Utils
         };
         #endregion
 
-        #region Scenes
+        #region Scene Strings
         public static readonly string MainMenu = "MainMenu";
         public static readonly string Game = "Game";
         #endregion
 
-        #region MainMenu
-        public const string MENU_BACKGROUND_PATH = "Images/TempMenuBackground";
-        #endregion
-
-        #region Misc
+        #region Object Strings
         public static readonly string MAIN_CAMERA = "MainCamera";
+        #endregion        
+
+        #region Path Strings
+        public const string PLAYER_SPRITESHEET_PATH = "Images/Spritesheets/TempCharacter";
+        public const string ENEMY_SPRITESHEET_PATH = "Images/Spritesheets/TempEnemy";
+        public const string MENU_BACKGROUND_PATH = "Images/TempMenuBackground";
         #endregion
     }
 }
