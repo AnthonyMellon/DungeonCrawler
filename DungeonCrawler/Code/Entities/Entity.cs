@@ -44,23 +44,30 @@ namespace DungeonCrawler.Code.Entities
         public void MoveUp()
         {
             Move(new Point(0, -1 * MoveSpeed));
-            _sprite.CurrentSpriteName = GameConstants.EntityDirections.Back;
+            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.Back;
 
         }
         public void MoveDown()
         {
             Move(new Point(0, MoveSpeed));
-            _sprite.CurrentSpriteName = GameConstants.EntityDirections.foward;
+            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.foward;
         }
         public void MoveLeft()
         {
             Move(new Point(-1 * MoveSpeed, 0));
-            _sprite.CurrentSpriteName = GameConstants.EntityDirections.Left;
+            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.Left;
         }
         public void MoveRight()
         {
             Move(new Point(MoveSpeed, 0));
-            _sprite.CurrentSpriteName = GameConstants.EntityDirections.Right;
+            //_sprite.CurrentSpriteName = GameConstants.EntityDirections.Right;
+        }
+
+        public void Move(Point moveVector)
+        {
+            WorldPosition += moveVector;
+            _sprite.SetDestinationRectangle(WorldPosition);
+            _sprite.CurrentSpriteName = GameConstants.PointToDirection(moveVector);
         }
 
         public Entity(Camera camera, EntityManager entityManager, bool enabled = true) :
@@ -75,13 +82,7 @@ namespace DungeonCrawler.Code.Entities
         private SpriteSheet _spriteSheet;
         private DrawableSprite _sprite;
         private Camera _camera;
-        private Point _worldPosition;
-
-        private void Move(Point moveVector)
-        {
-            WorldPosition += moveVector;
-            _sprite.SetDestinationRectangle(WorldPosition);
-        }
+        private Point _worldPosition;        
 
         protected override void Draw(GameTime gametime, Camera camera)
         {

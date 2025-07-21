@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace DungeonCrawler.Code.Utils
 {
@@ -26,10 +25,18 @@ namespace DungeonCrawler.Code.Utils
             public static readonly string Left = "Left";
             public static readonly string Right = "Right";
         }
+
+        public static string PointToDirection(Point point)
+        {
+            if (point.X > 0) return EntityDirections.Right;
+            else if (point.X < 0) return EntityDirections.Left;
+            else if (point.Y > 0) return EntityDirections.Back;
+            else return EntityDirections.foward;
+        }
         #endregion
 
         #region Sprite Sheet Rectangles
-        
+
         public static readonly Dictionary<string, Rectangle> PLAYER_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
             {EntityDirections.foward, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },

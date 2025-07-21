@@ -2,12 +2,12 @@
 using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 
 namespace DungeonCrawler.Code.UI
 {
     internal class UI_Panel : UIComponent
     {
+        #region publics        
         public UI_Panel(
             Vector4 anchorPoints,
             Point4 padding,
@@ -35,7 +35,9 @@ namespace DungeonCrawler.Code.UI
             _backgroundSprite = null;
             OnDrawRectangleUpdated += UpdateDestinationRectangle;
         }
+        #endregion
 
+        #region privates
         private DrawableTexture _backgroundSprite;
 
         private void UpdateDestinationRectangle()
@@ -52,5 +54,6 @@ namespace DungeonCrawler.Code.UI
                 camera.DrawTexture(_backgroundSprite);
             }
         }
+        #endregion
     }
 }
