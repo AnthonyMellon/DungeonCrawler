@@ -1,23 +1,16 @@
-﻿using DungeonCrawler.Code.UI;
+﻿using DungeonCrawler.Code.Entities;
+using DungeonCrawler.Code.Entities.Enemies;
+using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using DungeonCrawler.Code.Entities;
-using DungeonCrawler.Code.Entities.Enemies;
 
 namespace DungeonCrawler.Code.Scenes.Instances
 {
     internal class Scene_Game : Scene
     {
-        private Camera _camera;
-        private EntityManager _entityManager;
-
-        public Scene_Game(SpriteBatch graphics) :
-            base(graphics)
-        {
-        }
-
+        #region publics
         public override void Init(ContentManager content, Game game)
         {
             _camera = ObjectBin.GetObject(GameConstants.MAIN_CAMERA) as Camera;
@@ -35,9 +28,19 @@ namespace DungeonCrawler.Code.Scenes.Instances
             BuildUI();
         }
 
+        public Scene_Game(SpriteBatch graphics) :
+            base(graphics)
+        {
+
+        }
+        #endregion region
+
+        #region privates
+        private Camera _camera;
+        private EntityManager _entityManager;
+
         private void BuildUI()
         {
-            // Base Panel
             UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
@@ -47,18 +50,18 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     fitType: UIComponent.FitTypes.Screen
                 )) as UI_Panel;
 
-            // Menu Bar
-            UI_Panel menuBar = basePanel.AddChild(
-                new UI_Panel
-                (
-                    anchorPoints: new Vector4(0f, 1f, 0f, 0f),
-                    padding: new Point4(0, 0, 0, 50),
-                    offset: new Point(0, 0),
-                    texture: DefaultContent.DefaultRectangle,
-                    color: new Color(Color.Gray, 100)
-                )) as UI_Panel;
+            basePanel.AddChild(BuildMenuBar());
+        }
 
-            // Main Menu Button
+        private UI_Panel BuildMenuBar()
+        {
+            UI_Panel menuBar = new UI_Panel (
+                anchorPoints: new Vector4(0f, 1f, 0f, 0f),
+                padding: new Point4(0, 0, 0, 50),
+                offset: new Point(0, 0),
+                texture: DefaultContent.DefaultRectangle,
+                color: new Color(Color.Gray, 100));
+
             UI_Button menuButton = menuBar.AddChild(
                 new UI_Button
                 (
@@ -72,6 +75,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     null
                 )) as UI_Button;
             menuButton.OnClick += QuitToMainMenu;
+
+            return menuBar;
         }
 
         private void QuitToMainMenu()
@@ -82,5 +87,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
         protected override void Draw(GameTime gametime, Camera camera) { }
 
         protected override void Update(GameTime gametime) { }
+        #endregion
     }
 }

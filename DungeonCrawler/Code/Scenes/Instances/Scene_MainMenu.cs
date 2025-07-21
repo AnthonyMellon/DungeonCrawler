@@ -29,7 +29,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private Game _game;
         private ContentManager _content;
         private Texture2D _background;
-        private UI_Panel _basePanel;
 
         private void LoadContent()
         {
@@ -38,7 +37,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private void BuildUI()
         {
-            _basePanel = AddChild(
+            UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
                     anchorPoints: new Vector4(0f, 1f, 0f, 1f),
@@ -49,20 +48,17 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     UIComponent.FitTypes.Screen
                 )) as UI_Panel;
 
-            BuildMenuButtons();
+            basePanel.AddChild(BuildMenuButtons());
         }
 
-        private void BuildMenuButtons()
+        private UI_Panel BuildMenuButtons()
         {
-            UI_Panel menuButtonPanel = _basePanel.AddChild(
-                new UI_Panel
-                (
-                    anchorPoints: new Vector4(0.0f, 0.0f, 0.0f, 1.0f),
-                    padding: new Point4(0, 300, 0, 0),
-                    offset: new Point(0, 0),
-                    texture: DefaultContent.DefaultRectangle,
-                    color: new Color(Color.Gray, 100)
-                )) as UI_Panel;
+            UI_Panel menuButtonPanel = new UI_Panel (
+                anchorPoints: new Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+                padding: new Point4(0, 300, 0, 0),
+                offset: new Point(0, 0),
+                texture: DefaultContent.DefaultRectangle,
+                color: new Color(Color.Gray, 100));
 
             UI_Button playButton = menuButtonPanel.AddChild(
                 new UI_Button
@@ -91,6 +87,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     null
                 )) as UI_Button;
             quitButton.OnClick += _game.Exit;
+
+            return menuButtonPanel;
         }
 
         private void EnterGame()
