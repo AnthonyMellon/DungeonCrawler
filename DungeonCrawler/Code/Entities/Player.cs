@@ -33,7 +33,7 @@ namespace DungeonCrawler.Code.Entities
             if (InputProvider.IsKeyDown(InputMap.MoveRight)) moveVector += PointExtras.Right;
             moveVector = new Point(moveVector.X * MoveSpeed, moveVector.Y * MoveSpeed);
             Move(moveVector);
-            SetSpriteName(GameConstants.PointToDirection(moveVector));
-        }
+            if(moveVector != Point.Zero) SetSpriteName(GameConstants.PointToDirection(moveVector));
+        }        
     }
 }
