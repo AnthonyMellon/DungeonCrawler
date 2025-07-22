@@ -17,7 +17,6 @@ namespace DungeonCrawler.Code.Utils
         #endregion
 
         #region Generic Entities
-        public static readonly Point ENTITY_SPRITE_SIZE = new Point(256, 256);
         public static class EntityDirections
         {
             public static readonly string foward = "Front";
@@ -51,6 +50,28 @@ namespace DungeonCrawler.Code.Utils
             {EntityDirections.Left, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
             {EntityDirections.Right, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
         };
+        public static readonly Dictionary<Tiles, Rectangle> TILE_SPRITE_RECTANGLES = new Dictionary<Tiles, Rectangle>()
+        {
+            {Tiles.Floor, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
+            {Tiles.Wall, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
+            {Tiles.Heal, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) },
+            {Tiles.Damage, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) }
+        };
+        #endregion
+
+        #region Tiles
+        public enum Tiles
+        {
+            Floor,
+            Wall,
+            Heal,
+            Damage
+        }
+        #endregion
+
+        #region Sprite Sizing
+        public static readonly Point ENTITY_SPRITE_SIZE = new Point(256, 256);
+        public static readonly Point TILE_SPRITE_SIZE = new Point(256, 256);
         #endregion
 
         #region Scene Strings
@@ -66,6 +87,7 @@ namespace DungeonCrawler.Code.Utils
         public const string PLAYER_SPRITESHEET_PATH = "Images/Spritesheets/TempCharacter";
         public const string ENEMY_SPRITESHEET_PATH = "Images/Spritesheets/TempEnemy";
         public const string MENU_BACKGROUND_PATH = "Images/TempMenuBackground";
+        public const string TILES_SPRITESHEET_PATH = "Images/Spritesheets/BasicTiles";
         #endregion
     }
 }
