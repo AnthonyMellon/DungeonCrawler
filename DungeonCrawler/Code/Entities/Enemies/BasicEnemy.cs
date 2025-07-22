@@ -52,6 +52,7 @@ namespace DungeonCrawler.Code.Entities.Enemies
             _pathFinder.FindPath(WorldPosition, _pathingTarget);
             Point moveVector = _pathFinder.GetMoveVectorToNextPathPoint(WorldPosition);
             Move(moveVector);
+            SetSpriteName(GameConstants.PointToDirection(moveVector));
 
             base.Update(gametime);
         }

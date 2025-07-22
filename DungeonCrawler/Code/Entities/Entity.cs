@@ -45,7 +45,11 @@ namespace DungeonCrawler.Code.Entities
         {
             WorldPosition += moveVector;
             _sprite.SetDestinationRectangle(WorldPosition);
-            _sprite.CurrentSpriteName = GameConstants.PointToDirection(moveVector);
+        }
+
+        public void SetSpriteName(string name)
+        {
+            _sprite.CurrentSpriteName = name;
         }
 
         public Entity(Camera camera, EntityManager entityManager, bool enabled = true) :
