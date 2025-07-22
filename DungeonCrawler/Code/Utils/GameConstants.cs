@@ -19,18 +19,18 @@ namespace DungeonCrawler.Code.Utils
         #region Generic Entities
         public static class EntityDirections
         {
-            public static readonly string foward = "Front";
-            public static readonly string Back = "Back";
-            public static readonly string Left = "Left";
-            public static readonly string Right = "Right";
+            public static readonly string FOWARD = "Front";
+            public static readonly string BACK = "Back";
+            public static readonly string LEFT = "Left";
+            public static readonly string RIGHT = "Right";
         }
 
         public static string PointToDirection(Point point)
         {
-            if (point.X > 0) return EntityDirections.Right;
-            else if (point.X < 0) return EntityDirections.Left;
-            else if (point.Y < 0) return EntityDirections.Back;
-            else return EntityDirections.foward;
+            if (point.X > 0) return EntityDirections.RIGHT;
+            else if (point.X < 0) return EntityDirections.LEFT;
+            else if (point.Y < 0) return EntityDirections.BACK;
+            else return EntityDirections.FOWARD;
         }
         #endregion
 
@@ -38,17 +38,17 @@ namespace DungeonCrawler.Code.Utils
 
         public static readonly Dictionary<string, Rectangle> PLAYER_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
-            {EntityDirections.foward, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.Back, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.Left, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.Right, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
         };
         public static readonly Dictionary<string, Rectangle> ENEMY_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
-            {EntityDirections.foward, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.Back, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.Left, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.Right, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
         };
         public static readonly Dictionary<Tiles, Rectangle> TILE_SPRITE_RECTANGLES = new Dictionary<Tiles, Rectangle>()
         {

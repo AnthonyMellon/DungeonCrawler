@@ -20,7 +20,7 @@ namespace DungeonCrawler.Code.Entities
                 _sprite = new DrawableSprite(
                     SpriteSheet,
                     _camera.WorldPositionToScreenPosition(WorldPosition),
-                    GameConstants.EntityDirections.foward,
+                    GameConstants.EntityDirections.FOWARD,
                     GameConstants.GameLayers.World);
             }
         }
