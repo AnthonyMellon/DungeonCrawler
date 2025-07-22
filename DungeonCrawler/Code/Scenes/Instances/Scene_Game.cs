@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.Entities;
+﻿using DungeonCrawler.Code.Dungeons;
+using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
@@ -26,6 +27,10 @@ namespace DungeonCrawler.Code.Scenes.Instances
             //TEMP ENEMIES
             //
             BuildUI();
+            
+            //_currentDungeon = AddChild(new Dungeon()) as Dungeon;
+            //_currentDungeon.BuildDungeon();
+            //_currentDungeon.Enter();
         }
 
         public Scene_Game(SpriteBatch graphics) :
@@ -38,6 +43,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         #region privates
         private Camera _camera;
         private EntityManager _entityManager;
+        private Dungeon _currentDungeon;
 
         private void BuildUI()
         {
