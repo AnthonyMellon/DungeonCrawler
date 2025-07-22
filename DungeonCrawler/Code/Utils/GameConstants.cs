@@ -34,6 +34,11 @@ namespace DungeonCrawler.Code.Utils
         }
         #endregion
 
+        #region Sprite Sizing
+        public static readonly Point ENTITY_SPRITE_SIZE = new Point(256, 256);
+        public static readonly Point TILE_SPRITE_SIZE = new Point(256, 256);
+        #endregion
+
         #region Sprite Sheet Rectangles
 
         public static readonly Dictionary<string, Rectangle> PLAYER_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
@@ -67,11 +72,6 @@ namespace DungeonCrawler.Code.Utils
             public static readonly string HEAL = "Tile_heal";
             public static readonly string DAMAGE = "Tile_damage";
         }
-        #endregion
-
-        #region Sprite Sizing
-        public static readonly Point ENTITY_SPRITE_SIZE = new Point(256, 256);
-        public static readonly Point TILE_SPRITE_SIZE = new Point(256, 256);
         #endregion
 
         #region Scene Strings
