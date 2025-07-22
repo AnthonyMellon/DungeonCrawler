@@ -50,22 +50,22 @@ namespace DungeonCrawler.Code.Utils
             {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
             {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
         };
-        public static readonly Dictionary<Tiles, Rectangle> TILE_SPRITE_RECTANGLES = new Dictionary<Tiles, Rectangle>()
+        public static readonly Dictionary<string, Rectangle> TILE_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
-            {Tiles.Floor, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
-            {Tiles.Wall, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
-            {Tiles.Heal, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) },
-            {Tiles.Damage, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) }
+            {Tiles.FLOOR, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
+            {Tiles.WALL, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
+            {Tiles.HEAL, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) },
+            {Tiles.DAMAGE, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) }
         };
         #endregion
 
         #region Tiles
-        public enum Tiles
+        public static class Tiles
         {
-            Floor,
-            Wall,
-            Heal,
-            Damage
+            public static readonly string FLOOR = "Tile_floor";
+            public static readonly string WALL = "Tile_wall";
+            public static readonly string HEAL = "Tile_heal";
+            public static readonly string DAMAGE = "Tile_damage";
         }
         #endregion
 
