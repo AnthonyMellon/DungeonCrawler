@@ -30,6 +30,7 @@ namespace DungeonCrawler.Code.Utils.TileMaps
                         rowAsText[y],
                         _layer));
                 }
+                _tiles.Add(rowAsTiles);
             }
 
             HasTilesLoaded = true;
@@ -41,7 +42,7 @@ namespace DungeonCrawler.Code.Utils.TileMaps
             {
                 for (int y = 0; y < _tiles[x].Count; y++)
                 {
-                    _camera.DrawSprite(_tiles[x][y].Sprite);
+                    Camera.DrawSprite(_tiles[x][y].Sprite);
                 }
             }
         }
@@ -49,6 +50,7 @@ namespace DungeonCrawler.Code.Utils.TileMaps
         public TileMap(SpriteSheet spriteSheet)
         {
             _spriteSheet = spriteSheet;
+            _tiles = new List<List<Tile>>();
         }
         #endregion
 

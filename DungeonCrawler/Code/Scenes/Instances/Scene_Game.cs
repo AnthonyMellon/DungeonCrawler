@@ -28,8 +28,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
             //
             BuildUI();
             
-            //_currentDungeon = AddChild(new Dungeon()) as Dungeon;
-            //_currentDungeon.BuildDungeon();
+            _currentDungeon = AddChild(new Dungeon()) as Dungeon;
+            _currentDungeon.BuildDungeon();
             //_currentDungeon.Enter();
         }
 
