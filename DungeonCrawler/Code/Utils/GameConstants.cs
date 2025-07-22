@@ -30,7 +30,7 @@ namespace DungeonCrawler.Code.Utils
         {
             if (point.X > 0) return EntityDirections.Right;
             else if (point.X < 0) return EntityDirections.Left;
-            else if (point.Y > 0) return EntityDirections.Back;
+            else if (point.Y < 0) return EntityDirections.Back;
             else return EntityDirections.foward;
         }
         #endregion
