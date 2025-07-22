@@ -21,7 +21,7 @@ namespace DungeonCrawler.Code.Entities
                     SpriteSheet,
                     _camera.WorldPositionToScreenPosition(WorldPosition),
                     GameConstants.EntityDirections.FOWARD,
-                    GameConstants.GameLayers.World);
+                    GameConstants.GameLayers.World_Background);
             }
         }
         public Point WorldPosition
@@ -38,8 +38,20 @@ namespace DungeonCrawler.Code.Entities
                     );
             }
         }
+        public GameConstants.GameLayers Layer
+        {
+            get
+            {
+                return _sprite.Layer;
+            }
+            set
+            {
+                _sprite.Layer = value;
+            }
+        }
+
         public int MoveSpeed { get; set; } = 5;
-        public EntityManager EntityManager { get; private set; }
+        public EntityManager EntityManager { get; private set; }        
 
         public void Move(Point moveVector)
         {
@@ -64,7 +76,7 @@ namespace DungeonCrawler.Code.Entities
         private SpriteSheet _spriteSheet;
         private DrawableSprite _sprite;
         private Camera _camera;
-        private Point _worldPosition;        
+        private Point _worldPosition;
 
         protected override void Draw(GameTime gametime, Camera camera)
         {

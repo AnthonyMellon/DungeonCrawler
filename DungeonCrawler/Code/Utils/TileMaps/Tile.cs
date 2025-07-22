@@ -22,13 +22,13 @@ namespace DungeonCrawler.Code.Utils.TileMaps
             SpriteSheet sheet,
             Point position,
             string tileName,
-            GameConstants.GameLayers layer = GameConstants.GameLayers.World)
+            GameConstants.GameLayers layer = GameConstants.GameLayers.World_Background)
         {
             Sprite = new DrawableSprite(
                 sheet,
                 position,
                 tileName,
-                GameConstants.GameLayers.World);
+                layer);
         }
         #endregion
 

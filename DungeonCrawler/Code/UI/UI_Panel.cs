@@ -21,7 +21,7 @@ namespace DungeonCrawler.Code.UI
                 texture == null ? DefaultContent.DefaultRectangle : texture,
                 DrawRectangle,
                 color,
-                GameConstants.GameLayers.UI);
+                GameConstants.GameLayers.Bottom);
             OnDrawRectangleUpdated += UpdateDestinationRectangle;
         }
 

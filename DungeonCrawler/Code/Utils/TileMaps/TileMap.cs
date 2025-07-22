@@ -55,7 +55,7 @@ namespace DungeonCrawler.Code.Utils.TileMaps
         #region privates
         private List<List<Tile>> _tiles;
         private SpriteSheet _spriteSheet;
-        private GameConstants.GameLayers _layer = GameConstants.GameLayers.World;
+        private GameConstants.GameLayers _layer = GameConstants.GameLayers.World_Background;
         private Camera _camera;
         private int _tileSize = 256;
 

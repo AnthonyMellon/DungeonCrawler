@@ -10,7 +10,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public Rectangle DestinationRectangle { get; private set; }
         public Rectangle SourceRectangle { get; private set; }
         public Color Color { get; set; }
-        public GameConstants.GameLayers Layer { get; private set; }
+        public GameConstants.GameLayers Layer { get; set; }
         public string CurrentSpriteName
         {
             get

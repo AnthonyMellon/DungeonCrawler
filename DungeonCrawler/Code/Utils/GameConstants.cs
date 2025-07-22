@@ -7,10 +7,17 @@ namespace DungeonCrawler.Code.Utils
     internal static class GameConstants
     {
         #region GameLayers
+
+        // Oder matters here. Top gets drawn last
         public enum GameLayers
         {
-            UI,
-            World,
+            Top,
+            UI_Text,
+            UI_Texutre,
+            World_Player,
+            World_Enemies,
+            World_Background,
+            Bottom
         }
         private static int _NumberOfGameLayers = Enum.GetValues<GameLayers>().Length;
         public static float GameLayerToLayer(GameLayers layer) => (float)layer / _NumberOfGameLayers;

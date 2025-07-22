@@ -31,7 +31,7 @@ namespace DungeonCrawler.Code.Scenes
         public override void DoDraw(GameTime gameTime, Camera camera)
         {
             //Extra stuff for the scene to begin the sprite batch
-            _graphics.Begin(blendState: BlendState.NonPremultiplied);
+            _graphics.Begin(blendState: BlendState.NonPremultiplied, sortMode: SpriteSortMode.BackToFront);
             base.DoDraw(gameTime, camera);
             _graphics.End();
         }

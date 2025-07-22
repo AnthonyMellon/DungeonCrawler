@@ -25,10 +25,10 @@ namespace DungeonCrawler.Code.UI
             _baseColor = baseColor;
             _hoverColor = hoverColor;            
 
-            _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI);
+            _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI_Text);
             OnDrawRectangleUpdated += UpdateDestinationRectangle;
 
-            _backgroundTexture = new DrawableTexture(texture, DrawRectangle, baseColor, GameConstants.GameLayers.UI);
+            _backgroundTexture = new DrawableTexture(texture, DrawRectangle, baseColor, GameConstants.GameLayers.UI_Texutre);
         }
 
         private bool _isHovering;

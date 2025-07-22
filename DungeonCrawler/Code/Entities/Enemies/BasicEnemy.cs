@@ -16,6 +16,7 @@ namespace DungeonCrawler.Code.Entities.Enemies
             SpriteSheet = new SpriteSheet(
                 GameConstants.ENEMY_SPRITESHEET_PATH,
                 GameConstants.ENEMY_SPRITE_RECTANGLES);
+            Layer = GameConstants.GameLayers.World_Enemies;
 
             _targetFinder = new FirstInRange(
                 _targetingRange,
