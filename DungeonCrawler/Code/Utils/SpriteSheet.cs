@@ -37,11 +37,6 @@ namespace DungeonCrawler.Code.Utils
 
         public Dictionary<string, Rectangle> Sprites { get; set; }
 
-        public void AddSprite(string name, Rectangle rectangle)
-        {
-            Sprites.Add(name, rectangle);
-        }
-
         public Rectangle GetSprite(string sprite)
         {
             return Sprites[sprite];
