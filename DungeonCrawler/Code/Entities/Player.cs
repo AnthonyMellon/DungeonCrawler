@@ -15,6 +15,7 @@ namespace DungeonCrawler.Code.Entities
                 GameConstants.PLAYER_SPRITESHEET_PATH,
                 GameConstants.PLAYER_SPRITE_RECTANGLES);
             Layer = GameConstants.GameLayers.World_Player;
+            SetSpriteColor(Color.LightGreen);
             camera.FollowEntity(this);
         }
 

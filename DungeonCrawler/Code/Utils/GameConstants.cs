@@ -50,17 +50,17 @@ namespace DungeonCrawler.Code.Utils
 
         public static readonly Dictionary<string, Rectangle> PLAYER_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
-            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 2, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 3, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
         };
         public static readonly Dictionary<string, Rectangle> ENEMY_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
-            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 1), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 2, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
+            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 3, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
         };
         public static readonly Dictionary<string, Rectangle> TILE_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
         {
@@ -91,8 +91,8 @@ namespace DungeonCrawler.Code.Utils
         #endregion        
 
         #region Path Strings
-        public const string PLAYER_SPRITESHEET_PATH = "Images/Spritesheets/TempCharacter";
-        public const string ENEMY_SPRITESHEET_PATH = "Images/Spritesheets/TempEnemy";
+        public const string PLAYER_SPRITESHEET_PATH = "Images/Spritesheets/DebugCharacter";
+        public const string ENEMY_SPRITESHEET_PATH = "Images/Spritesheets/DebugCharacter";
         public const string MENU_BACKGROUND_PATH = "Images/TempMenuBackground";
         public const string TILES_SPRITESHEET_PATH = "Images/Spritesheets/BasicTiles";
         #endregion

@@ -51,7 +51,7 @@ namespace DungeonCrawler.Code.Entities
         }
 
         public int MoveSpeed { get; set; } = 5;
-        public EntityManager EntityManager { get; private set; }        
+        public EntityManager EntityManager { get; private set; }
 
         public void Move(Point moveVector)
         {
@@ -62,6 +62,11 @@ namespace DungeonCrawler.Code.Entities
         public void SetSpriteName(string name)
         {
             _sprite.CurrentSpriteName = name;
+        }
+
+        public void SetSpriteColor(Color color)
+        {
+            _sprite.Color = color;
         }
 
         public Entity(Camera camera, EntityManager entityManager, bool enabled = true) :

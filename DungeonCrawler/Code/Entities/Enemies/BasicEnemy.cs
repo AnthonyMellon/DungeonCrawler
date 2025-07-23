@@ -17,6 +17,7 @@ namespace DungeonCrawler.Code.Entities.Enemies
                 GameConstants.ENEMY_SPRITESHEET_PATH,
                 GameConstants.ENEMY_SPRITE_RECTANGLES);
             Layer = GameConstants.GameLayers.World_Enemies;
+            SetSpriteColor(Color.Red);
 
             _targetFinder = new FirstInRange(
                 _targetingRange,

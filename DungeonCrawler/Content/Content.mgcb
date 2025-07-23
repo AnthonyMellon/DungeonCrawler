@@ -32,7 +32,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/Spritesheets/BasicTiles.png
 
-#begin Images/Spritesheets/TempCharacter.png
+#begin Images/Spritesheets/DebugCharacter.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -42,19 +42,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Spritesheets/TempCharacter.png
-
-#begin Images/Spritesheets/TempEnemy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/Spritesheets/TempEnemy.png
+/build:Images/Spritesheets/DebugCharacter.png
 
 #begin Images/TempMenuBackground.png
 /importer:TextureImporter
