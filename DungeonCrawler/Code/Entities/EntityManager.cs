@@ -52,11 +52,5 @@ namespace DungeonCrawler.Code.Entities
 
             return enemy;
         }
-
-        protected override void Draw(GameTime gametime, Camera camera)
-        { }
-
-        protected override void Update(GameTime gametime)
-        { }
     }
 }

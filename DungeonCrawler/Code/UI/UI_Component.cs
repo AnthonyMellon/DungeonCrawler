@@ -203,10 +203,6 @@ namespace DungeonCrawler.Code.UI
         {
             GameEvents.OnScreenSizeChange -= OnScreenSizeChange;
         }
-        protected override void Update(GameTime gametime) { }
-
-        protected override void Draw(GameTime gametime, Camera camera) { }
-
         #endregion
     }
 }

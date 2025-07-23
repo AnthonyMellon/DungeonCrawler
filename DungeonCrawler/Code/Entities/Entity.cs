@@ -87,8 +87,6 @@ namespace DungeonCrawler.Code.Entities
         {
             camera.DrawSprite(_sprite);
         }
-
-        protected override void Update(GameTime gametime) { }
         #endregion
     }
 }

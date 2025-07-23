@@ -1,7 +1,6 @@
 ﻿using DungeonCrawler.Code.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace DungeonCrawler.Code
 {
@@ -123,8 +122,8 @@ namespace DungeonCrawler.Code
         private bool _isEnabled;
         private Dynamic _parent;
 
-        protected abstract void Update(GameTime gametime);
-        protected abstract void Draw(GameTime gametime, Camera camera);
+        protected virtual void Update(GameTime gametime) { }
+        protected virtual void Draw(GameTime gametime, Camera camera) { }
         protected virtual void OnParentSet(Dynamic oldParent, Dynamic newParent) { }
         protected virtual void OnEnable() { }
         protected virtual void OnDisable() { }
