@@ -15,7 +15,9 @@ namespace DungeonCrawler.Code.Input
 
         private static Dictionary<Keys, List<Action>> _keyDownActionMap = new Dictionary<Keys, List<Action>>();
         private static Dictionary<Keys, List<Action>> _keyUpActionMap = new Dictionary<Keys, List<Action>>();
+        private static Dictionary<Keys, List<Action>> _keyTapActionMap = new Dictionary<Keys, List<Action>>();
 
+        private static KeyboardState _lastKeyboardState;
         /// <summary>
         /// Register an action to a key in a map
         /// </summary>
@@ -53,7 +55,9 @@ namespace DungeonCrawler.Code.Input
         public static void RegisterActionToKeyDown(Keys key, Action action) => RegisterActionToKeyMap(key, action, _keyDownActionMap);
         public static void DeregisterActionFromKeyDown(Keys key, Action action) => DeregisterActionFromKeyMap(key, action, _keyDownActionMap);
         public static void RegisterActionToKeyUp(Keys key, Action action) => RegisterActionToKeyMap(key, action, _keyUpActionMap);
-        public static void DeregisterActionToKeyUp(Keys key, Action action) => DeregisterActionFromKeyMap(key, action, _keyUpActionMap);
+        public static void DeregisterActionFromKeyUp(Keys key, Action action) => DeregisterActionFromKeyMap(key, action, _keyUpActionMap);
+        public static void RegisterActionToKeyTap(Keys key, Action action) => RegisterActionToKeyMap(key, action, _keyTapActionMap);
+        public static void DeregisterActionFromKeyTap(Keys key, Action action) => DeregisterActionFromKeyMap(key, action, _keyTapActionMap);
 
         public static bool IsKeyDown(Keys key) => Keyboard.GetState().IsKeyDown(key);
 
@@ -90,6 +94,23 @@ namespace DungeonCrawler.Code.Input
                     }
                 }
             }
+
+            //Key Tap
+            for (int i = 0; i < _keyTapActionMap.Count; i++)
+            {
+                Keys currKey = _keyTapActionMap.ElementAt(i).Key;
+
+                if (Keyboard.GetState().IsKeyDown(currKey) && _lastKeyboardState.IsKeyUp(currKey))
+                {
+                    List<Action> actions = _keyTapActionMap[currKey];
+                    for (int j = 0; j < actions.Count; j++)
+                    {
+                        actions[j]?.Invoke();
+                    }
+                }
+            }
+
+            _lastKeyboardState = Keyboard.GetState();
         }
         #endregion
         #endregion
