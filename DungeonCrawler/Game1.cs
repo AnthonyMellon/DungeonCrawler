@@ -90,10 +90,11 @@ namespace DungeonCrawler
 
             SceneManager.Draw(gameTime, _mainCamera);
 
+#if DEVELOPMENT
             _spriteBatch.Begin();
             _spriteBatch.DrawString(DefaultContent.DefaultFont, "DEVELOPMENT BUILD", new Vector2(5, _graphics.PreferredBackBufferHeight - 20), Color.White);
             _spriteBatch.End();
-
+#endif
             base.Draw(gameTime);
         }
     }
