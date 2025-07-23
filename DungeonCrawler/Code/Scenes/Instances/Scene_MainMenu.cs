@@ -45,6 +45,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     offset: new Point(0, 0),
                     texture: _background,
                     color: Color.White,
+                    layer: GameConstants.GameLayers.Bottom,
                     UIComponent.FitTypes.Screen
                 )) as UI_Panel;
 

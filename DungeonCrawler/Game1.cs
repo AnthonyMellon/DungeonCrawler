@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.Input;
+﻿using DungeonCrawler.Code.DebugTools;
+using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.Scenes.Instances;
 using DungeonCrawler.Code.UI;
@@ -90,10 +91,10 @@ namespace DungeonCrawler
 
             SceneManager.Draw(gameTime, _mainCamera, GraphicsDevice, _spriteBatch);
 
-#if DEVELOPMENT
-            string devString = new string($"DEVELOPMENT BUUILD {gameTime.ElapsedGameTime.Milliseconds} since last frame");
+#if DEVELOPMENT            
+
             _spriteBatch.Begin();
-            _spriteBatch.DrawString(DefaultContent.DefaultFont, devString, new Vector2(5, _graphics.PreferredBackBufferHeight - 20), Color.White);
+            _spriteBatch.DrawString(DefaultContent.DefaultFont, "DEVELOPMENT BUILD", new Vector2(5, _graphics.PreferredBackBufferHeight - 20), Color.White);
             _spriteBatch.End();
 #endif
             base.Draw(gameTime);

@@ -31,6 +31,8 @@ namespace DungeonCrawler.Code.UI
 
             _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI_Texutre);
             _backgroundTexture = new DrawableTexture(texture, DrawRectangle, baseColor, GameConstants.GameLayers.UI_Texutre);
+
+            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, DrawRectangle.Width, DrawRectangle.Height);
         }
         #endregion
 
@@ -52,9 +54,6 @@ namespace DungeonCrawler.Code.UI
 
             _backgroundTexture.DestinationRectangle = new Rectangle(0, 0, DrawRectangle.Width, DrawRectangle.Height);
             _butttonText.CenterTextToRectangle(_backgroundTexture.DestinationRectangle);
-
-            _renderTarget?.Dispose();
-            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, DrawRectangle.Width, DrawRectangle.Height);
         }
 
         private void CheckForHover()

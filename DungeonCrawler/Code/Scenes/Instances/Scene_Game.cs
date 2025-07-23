@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.Dungeons;
+﻿using DungeonCrawler.Code.DebugTools;
+using DungeonCrawler.Code.Dungeons;
 using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
 using DungeonCrawler.Code.UI;
@@ -27,10 +28,13 @@ namespace DungeonCrawler.Code.Scenes.Instances
             //TEMP ENEMIES
             //
             BuildUI();
-            
+
+#if DEVELOPMENT
+            BuildDebugMenu();
+#endif
+
             _currentDungeon = AddChild(new Dungeon()) as Dungeon;
             _currentDungeon.BuildDungeon();
-            //_currentDungeon.Enter();
         }
 
         public Scene_Game(SpriteBatch graphics) :
@@ -61,7 +65,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private UI_Panel BuildMenuBar()
         {
-            UI_Panel menuBar = new UI_Panel (
+            UI_Panel menuBar = new UI_Panel(
                 anchorPoints: new Vector4(0f, 1f, 0f, 0f),
                 padding: new Point4(0, 0, 0, 50),
                 offset: new Point(0, 0),
@@ -95,5 +99,17 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         protected override void Update(GameTime gametime) { }
         #endregion
+
+
+#if DEVELOPMENT
+        private void BuildDebugMenu()
+        {
+            AddChild(new DebugMenu(
+                new Vector4(0, 0.25f, 0, 0),
+                new Point4(0, 0, 0, 100),
+                new Point(0, 0)
+                ));
+        }
+#endif
     }
 }
