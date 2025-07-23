@@ -111,6 +111,7 @@ namespace DungeonCrawler.Code.UI
             spriteBatch.End();
 
             GameValues.GraphicsDevice.SetRenderTarget(null);
+            GameValues.GraphicsDevice.Clear(Color.CornflowerBlue);
         }
         #endregion
     }

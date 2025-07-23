@@ -66,7 +66,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 padding: new Point4(0, 0, 0, 50),
                 offset: new Point(0, 0),
                 texture: DefaultContent.DefaultRectangle,
-                color: new Color(Color.Gray, 100));
+                color: new Color(Color.Gray, 100),
+                layer: GameConstants.GameLayers.UI_Texutre);
 
             UI_Button menuButton = menuBar.AddChild(
                 new UI_Button

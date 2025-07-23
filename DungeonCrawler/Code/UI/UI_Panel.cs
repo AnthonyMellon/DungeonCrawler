@@ -14,6 +14,7 @@ namespace DungeonCrawler.Code.UI
             Point offset,
             Texture2D texture,
             Color color,
+            GameConstants.GameLayers layer = GameConstants.GameLayers.Bottom,
             FitTypes fitType = FitTypes.Parent) :
             base(anchorPoints, padding, offset, fitType)
         {
@@ -21,7 +22,7 @@ namespace DungeonCrawler.Code.UI
                 texture == null ? DefaultContent.DefaultRectangle : texture,
                 DrawRectangle,
                 color,
-                GameConstants.GameLayers.Bottom);
+                layer);
             OnDrawRectangleUpdated += UpdateDestinationRectangle;
         }
 
