@@ -1,12 +1,12 @@
 ﻿using DungeonCrawler.Code.Input;
-using DungeonCrawler.Code.Scenes.Instances;
 using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.Scenes.Instances;
+using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using DungeonCrawler.Code.UI;
 
 namespace DungeonCrawler
 {
@@ -26,6 +26,9 @@ namespace DungeonCrawler
         protected override void Initialize()
         {
             Window.AllowUserResizing = true;
+
+            GameValues.GameContent = Content;
+            GameValues.GraphicsDevice = GraphicsDevice;
 
             base.Initialize();
         }
@@ -62,9 +65,6 @@ namespace DungeonCrawler
             SceneManager.AddedScenes.Add(GameConstants.Game, new Scene_Game(_spriteBatch));
             SceneManager.Init(Content, this);
 
-            //Content
-            GameValues.GameContent = Content;
-
             _mainCamera = new Camera(_spriteBatch);
             ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
         }
@@ -88,11 +88,12 @@ namespace DungeonCrawler
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SceneManager.Draw(gameTime, _mainCamera);
+            SceneManager.Draw(gameTime, _mainCamera, GraphicsDevice, _spriteBatch);
 
 #if DEVELOPMENT
+            string devString = new string($"DEVELOPMENT BUUILD {gameTime.ElapsedGameTime.Milliseconds} since last frame");
             _spriteBatch.Begin();
-            _spriteBatch.DrawString(DefaultContent.DefaultFont, "DEVELOPMENT BUILD", new Vector2(5, _graphics.PreferredBackBufferHeight - 20), Color.White);
+            _spriteBatch.DrawString(DefaultContent.DefaultFont, devString, new Vector2(5, _graphics.PreferredBackBufferHeight - 20), Color.White);
             _spriteBatch.End();
 #endif
             base.Draw(gameTime);

@@ -12,7 +12,6 @@ namespace DungeonCrawler.Code.Utils
         public enum GameLayers
         {
             Top,
-            UI_Text,
             UI_Texutre,
             World_Player,
             World_Enemies,

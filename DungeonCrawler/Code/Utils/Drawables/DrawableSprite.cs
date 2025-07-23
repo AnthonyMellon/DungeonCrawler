@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace DungeonCrawler.Code.Utils.Drawables
@@ -63,6 +64,20 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 SpriteSheet.Sprites[CurrentSpriteName].Width,
                 SpriteSheet.Sprites[CurrentSpriteName].Height
                 );
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(
+                SpriteSheet.Sheet,
+                DestinationRectangle,
+                SourceRectangle,
+                Color,
+                0,              // Rotation
+                Vector2.Zero,   // Origin       currently no use for these values  
+                        SpriteEffects.None,
+                GameConstants.GameLayerToLayer(Layer)
+            );
         }
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
@@ -21,6 +22,22 @@ namespace DungeonCrawler.Code.Utils.Drawables
         {
             Texture = texture;
             Layer = layer;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (Texture == null) return;
+
+            spriteBatch.Draw(
+                Texture,
+                DestinationRectangle,
+                Texture.Bounds,
+                Color,
+                0,
+                Vector2.Zero,
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(Layer)
+            );
         }
     }
 }

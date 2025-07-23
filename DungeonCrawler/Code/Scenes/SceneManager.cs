@@ -45,7 +45,7 @@ namespace DungeonCrawler.Code.Scenes
         public static void UpdateScene(ContentManager content, Game game)
         {
             if (_nextScene == null) return;
-            
+
             _currentScene.IsEnabled = false;
             _currentScene = _nextScene;
             _nextScene = null;
@@ -65,8 +65,9 @@ namespace DungeonCrawler.Code.Scenes
             _currentScene.DoUpdate(gametime);
         }
 
-        public static void Draw(GameTime gametime, Camera camera)
+        public static void Draw(GameTime gametime, Camera camera, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
+            _currentScene.DoPreDraw(spriteBatch);
             _currentScene.DoDraw(gametime, camera);
         }
     }

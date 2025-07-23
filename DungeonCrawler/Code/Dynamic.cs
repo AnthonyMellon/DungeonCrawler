@@ -1,5 +1,6 @@
 ﻿using DungeonCrawler.Code.UI;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace DungeonCrawler.Code
@@ -73,6 +74,21 @@ namespace DungeonCrawler.Code
             }
         }
 
+        public virtual void DoPreDraw(SpriteBatch spriteBatch)
+        {
+            if (!IsEnabled) return;
+
+            PreDraw(spriteBatch);
+
+            for (int i = 0; i < Children.Count; i++)
+            {
+                Dynamic child = Children[i];
+                if(child == null) continue;
+
+                child.DoPreDraw(spriteBatch);
+            }
+        }
+
         public Dynamic AddChild(Dynamic child)
         {
             Children.Add(child);
@@ -124,6 +140,7 @@ namespace DungeonCrawler.Code
 
         protected virtual void Update(GameTime gametime) { }
         protected virtual void Draw(GameTime gametime, Camera camera) { }
+        protected virtual void PreDraw(SpriteBatch spriteBatch) { }
         protected virtual void OnParentSet(Dynamic oldParent, Dynamic newParent) { }
         protected virtual void OnEnable() { }
         protected virtual void OnDisable() { }

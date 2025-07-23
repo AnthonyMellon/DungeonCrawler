@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
@@ -59,6 +58,21 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Position = new Vector2(
                 (targetRectangle.X + targetRectangle.Width / 2) - Size.X / 2,
                 (targetRectangle.Y + targetRectangle.Height / 2) - Size.Y / 2);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(
+                Font,
+                Text,
+                Position,
+                Color,
+                0,              // Rotation
+                Vector2.Zero,   // Origin
+                1,              // Scale        currently no use for these values
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(Layer)
+            );
         }
 
         private string _text;

@@ -9,7 +9,9 @@ namespace DungeonCrawler.Code.UI
 {
     internal class UI_Button : UIComponent
     {
+        #region publics
         public Action OnClick;
+
 
         public UI_Button(
             Vector4 anchorPoints,
@@ -23,49 +25,36 @@ namespace DungeonCrawler.Code.UI
             base(anchorPoints, padding, offset)
         {
             _baseColor = baseColor;
-            _hoverColor = hoverColor;            
+            _hoverColor = hoverColor;
 
-            _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI_Text);
             OnDrawRectangleUpdated += UpdateDestinationRectangle;
 
+            _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI_Texutre);
             _backgroundTexture = new DrawableTexture(texture, DrawRectangle, baseColor, GameConstants.GameLayers.UI_Texutre);
         }
+        #endregion
 
+        #region privates
         private bool _isHovering;
         private bool _prevMouse;
         private bool _currMouse;
 
         private Color _baseColor;
-        private Color _hoverColor;        
+        private Color _hoverColor;
 
         private DrawableText _butttonText;
         private DrawableTexture _backgroundTexture;
-
-        protected override void Draw(GameTime gametime, Camera camera)
-        {           
-            if (_backgroundTexture.Texture == null) _backgroundTexture.Texture = DefaultContent.DefaultCapsule;
-
-            camera.DrawTexture(_backgroundTexture);
-            camera.DrawText(_butttonText);
-
-        }
-
-        protected override void Update(GameTime gametime)
-        {
-            _prevMouse = _currMouse;
-            _currMouse = InputProvider.MouseLeftPressed;
-
-            CheckForHover();
-            Highlight();
-            CheckForClick();
-        }
+        private RenderTarget2D _renderTarget;
 
         private void UpdateDestinationRectangle()
         {
             if (_backgroundTexture == null) return;
 
-            _backgroundTexture.DestinationRectangle = DrawRectangle;
-            _butttonText.CenterTextToRectangle(DrawRectangle);
+            _backgroundTexture.DestinationRectangle = new Rectangle(0, 0, DrawRectangle.Width, DrawRectangle.Height);
+            _butttonText.CenterTextToRectangle(_backgroundTexture.DestinationRectangle);
+
+            _renderTarget?.Dispose();
+            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, DrawRectangle.Width, DrawRectangle.Height);
         }
 
         private void CheckForHover()
@@ -88,5 +77,41 @@ namespace DungeonCrawler.Code.UI
                 OnClick?.Invoke();
             }
         }
+
+        protected override void Draw(GameTime gametime, Camera camera)
+        {
+            if (_backgroundTexture.Texture == null) _backgroundTexture.Texture = DefaultContent.DefaultCapsule;
+
+            camera.DrawTexture(new DrawableTexture(
+                _renderTarget,
+                DrawRectangle,
+                Color.White,
+                GameConstants.GameLayers.UI_Texutre
+                ));
+        }
+
+        protected override void Update(GameTime gametime)
+        {
+            _prevMouse = _currMouse;
+            _currMouse = InputProvider.MouseLeftPressed;
+
+            CheckForHover();
+            Highlight();
+            CheckForClick();
+        }
+
+        protected override void PreDraw(SpriteBatch spriteBatch)
+        {
+            GameValues.GraphicsDevice.SetRenderTarget(_renderTarget);
+            GameValues.GraphicsDevice.Clear(Color.Transparent);
+
+            spriteBatch.Begin();            
+            _backgroundTexture.Draw(spriteBatch);
+            _butttonText.Draw(spriteBatch);
+            spriteBatch.End();
+
+            GameValues.GraphicsDevice.SetRenderTarget(null);
+        }
+        #endregion
     }
 }

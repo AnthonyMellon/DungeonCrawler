@@ -1,7 +1,6 @@
 ﻿using DungeonCrawler.Code.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
 
 namespace DungeonCrawler.Code.UI
@@ -46,49 +45,20 @@ namespace DungeonCrawler.Code.UI
 
 
         }
-    
+
         public void DrawSprite(DrawableSprite sprite)
         {
-            _graphics.Draw(
-                sprite.SpriteSheet.Sheet,
-                sprite.DestinationRectangle,
-                sprite.SourceRectangle,
-                sprite.Color,
-                0,              // Rotation
-                Vector2.Zero,   // Origin       currently no use for these values  
-                SpriteEffects.None,
-                GameConstants.GameLayerToLayer(sprite.Layer)
-                );
+            sprite.Draw(_graphics);
         }
 
 
         public void DrawTexture(DrawableTexture texture)
         {
-            _graphics.Draw
-                (
-                texture.Texture,
-                texture.DestinationRectangle,
-                texture.Texture.Bounds,
-                texture.Color,
-                0,              // Rotation
-                Vector2.Zero,   // Origin       currently no use for these values
-                SpriteEffects.None,
-                GameConstants.GameLayerToLayer(texture.Layer)
-                );
+            texture.Draw(_graphics);
         }
         public void DrawText(DrawableText text)
         {            
-            _graphics.DrawString(
-                text.Font,
-                text.Text,
-                text.Position,
-                text.Color,
-                0,              // Rotation
-                Vector2.Zero,   // Origin
-                1,              // Scale        currently no use for these values
-                SpriteEffects.None,
-                GameConstants.GameLayerToLayer(text.Layer)
-                );
+            text.Draw(_graphics);
         }
 
         public void UpdateSize(int width, int height)
