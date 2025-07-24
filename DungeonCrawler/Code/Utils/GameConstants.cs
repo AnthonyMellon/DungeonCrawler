@@ -95,5 +95,9 @@ namespace DungeonCrawler.Code.Utils
         public const string MENU_BACKGROUND_PATH = "Images/TempMenuBackground";
         public const string TILES_SPRITESHEET_PATH = "Images/Spritesheets/BasicTiles";
         #endregion
+
+        #region Colors
+        public static readonly Color DEFAULT_COLOR = Color.CornflowerBlue;
+        #endregion
     }
 }
