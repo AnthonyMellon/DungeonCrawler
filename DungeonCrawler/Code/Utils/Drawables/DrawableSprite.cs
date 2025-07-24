@@ -1,16 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
 namespace DungeonCrawler.Code.Utils.Drawables
 {
-    internal class DrawableSprite
+    internal class DrawableSprite : Drawable
     {
         #region publics
         public SpriteSheet SpriteSheet { get; private set; }
         public Rectangle DestinationRectangle { get; private set; }
         public Rectangle SourceRectangle { get; private set; }
-        public Color Color { get; set; }
         public GameConstants.GameLayers Layer { get; set; }
         public string CurrentSpriteName
         {
@@ -24,7 +22,16 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 SourceRectangle = SpriteSheet.GetSprite(value);
             }
         }
-        public DrawableSprite(SpriteSheet spriteSheet, Rectangle destinationRectangle, string currentSpriteName, Color color, GameConstants.GameLayers layer)
+
+        public DrawableSprite(
+            SpriteSheet spriteSheet,
+            Rectangle destinationRectangle,
+            string currentSpriteName,
+            Color color,
+            GameConstants.GameLayers layer,
+            DrawManager.DrawTargets drawTarget,
+            bool visible = true) :
+            base(drawTarget, visible)
         {
             SpriteSheet = spriteSheet;
             CurrentSpriteName = currentSpriteName;
@@ -33,7 +40,14 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Layer = layer;
         }
 
-        public DrawableSprite(SpriteSheet spriteSheet, Rectangle destinationRectangle, string currentSpriteName, GameConstants.GameLayers layer)
+        public DrawableSprite(
+            SpriteSheet spriteSheet,
+            Rectangle destinationRectangle,
+            string currentSpriteName,
+            GameConstants.GameLayers layer,
+            DrawManager.DrawTargets drawTarget,
+            bool visible = true) :
+            base(drawTarget, visible)
         {
             SpriteSheet = spriteSheet;
             CurrentSpriteName = currentSpriteName;
@@ -42,7 +56,14 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Layer = layer;
         }
 
-        public DrawableSprite(SpriteSheet spriteSheet, Point position, string currentSpriteName, GameConstants.GameLayers layer)
+        public DrawableSprite(
+            SpriteSheet spriteSheet,
+            Point position,
+            string currentSpriteName,
+            GameConstants.GameLayers layer,
+            DrawManager.DrawTargets drawTarget,
+            bool visible = true) :
+            base(drawTarget, visible)
         {
             SpriteSheet = spriteSheet;
             CurrentSpriteName = currentSpriteName;
@@ -66,9 +87,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 );
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spritebatch, GameTime gameTime)
         {
-            spriteBatch.Draw(
+            spritebatch.Draw(
                 SpriteSheet.Sheet,
                 DestinationRectangle,
                 SourceRectangle,

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
-    internal class DrawableText
+    internal class DrawableText : Drawable
     {
         public string Text
         {
@@ -33,10 +33,17 @@ namespace DungeonCrawler.Code.Utils.Drawables
         }
         public Vector2 Size { get; private set; }
         public Vector2 Position { get; private set; }
-        public Color Color { get; private set; }
         public GameConstants.GameLayers Layer { get; private set; }
-
-        public DrawableText(string text, Vector2 position, Color color, SpriteFont font, GameConstants.GameLayers layer)
+        
+        public DrawableText(            
+            string text,
+            Vector2 position,
+            Color color,
+            SpriteFont font,
+            GameConstants.GameLayers layer,
+            DrawManager.DrawTargets drawTarget,
+            bool visible = true) : 
+            base(drawTarget, visible)
         {
             Text = text;
             Position = position;
@@ -45,7 +52,13 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Layer = layer;
         }
 
-        public DrawableText(string text, Vector2 position, Color color)
+        public DrawableText(
+            string text,
+            Vector2 position,
+            Color color,
+            DrawManager.DrawTargets drawTarget,
+            bool visible = true) : 
+            base(drawTarget, visible)
         {
             Text = text;
             Position = position;
@@ -60,7 +73,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 (targetRectangle.Y + targetRectangle.Height / 2) - Size.Y / 2);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.DrawString(
                 Font,
@@ -73,10 +86,10 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 SpriteEffects.None,
                 GameConstants.GameLayerToLayer(Layer)
             );
-        }
+        }        
 
         private string _text;
-        private SpriteFont _font;
+        private SpriteFont _font;        
 
         private void UpdateTextSize()
         {
@@ -88,6 +101,6 @@ namespace DungeonCrawler.Code.Utils.Drawables
             {
                 Size = Font.MeasureString(Text);
             }
-        }
+        }        
     }
 }

@@ -1,34 +1,43 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
-    internal class DrawableTexture
+    internal class DrawableTexture : Drawable
     {
         public Texture2D Texture { get; set; }
         public Rectangle DestinationRectangle { get; set; }
-        public Color Color { get; set; }
         public GameConstants.GameLayers Layer { get; set; }
 
-        public DrawableTexture(Texture2D texture, Rectangle destinationRectangle, Color color, GameConstants.GameLayers layer)
+        public DrawableTexture(
+            Texture2D texture,
+            Rectangle destinationRectangle,
+            Color color, GameConstants.GameLayers layer,
+            DrawManager.DrawTargets drawTarget,
+            bool visible = true) :
+            base(drawTarget, visible)
         {
             Texture = texture;
             DestinationRectangle = destinationRectangle;
             Color = color;
             Layer = layer;
         }
-        public DrawableTexture(Texture2D texture, GameConstants.GameLayers layer)
+        public DrawableTexture(
+            Texture2D texture,
+            GameConstants.GameLayers layer,
+            DrawManager.DrawTargets drawTarget,
+            bool visible = true) :
+            base(drawTarget, visible)
         {
             Texture = texture;
             Layer = layer;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spritebatch, GameTime gameTime)
         {
             if (Texture == null) return;
 
-            spriteBatch.Draw(
+            spritebatch.Draw(
                 Texture,
                 DestinationRectangle,
                 Texture.Bounds,
