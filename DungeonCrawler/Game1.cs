@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DebugTools;
+﻿using DungeonCrawler.Code;
 using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.Scenes.Instances;
@@ -68,6 +68,8 @@ namespace DungeonCrawler
 
             _mainCamera = new Camera(_spriteBatch);
             ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
+
+            DrawManager.Setup(GraphicsDevice);
         }
 
         protected override void Update(GameTime gameTime)
@@ -89,7 +91,10 @@ namespace DungeonCrawler
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SceneManager.Draw(gameTime, _mainCamera, GraphicsDevice, _spriteBatch);
+            DrawManager.Draw(_spriteBatch, GraphicsDevice, gameTime);
+
+            //SceneManager.Draw(gameTime, _mainCamera, GraphicsDevice, _spriteBatch);
+
 
 #if DEVELOPMENT            
 
