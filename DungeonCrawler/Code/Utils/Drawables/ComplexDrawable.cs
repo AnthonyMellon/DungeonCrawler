@@ -4,10 +4,18 @@ using System.Collections.Generic;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
-    internal abstract class ComplexDrawable : Drawable
+    internal class ComplexDrawable : Drawable
     {
         private RenderTarget2D _renderTarget;
         private List<Drawable> _drawables = new List<Drawable>();
+
+        public override void Draw(SpriteBatch spritebatch, GameTime gameTime)
+        {
+            for(int i = 0;  i < _drawables.Count; i++)
+            {
+                _drawables[i].Draw(spritebatch, gameTime);
+            }
+        }
 
         protected ComplexDrawable(
             GraphicsDevice graphicsDevice,
