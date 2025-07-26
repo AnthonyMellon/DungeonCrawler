@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
@@ -18,11 +17,13 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public void AddDrawable(Drawable drawable)
         {
             drawable.OnChange += BuildTexture;
+            _drawables.Add(drawable);
         }
 
         public void RemoveDrawable(Drawable drawable)
         {
             drawable.OnChange -= BuildTexture;
+            _drawables.Remove(drawable);
         }
 
         public override void Draw(SpriteBatch spritebatch)
@@ -54,11 +55,12 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         protected void BuildTexture()
         {
-            // TODO: FIX THIS
-            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, 100, 100);
+            if (Rectangle.Width == 0 || Rectangle.Height == 0) return;
+
+            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, Rectangle.Width, Rectangle.Height);
 
             _grahpicsDevice.SetRenderTarget(_renderTarget);
-            _grahpicsDevice.Clear(GameConstants.DEFAULT_COLOR);
+            _grahpicsDevice.Clear(Color.Transparent);
 
             _spriteBatch.Begin();
             for (int i = 0; i < _drawables.Count; i++)
