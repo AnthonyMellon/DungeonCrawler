@@ -30,8 +30,7 @@ namespace DungeonCrawler.Code
         public static void Draw(SpriteBatch spritebatch, GraphicsDevice graphicsDevice, GameTime gametime)
         {
             GenerateAllLayerTextures(spritebatch, graphicsDevice, gametime);
-
-            graphicsDevice.Clear(GameConstants.DEFAULT_COLOR);
+            
             spritebatch.Begin(blendState: BlendState.NonPremultiplied);
             for (int i = 0; i < _drawOrder.Count; i++)
             {
@@ -119,7 +118,7 @@ namespace DungeonCrawler.Code
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(Color.Transparent);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(blendState: BlendState.NonPremultiplied, sortMode: SpriteSortMode.BackToFront);
             for (int i = 0; i < drawList.Count; i++)
             {
                 drawList[i].Draw(spriteBatch);
