@@ -121,11 +121,6 @@ namespace DungeonCrawler.Code.UI
             }
         }
 
-        protected override void Draw(GameTime gametime, Camera camera)
-        {
-            _buttonTexture.Draw(GameValues.SpriteBatch);
-        }
-
         protected override void Update(GameTime gametime)
         {
             _prevMouse = _currMouse;

@@ -64,11 +64,5 @@ namespace DungeonCrawler.Code.Scenes
         {
             _currentScene.DoUpdate(gametime);
         }
-
-        public static void Draw(GameTime gametime, Camera camera, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
-        {
-            _currentScene.DoPreDraw(spriteBatch);
-            _currentScene.DoDraw(gametime, camera);
-        }
     }
 }

@@ -80,11 +80,6 @@ namespace DungeonCrawler.Code.Entities
         private DrawableSprite _sprite;
         private Camera _camera;
         private Point _worldPosition;
-
-        protected override void Draw(GameTime gametime, Camera camera)
-        {
-            camera.DrawSprite(_sprite);
-        }
         #endregion
     }
 }

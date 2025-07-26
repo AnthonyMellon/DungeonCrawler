@@ -54,14 +54,6 @@ namespace DungeonCrawler.Code.UI
             _backgroundTexture.Position = DrawRectangle.Location;
             _backgroundTexture.Size = DrawRectangle.Size;
         }
-
-        protected override void Draw(GameTime gametime, Camera camera)
-        {
-            if (_backgroundTexture != null)
-            {
-                camera.DrawTexture(_backgroundTexture);
-            }
-        }
         #endregion
     }
 }

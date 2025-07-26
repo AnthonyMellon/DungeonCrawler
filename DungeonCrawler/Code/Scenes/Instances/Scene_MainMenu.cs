@@ -97,8 +97,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
             SceneManager.SetNextScene(GameConstants.Game);
         }
 
-        protected override void Draw(GameTime gametime, Camera camera) { }
-
         protected override void Update(GameTime gametime) { }
         #endregion
     }

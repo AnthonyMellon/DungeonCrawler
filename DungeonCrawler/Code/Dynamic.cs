@@ -58,37 +58,6 @@ namespace DungeonCrawler.Code
             }
         }
 
-        public virtual void DoDraw(GameTime gametime, Camera camera)
-        {
-            if (!IsEnabled) return;
-
-            Draw(gametime, camera);
-
-            // Draw all children
-            for (int i = 0; i < Children.Count; i++)
-            {
-                Dynamic child = Children[i];
-                if (child == null) continue;
-
-                child.DoDraw(gametime, camera);
-            }
-        }
-
-        public virtual void DoPreDraw(SpriteBatch spriteBatch)
-        {
-            if (!IsEnabled) return;
-
-            PreDraw(spriteBatch);
-
-            for (int i = 0; i < Children.Count; i++)
-            {
-                Dynamic child = Children[i];
-                if(child == null) continue;
-
-                child.DoPreDraw(spriteBatch);
-            }
-        }
-
         public Dynamic AddChild(Dynamic child)
         {
             Children.Add(child);
@@ -139,7 +108,7 @@ namespace DungeonCrawler.Code
         private Dynamic _parent;
 
         protected virtual void Update(GameTime gametime) { }
-        protected virtual void Draw(GameTime gametime, Camera camera) { }
+        //protected virtual void Draw(GameTime gametime, Camera camera) { }
         protected virtual void PreDraw(SpriteBatch spriteBatch) { }
         protected virtual void OnParentSet(Dynamic oldParent, Dynamic newParent) { }
         protected virtual void OnEnable() { }

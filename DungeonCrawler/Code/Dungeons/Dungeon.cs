@@ -46,11 +46,6 @@ namespace DungeonCrawler.Code.Dungeons
                 );
         }
 
-        protected override void Draw(GameTime gametime, Camera camera)
-        {
-            if (_tileMap.HasTilesLoaded) _tileMap.DrawAllTiles();
-        }
-
         protected override void Update(GameTime gametime)
         {
             
