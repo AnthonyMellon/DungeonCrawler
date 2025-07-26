@@ -46,6 +46,14 @@ namespace DungeonCrawler.Code
             spritebatch.End();
         }
 
+        public static void PreDraw()
+        {
+            for (int i = 0; i < _complexDrawables.Count; i++)
+            {
+                _complexDrawables[i].PreDraw();
+            }
+        }
+
         public static void RegisterDrawable(DrawTargets drawTarget, Drawable drawable)
         {
             List<Drawable> drawList = _drawableTypeToDrawList[drawTarget];
@@ -57,6 +65,18 @@ namespace DungeonCrawler.Code
             List<Drawable> drawList = _drawableTypeToDrawList[drawTarget];
             drawList.Remove(drawable);
         }
+
+        public static void RegisterComplexDrawable(ComplexDrawable complexDrawable)
+        {
+            _complexDrawables.Add(complexDrawable);
+        }
+
+        public static void DeregisterComplexDrawable(ComplexDrawable complexDrawable)
+        {
+            _complexDrawables.Remove(complexDrawable);
+        }
+
+        private static List<ComplexDrawable> _complexDrawables = new List<ComplexDrawable>();
 
         private static List<Drawable> _worldLayer = new List<Drawable>();
         private static List<Drawable> _uiLayer = new List<Drawable>();

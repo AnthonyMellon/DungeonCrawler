@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
@@ -16,14 +17,19 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public void AddDrawable(Drawable drawable)
         {
-            drawable.OnChange += BuildTexture;
+            drawable.OnChange += MarkForTextureRebuild;
             _drawables.Add(drawable);
         }
 
         public void RemoveDrawable(Drawable drawable)
         {
-            drawable.OnChange -= BuildTexture;
+            drawable.OnChange -= MarkForTextureRebuild;
             _drawables.Remove(drawable);
+        }
+
+        public void PreDraw()
+        {
+            if (_hasChanged) BuildTexture();
         }
 
         public override void Draw(SpriteBatch spritebatch)
@@ -36,10 +42,6 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 Color.White);
         }
 
-        private RenderTarget2D _renderTarget;
-        private List<Drawable> _drawables = new List<Drawable>();
-        private GraphicsDevice _grahpicsDevice;
-
         public ComplexDrawable(
             GraphicsDevice graphicsDevice,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
@@ -47,7 +49,24 @@ namespace DungeonCrawler.Code.Utils.Drawables
             base(drawTarget, visible)
         {
             _grahpicsDevice = graphicsDevice;
-            BuildTexture();
+            RegisterToPreDraw(Visible);
+            OnVisabilitySet += RegisterToPreDraw;
+        }
+
+        private RenderTarget2D _renderTarget;
+        private List<Drawable> _drawables = new List<Drawable>();
+        private GraphicsDevice _grahpicsDevice;
+        private bool _hasChanged = true;
+
+        private void RegisterToPreDraw(bool visable)
+        {
+            if(visable) DrawManager.RegisterComplexDrawable(this);
+            else DrawManager.DeregisterComplexDrawable(this);
+        }
+
+        private void MarkForTextureRebuild()
+        {
+            _hasChanged = true;
         }
 
         protected void BuildTexture()
@@ -70,6 +89,8 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
             _grahpicsDevice.SetRenderTarget(null);
             _grahpicsDevice.Clear(GameConstants.DEFAULT_COLOR);
+
+            _hasChanged = false;
         }
     }
 }

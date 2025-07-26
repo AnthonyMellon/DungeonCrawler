@@ -92,6 +92,7 @@ namespace DungeonCrawler
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            DrawManager.PreDraw();
             DrawManager.Draw(_spriteBatch, GraphicsDevice, gameTime);
 
             //SceneManager.Draw(gameTime, _mainCamera, GraphicsDevice, _spriteBatch);

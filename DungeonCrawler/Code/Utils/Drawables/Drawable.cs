@@ -75,6 +75,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 if (!_visible) DrawManager.DeregisterDrawable(_drawTarget, this);
                 
                 OnChange?.Invoke();
+                OnVisabilitySet?.Invoke(_visible);
             }
         }
         public GameConstants.GameLayers Layer
@@ -89,6 +90,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 OnChange?.Invoke();
             }
         }
+        public Action<bool> OnVisabilitySet;
 
         public abstract void Draw(SpriteBatch spritebatch);
 
