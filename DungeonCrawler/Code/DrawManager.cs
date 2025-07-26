@@ -17,13 +17,14 @@ namespace DungeonCrawler.Code
 
         public static void Setup(GraphicsDevice graphicsDevice)
         {
-            _worldRenderTarget?.Dispose();
-            _worldRenderTarget = new RenderTarget2D(graphicsDevice, 1920, 1080);
-            _drawableTypeToRenderTarget[DrawTargets.World] = _worldRenderTarget;
+            _graphicsDevice = graphicsDevice;
+            BuildRenderTargets(GameValues.ScreenSize.X, GameValues.ScreenSize.Y);
+            GameEvents.OnScreenSizeChange += BuildRenderTargets;
+        }
 
-            _uiRenderTarget?.Dispose();
-            _uiRenderTarget = new RenderTarget2D(graphicsDevice, 1920, 1080);
-            _drawableTypeToRenderTarget[DrawTargets.UI] = _uiRenderTarget;
+        public static void OnScreenSizeChanged(int width, int height)
+        {
+            BuildRenderTargets(width, height);
         }
 
         public static void Draw(SpriteBatch spritebatch, GraphicsDevice graphicsDevice, GameTime gametime)
@@ -34,9 +35,9 @@ namespace DungeonCrawler.Code
             spritebatch.Begin(blendState: BlendState.NonPremultiplied);
             for (int i = 0; i < _drawOrder.Count; i++)
             {
-                DrawTargets target = _drawOrder[i];                
+                DrawTargets target = _drawOrder[i];
 
-                RenderTarget2D renderTarget = _drawableTypeToRenderTarget[target];
+                RenderTarget2D renderTarget = _drawTargetToRenderTarget[target];
                 if (renderTarget == null) continue;
                 spritebatch.Draw(
                     renderTarget,
@@ -56,13 +57,13 @@ namespace DungeonCrawler.Code
 
         public static void RegisterDrawable(DrawTargets drawTarget, Drawable drawable)
         {
-            List<Drawable> drawList = _drawableTypeToDrawList[drawTarget];
+            List<Drawable> drawList = _drawTargetToDrawList[drawTarget];
             drawList.Add(drawable);
         }
 
         public static void DeregisterDrawable(DrawTargets drawTarget, Drawable drawable)
         {
-            List<Drawable> drawList = _drawableTypeToDrawList[drawTarget];
+            List<Drawable> drawList = _drawTargetToDrawList[drawTarget];
             drawList.Remove(drawable);
         }
 
@@ -77,6 +78,8 @@ namespace DungeonCrawler.Code
         {
             _complexDrawables.Remove(complexDrawable);
         }
+
+        private static GraphicsDevice _graphicsDevice;
 
         private static List<ComplexDrawable> _complexDrawables = new List<ComplexDrawable>();
 
@@ -94,14 +97,14 @@ namespace DungeonCrawler.Code
             DrawTargets.UI
         };
 
-        private static Dictionary<DrawTargets, List<Drawable>> _drawableTypeToDrawList = new Dictionary<DrawTargets, List<Drawable>>()
+        private static Dictionary<DrawTargets, List<Drawable>> _drawTargetToDrawList = new Dictionary<DrawTargets, List<Drawable>>()
         {
             { DrawTargets.World, _worldLayer },
             { DrawTargets.UI, _uiLayer },
             { DrawTargets.None, _noneLayer }
         };
 
-        private static Dictionary<DrawTargets, RenderTarget2D> _drawableTypeToRenderTarget = new Dictionary<DrawTargets, RenderTarget2D>()
+        private static Dictionary<DrawTargets, RenderTarget2D> _drawTargetToRenderTarget = new Dictionary<DrawTargets, RenderTarget2D>()
         {
             { DrawTargets.World, _worldRenderTarget },
             { DrawTargets.UI, _uiRenderTarget },
@@ -110,9 +113,9 @@ namespace DungeonCrawler.Code
 
         private static void GenerateLayerTexture(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GameTime gameTime, DrawTargets drawTarget)
         {
-            RenderTarget2D renderTarget = _drawableTypeToRenderTarget[drawTarget];
-            List<Drawable> drawList = _drawableTypeToDrawList[drawTarget];
-                
+            RenderTarget2D renderTarget = _drawTargetToRenderTarget[drawTarget];
+            List<Drawable> drawList = _drawTargetToDrawList[drawTarget];
+
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(GameConstants.DEFAULT_COLOR);
 
@@ -133,6 +136,24 @@ namespace DungeonCrawler.Code
             {
                 GenerateLayerTexture(spritebatch, graphicsDevice, gametime, _drawOrder[i]);
             }
+        }
+
+        private static void BuildRenderTargets(int width, int height)
+        {
+            for (int i = 0; i < _drawOrder.Count; i++)
+            {
+                BuildRenderTarget(_drawOrder[i], width, height);
+            }
+        }
+
+        private static void BuildRenderTarget(DrawTargets drawTarget, int width, int height)
+        {
+            RenderTarget2D renderTarget = _drawTargetToRenderTarget[drawTarget];
+
+            renderTarget?.Dispose();
+            renderTarget = new RenderTarget2D(_graphicsDevice, width, height);
+
+            _drawTargetToRenderTarget[drawTarget] = renderTarget;
         }
     }
 }
