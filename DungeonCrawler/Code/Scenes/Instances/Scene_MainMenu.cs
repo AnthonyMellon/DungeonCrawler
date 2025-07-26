@@ -71,7 +71,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     offset: new Point(-16, -40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
-                    "Play Game"
+                    "Play Game",
+                    DrawManager.DrawTargets.UI
                 )) as UI_Button;
             playButton.OnClick += EnterGame;
 
@@ -83,7 +84,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     offset: new Point(-16, 40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
-                    "Quit Game"
+                    "Quit Game",
+                    DrawManager.DrawTargets.UI
                 )) as UI_Button;
             quitButton.OnClick += _game.Exit;
 

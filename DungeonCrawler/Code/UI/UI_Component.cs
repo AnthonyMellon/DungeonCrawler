@@ -71,12 +71,13 @@ namespace DungeonCrawler.Code.UI
         public delegate void DrawRectangleUpdatedHandler();
         public DrawRectangleUpdatedHandler OnDrawRectangleUpdated;
 
-
+        protected DrawManager.DrawTargets DrawTarget;
 
         public UIComponent(
             Vector4 anchorPoints,
             Point4 padding,
             Point offset,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             FitTypes fitType = FitTypes.Parent,
             bool enabled = true) :
             base(enabled)
@@ -87,6 +88,7 @@ namespace DungeonCrawler.Code.UI
             Padding = padding;
             Offset = offset;
             FitType = fitType;
+            DrawTarget = drawTarget;
 
             AllowScreenRectangleUpdates = true;
         }
@@ -96,7 +98,7 @@ namespace DungeonCrawler.Code.UI
         private Vector4 _anchorPoints = new Vector4(0.5f, 0.5f, 0.5f, 0.5f);
         private Point4 _padding = new Point4(0, 0, 0, 0);
         private Point _offset = new Point(0, 0);
-        private bool _autoUpdateScreenRectangle = true;
+        private bool _autoUpdateScreenRectangle = true;        
 
         // Potential optimisation here to only update the draw rectangle here if the fit mode is parent
         // but I dont think it's worth worrying about (I can't be bothered doing it)

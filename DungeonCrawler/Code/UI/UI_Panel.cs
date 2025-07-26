@@ -17,7 +17,7 @@ namespace DungeonCrawler.Code.UI
             GameConstants.GameLayers layer = GameConstants.GameLayers.Bottom,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             FitTypes fitType = FitTypes.Parent) :
-            base(anchorPoints, padding, offset, fitType)
+            base(anchorPoints, padding, offset, drawTarget, fitType)
         {
             if (texture == null) texture = DefaultContent.DefaultRectangle;
 
@@ -35,8 +35,9 @@ namespace DungeonCrawler.Code.UI
             Vector4 anchorPoints,
             Point4 padding,
             Point offset,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             FitTypes fitType = FitTypes.Parent) :
-            base(anchorPoints, padding, offset, fitType)
+            base(anchorPoints, padding, offset, drawTarget, fitType)
         {
             _backgroundTexture = null;
             OnDrawRectangleUpdated += UpdateDrawRectangle;

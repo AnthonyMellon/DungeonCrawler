@@ -81,7 +81,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     offset: new Point(-10, 0),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
-                    "Main Menu"
+                    "Main Menu",
+                    DrawManager.DrawTargets.UI
                 )) as UI_Button;
             menuButton.OnClick += QuitToMainMenu;
 

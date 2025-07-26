@@ -21,8 +21,9 @@ namespace DungeonCrawler.Code.UI
             Color baseColor,
             Color hoverColor,
             Texture2D texture,
-            string text) :
-            base(anchorPoints, padding, offset)
+            string text,
+            DrawManager.DrawTargets drawTarget) :
+            base(anchorPoints, padding, offset, drawTarget)
         {
             _baseColor = baseColor;
             _hoverColor = hoverColor;
@@ -39,8 +40,9 @@ namespace DungeonCrawler.Code.UI
             Point offset,
             Color baseColor,
             Color hoverColor,
-            string text) :
-            base(anchorPoints, padding, offset)
+            string text,
+            DrawManager.DrawTargets drawTarget) :
+            base(anchorPoints, padding, offset, drawTarget)
         {
             _baseColor = baseColor;
             _hoverColor = hoverColor;
@@ -81,7 +83,7 @@ namespace DungeonCrawler.Code.UI
                 Color.Black);
             buttonText.CenterTextToRectangle(buttonBackground.Rectangle);
 
-            _buttonTexture = new ComplexDrawable(GameValues.GraphicsDevice, DrawManager.DrawTargets.UI);
+            _buttonTexture = new ComplexDrawable(GameValues.GraphicsDevice, DrawTarget);
             _buttonTexture.AddDrawables(new List<Drawable>
             {
                 buttonBackground,
