@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace DungeonCrawler.Code.Utils.Math
+namespace DungeonCrawler.Code.Utils.MathExtras
 {
     internal static class PointExtras
     {

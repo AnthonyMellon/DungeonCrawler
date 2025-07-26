@@ -7,9 +7,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
     {
         #region publics
         public SpriteSheet SpriteSheet { get; private set; }
-        public Rectangle DestinationRectangle { get; private set; }
-        public Rectangle SourceRectangle { get; private set; }
-        public GameConstants.GameLayers Layer { get; set; }
+        public Rectangle SourceRectangle { get; private set; }        
         public string CurrentSpriteName
         {
             get
@@ -20,12 +18,29 @@ namespace DungeonCrawler.Code.Utils.Drawables
             {
                 _currentSpriteName = value;
                 SourceRectangle = SpriteSheet.GetSprite(value);
+                Size = SpriteSheet.Sprites[CurrentSpriteName].Size;
             }
         }
 
         public DrawableSprite(
             SpriteSheet spriteSheet,
-            Rectangle destinationRectangle,
+            Point position,
+            string currentSpriteName,
+            GameConstants.GameLayers layer,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            bool visible = true) :
+            base(drawTarget, visible)
+        {
+            SpriteSheet = spriteSheet;
+            CurrentSpriteName = currentSpriteName;
+            Position = position;
+            Color = Color.White;
+            Layer = layer;
+        }
+
+        public DrawableSprite(
+            SpriteSheet spriteSheet,
+            Point position,
             string currentSpriteName,
             Color color,
             GameConstants.GameLayers layer,
@@ -35,63 +50,16 @@ namespace DungeonCrawler.Code.Utils.Drawables
         {
             SpriteSheet = spriteSheet;
             CurrentSpriteName = currentSpriteName;
-            SetDestinationRectangle(destinationRectangle);
+            Position = position;
             Color = color;
             Layer = layer;
         }
 
-        public DrawableSprite(
-            SpriteSheet spriteSheet,
-            Rectangle destinationRectangle,
-            string currentSpriteName,
-            GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget,
-            bool visible = true) :
-            base(drawTarget, visible)
-        {
-            SpriteSheet = spriteSheet;
-            CurrentSpriteName = currentSpriteName;
-            SetDestinationRectangle(destinationRectangle);
-            Color = Color.White;
-            Layer = layer;
-        }
-
-        public DrawableSprite(
-            SpriteSheet spriteSheet,
-            Point position,
-            string currentSpriteName,
-            GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget,
-            bool visible = true) :
-            base(drawTarget, visible)
-        {
-            SpriteSheet = spriteSheet;
-            CurrentSpriteName = currentSpriteName;
-            SetDestinationRectangle(position);
-            Color = Color.White;
-            Layer = layer;
-        }
-
-        public void SetDestinationRectangle(Rectangle destinationRectangle)
-        {
-            DestinationRectangle = destinationRectangle;
-        }
-
-        public void SetDestinationRectangle(Point position)
-        {
-            DestinationRectangle = new Rectangle(
-                position.X,
-                position.Y,
-                SpriteSheet.Sprites[CurrentSpriteName].Width,
-                SpriteSheet.Sprites[CurrentSpriteName].Height
-                );
-        }
-
-        public override void Draw(SpriteBatch spritebatch, GameTime gameTime)
+        public override void Draw(SpriteBatch spritebatch)
         {
             spritebatch.Draw(
                 SpriteSheet.Sheet,
-                DestinationRectangle,
+                Rectangle,
                 SourceRectangle,
                 Color,
                 0,              // Rotation

@@ -3,6 +3,7 @@ using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System;
 
 namespace DungeonCrawler.Code.UI
@@ -20,19 +21,34 @@ namespace DungeonCrawler.Code.UI
             Color baseColor,
             Color hoverColor,
             Texture2D texture,
-            string text,
-            SpriteFont textFont) :
+            string text) :
             base(anchorPoints, padding, offset)
         {
             _baseColor = baseColor;
             _hoverColor = hoverColor;
+            _texture = texture;
+            _text = text;            
 
-            OnDrawRectangleUpdated += UpdateDestinationRectangle;
+            OnDrawRectangleUpdated += UpdateDrawRectangle;
+            BuildButton();
+        }
 
-            _butttonText = new DrawableText(text, Vector2.Zero, Color.Black, textFont, GameConstants.GameLayers.UI_Texutre);
-            _backgroundTexture = new DrawableTexture(texture, DrawRectangle, baseColor, GameConstants.GameLayers.UI_Texutre);
+        public UI_Button(
+            Vector4 anchorPoints,
+            Point4 padding,
+            Point offset,
+            Color baseColor,
+            Color hoverColor,
+            string text) :
+            base(anchorPoints, padding, offset)
+        {
+            _baseColor = baseColor;
+            _hoverColor = hoverColor;
+            _texture = DefaultContent.DefaultCapsule;
+            _text = text;
 
-            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, DrawRectangle.Width, DrawRectangle.Height);
+            OnDrawRectangleUpdated += UpdateDrawRectangle;
+            BuildButton();
         }
         #endregion
 
@@ -44,16 +60,41 @@ namespace DungeonCrawler.Code.UI
         private Color _baseColor;
         private Color _hoverColor;
 
-        private DrawableText _butttonText;
+        private Texture2D _texture;
+        private string _text;
+        
         private DrawableTexture _backgroundTexture;
-        private RenderTarget2D _renderTarget;
+        private ComplexDrawable _buttonTexture;
 
-        private void UpdateDestinationRectangle()
+        private void BuildButton()
+        {
+            DrawableTexture buttonBackground = new DrawableTexture(
+                _texture,
+                Point.Zero,
+                Color.White,
+                GameConstants.GameLayers.UI_Texutre);
+            _backgroundTexture = buttonBackground;
+
+            DrawableText buttonText = new DrawableText(
+                _text,
+                Point.Zero,
+                Color.Black);
+            buttonText.CenterTextToRectangle(buttonBackground.Rectangle);
+
+            _buttonTexture = new ComplexDrawable(GameValues.GraphicsDevice, GameValues.SpriteBatch, DrawManager.DrawTargets.UI);
+            _buttonTexture.AddDrawables(new List<Drawable>
+            {
+                buttonBackground,
+                buttonText
+            });
+        }
+
+        private void UpdateDrawRectangle()
         {
             if (_backgroundTexture == null) return;
 
-            _backgroundTexture.DestinationRectangle = new Rectangle(0, 0, DrawRectangle.Width, DrawRectangle.Height);
-            _butttonText.CenterTextToRectangle(_backgroundTexture.DestinationRectangle);
+            _buttonTexture.Position = DrawRectangle.Location;
+            _buttonTexture.Size = DrawRectangle.Size;
         }
 
         private void CheckForHover()
@@ -79,14 +120,7 @@ namespace DungeonCrawler.Code.UI
 
         protected override void Draw(GameTime gametime, Camera camera)
         {
-            if (_backgroundTexture.Texture == null) _backgroundTexture.Texture = DefaultContent.DefaultCapsule;
-
-            camera.DrawTexture(new DrawableTexture(
-                _renderTarget,
-                DrawRectangle,
-                Color.White,
-                GameConstants.GameLayers.UI_Texutre
-                ));
+            _buttonTexture.Draw(GameValues.SpriteBatch);
         }
 
         protected override void Update(GameTime gametime)
@@ -97,20 +131,6 @@ namespace DungeonCrawler.Code.UI
             CheckForHover();
             Highlight();
             CheckForClick();
-        }
-
-        protected override void PreDraw(SpriteBatch spriteBatch)
-        {
-            GameValues.GraphicsDevice.SetRenderTarget(_renderTarget);
-            GameValues.GraphicsDevice.Clear(Color.Transparent);
-
-            spriteBatch.Begin();            
-            _backgroundTexture.Draw(spriteBatch);
-            _butttonText.Draw(spriteBatch);
-            spriteBatch.End();
-
-            GameValues.GraphicsDevice.SetRenderTarget(null);
-            GameValues.GraphicsDevice.Clear(Color.CornflowerBlue);
         }
         #endregion
     }

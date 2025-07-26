@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
@@ -15,6 +16,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
             {
                 _text = value;
                 UpdateTextSize();
+                OnChange?.Invoke();
             }
         }
 
@@ -29,20 +31,18 @@ namespace DungeonCrawler.Code.Utils.Drawables
             {
                 _font = value;
                 UpdateTextSize();
+                OnChange?.Invoke();
             }
-        }
-        public Vector2 Size { get; private set; }
-        public Vector2 Position { get; private set; }
-        public GameConstants.GameLayers Layer { get; private set; }
-        
-        public DrawableText(            
+        }                
+
+        public DrawableText(
             string text,
-            Vector2 position,
+            Point position,
             Color color,
             SpriteFont font,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget,
-            bool visible = true) : 
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            bool visible = true) :
             base(drawTarget, visible)
         {
             Text = text;
@@ -54,10 +54,10 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public DrawableText(
             string text,
-            Vector2 position,
+            Point position,
             Color color,
-            DrawManager.DrawTargets drawTarget,
-            bool visible = true) : 
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            bool visible = true) :
             base(drawTarget, visible)
         {
             Text = text;
@@ -68,17 +68,18 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public void CenterTextToRectangle(Rectangle targetRectangle)
         {
-            Position = new Vector2(
-                (targetRectangle.X + targetRectangle.Width / 2) - Size.X / 2,
-                (targetRectangle.Y + targetRectangle.Height / 2) - Size.Y / 2);
+            Vector2 newPosition = new Vector2(
+                targetRectangle.Center.X - (Size.X / 2),
+                targetRectangle.Center.Y - (Size.Y / 2));
+            Position = new Point((int)newPosition.X, (int)newPosition.Y);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(
                 Font,
                 Text,
-                Position,
+                new Vector2(Position.X, Position.Y),
                 Color,
                 0,              // Rotation
                 Vector2.Zero,   // Origin
@@ -86,21 +87,22 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 SpriteEffects.None,
                 GameConstants.GameLayerToLayer(Layer)
             );
-        }        
+        }
 
         private string _text;
-        private SpriteFont _font;        
+        private SpriteFont _font;
 
         private void UpdateTextSize()
         {
             if (Text == null || Font == null)
             {
-                Size = Vector2.Zero;
+                Size = Point.Zero;
             }
             else
             {
-                Size = Font.MeasureString(Text);
+                Vector2 sizeVector = Font.MeasureString(Text);
+                Size = new Point((int)Math.Ceiling(sizeVector.X), (int)Math.Ceiling(sizeVector.Y));
             }
-        }        
+        }
     }
 }

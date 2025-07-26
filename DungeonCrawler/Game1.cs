@@ -37,6 +37,7 @@ namespace DungeonCrawler
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameValues.SpriteBatch = _spriteBatch;
 
             DefaultContent.LoadContent(Content);
 

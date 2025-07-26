@@ -15,7 +15,7 @@ namespace DungeonCrawler.Code.UI
             set
             {
                 _anchorPoints = value;
-                UpdateScreenRectangle();
+                UpdateDrawRectangle();
             }
         }
 
@@ -28,7 +28,7 @@ namespace DungeonCrawler.Code.UI
             set
             {
                 _padding = value;
-                UpdateScreenRectangle();
+                UpdateDrawRectangle();
             }
         }
 
@@ -41,7 +41,7 @@ namespace DungeonCrawler.Code.UI
             set
             {
                 _offset = value;
-                UpdateScreenRectangle();
+                UpdateDrawRectangle();
             }
         }
 
@@ -54,7 +54,7 @@ namespace DungeonCrawler.Code.UI
             set
             {
                 _autoUpdateScreenRectangle = value;
-                UpdateScreenRectangle();
+                UpdateDrawRectangle();
             }
         }
 
@@ -98,26 +98,26 @@ namespace DungeonCrawler.Code.UI
         private Point _offset = new Point(0, 0);
         private bool _autoUpdateScreenRectangle = true;
 
-        // Potential optimisation here to only update the screen rectangle here if the fit mode is parent
+        // Potential optimisation here to only update the draw rectangle here if the fit mode is parent
         // but I dont think it's worth worrying about (I can't be bothered doing it)
         protected override void OnParentSet(Dynamic oldParent, Dynamic newParent)
         {
             UIComponent olduiParent = oldParent as UIComponent;
-            if (olduiParent != null) olduiParent.OnDrawRectangleUpdated -= UpdateScreenRectangle;
+            if (olduiParent != null) olduiParent.OnDrawRectangleUpdated -= UpdateDrawRectangle;
 
             UIComponent newUIParent = newParent as UIComponent;
-            if (newUIParent != null) newUIParent.OnDrawRectangleUpdated += UpdateScreenRectangle;
+            if (newUIParent != null) newUIParent.OnDrawRectangleUpdated += UpdateDrawRectangle;
 
-            UpdateScreenRectangle();
+            UpdateDrawRectangle();
         }
 
         // Same optimisation deal as above
         private void OnScreenSizeChange(int width, int height)
         {
-            UpdateScreenRectangle();
+            UpdateDrawRectangle();
         }
 
-        private void UpdateScreenRectangle()
+        private void UpdateDrawRectangle()
         {
             if (!AllowScreenRectangleUpdates || !IsEnabled) return;
 

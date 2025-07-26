@@ -12,7 +12,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         public override void Init(ContentManager content, Game game)
         {
             _content = content;
-            _game = game;            
+            _game = game;
 
             LoadContent();
             BuildUI();
@@ -46,6 +46,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     texture: _background,
                     color: Color.White,
                     layer: GameConstants.GameLayers.Bottom,
+                    DrawManager.DrawTargets.UI,
                     UIComponent.FitTypes.Screen
                 )) as UI_Panel;
 
@@ -54,12 +55,13 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private UI_Panel BuildMenuButtons()
         {
-            UI_Panel menuButtonPanel = new UI_Panel (
+            UI_Panel menuButtonPanel = new UI_Panel(
                 anchorPoints: new Vector4(0.0f, 0.0f, 0.0f, 1.0f),
                 padding: new Point4(0, 300, 0, 0),
                 offset: new Point(0, 0),
                 texture: DefaultContent.DefaultRectangle,
-                color: new Color(Color.Gray, 100));
+                color: new Color(Color.Gray, 100),
+                drawTarget: DrawManager.DrawTargets.UI);
 
             UI_Button playButton = menuButtonPanel.AddChild(
                 new UI_Button
@@ -69,9 +71,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     offset: new Point(-16, -40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
-                    null,
-                    "Play Game",
-                    null
+                    "Play Game"
                 )) as UI_Button;
             playButton.OnClick += EnterGame;
 
@@ -83,9 +83,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     offset: new Point(-16, 40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
-                    null,
-                    "Quit Game",
-                    null
+                    "Quit Game"
                 )) as UI_Button;
             quitButton.OnClick += _game.Exit;
 

@@ -18,10 +18,12 @@ namespace DungeonCrawler.Code
         public static void Setup(GraphicsDevice graphicsDevice)
         {
             _worldRenderTarget?.Dispose();
-            _worldRenderTarget = new RenderTarget2D(graphicsDevice, 100, 100);
+            _worldRenderTarget = new RenderTarget2D(graphicsDevice, 1920, 1080);
+            _drawableTypeToRenderTarget[DrawTargets.World] = _worldRenderTarget;
 
             _uiRenderTarget?.Dispose();
-            _uiRenderTarget = new RenderTarget2D(graphicsDevice, 100, 100);
+            _uiRenderTarget = new RenderTarget2D(graphicsDevice, 1920, 1080);
+            _drawableTypeToRenderTarget[DrawTargets.UI] = _uiRenderTarget;
         }
 
         public static void Draw(SpriteBatch spritebatch, GraphicsDevice graphicsDevice, GameTime gametime)
@@ -58,9 +60,11 @@ namespace DungeonCrawler.Code
 
         private static List<Drawable> _worldLayer = new List<Drawable>();
         private static List<Drawable> _uiLayer = new List<Drawable>();
+        private static List<Drawable> _noneLayer = new List<Drawable>();
 
         private static RenderTarget2D _worldRenderTarget;
         private static RenderTarget2D _uiRenderTarget;
+        private static RenderTarget2D _noneRenderTarget;
 
         private static List<DrawTargets> _drawOrder = new List<DrawTargets>()
         {
@@ -71,26 +75,29 @@ namespace DungeonCrawler.Code
         private static Dictionary<DrawTargets, List<Drawable>> _drawableTypeToDrawList = new Dictionary<DrawTargets, List<Drawable>>()
         {
             { DrawTargets.World, _worldLayer },
-            { DrawTargets.UI, _uiLayer }
+            { DrawTargets.UI, _uiLayer },
+            { DrawTargets.None, _noneLayer }
         };
 
         private static Dictionary<DrawTargets, RenderTarget2D> _drawableTypeToRenderTarget = new Dictionary<DrawTargets, RenderTarget2D>()
         {
             { DrawTargets.World, _worldRenderTarget },
-            { DrawTargets.UI, _uiRenderTarget }
+            { DrawTargets.UI, _uiRenderTarget },
+            { DrawTargets.None, _noneRenderTarget }
         };
 
         private static void GenerateLayerTexture(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GameTime gameTime, DrawTargets drawTarget)
         {
             RenderTarget2D renderTarget = _drawableTypeToRenderTarget[drawTarget];
-
+            List<Drawable> drawList = _drawableTypeToDrawList[drawTarget];
+                
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(GameConstants.DEFAULT_COLOR);
 
             spriteBatch.Begin();
-            for (int i = 0; i < _worldLayer.Count; i++)
+            for (int i = 0; i < drawList.Count; i++)
             {
-                _worldLayer[i].Draw(spriteBatch, gameTime);
+                drawList[i].Draw(spriteBatch);
             }
             spriteBatch.End();
 

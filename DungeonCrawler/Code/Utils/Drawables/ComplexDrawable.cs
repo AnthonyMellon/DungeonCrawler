@@ -1,49 +1,74 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
     internal class ComplexDrawable : Drawable
     {
-        private RenderTarget2D _renderTarget;
-        private List<Drawable> _drawables = new List<Drawable>();
-
-        public override void Draw(SpriteBatch spritebatch, GameTime gameTime)
+        public void AddDrawables(List<Drawable> drawables)
         {
-            for(int i = 0;  i < _drawables.Count; i++)
+            for (int i = 0; i < drawables.Count; i++)
             {
-                _drawables[i].Draw(spritebatch, gameTime);
+                AddDrawable(drawables[i]);
             }
         }
 
-        protected ComplexDrawable(
+        public void AddDrawable(Drawable drawable)
+        {
+            drawable.OnChange += BuildTexture;
+        }
+
+        public void RemoveDrawable(Drawable drawable)
+        {
+            drawable.OnChange -= BuildTexture;
+        }
+
+        public override void Draw(SpriteBatch spritebatch)
+        {
+            if (_renderTarget == null) return;
+
+            spritebatch.Draw(
+                _renderTarget,
+                Rectangle,
+                Color.White);
+        }
+
+        private RenderTarget2D _renderTarget;
+        private List<Drawable> _drawables = new List<Drawable>();
+        private GraphicsDevice _grahpicsDevice;
+        private SpriteBatch _spriteBatch;
+
+        public ComplexDrawable(
             GraphicsDevice graphicsDevice,
             SpriteBatch spritebatch,
-            GameTime gametime,
-            DrawManager.DrawTargets drawTarget,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
             base(drawTarget, visible)
         {
-            BuildTexture(graphicsDevice, spritebatch, gametime);
+            _grahpicsDevice = graphicsDevice;
+            _spriteBatch = spritebatch;
+            BuildTexture();
         }
 
-        protected void BuildTexture(GraphicsDevice graphicsDevice, SpriteBatch spritebatch, GameTime gametime)
+        protected void BuildTexture()
         {
-            RenderTarget2D renderTarget = _renderTarget;
+            // TODO: FIX THIS
+            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, 100, 100);
 
-            graphicsDevice.SetRenderTarget(renderTarget);
-            graphicsDevice.Clear(GameConstants.DEFAULT_COLOR);
+            _grahpicsDevice.SetRenderTarget(_renderTarget);
+            _grahpicsDevice.Clear(GameConstants.DEFAULT_COLOR);
 
-            spritebatch.Begin();
+            _spriteBatch.Begin();
             for (int i = 0; i < _drawables.Count; i++)
             {
-                _drawables[i].Draw(spritebatch, gametime);
+                _drawables[i].Draw(_spriteBatch);
             }
-            spritebatch.End();
+            _spriteBatch.End();
 
-            graphicsDevice.SetRenderTarget(null);
-            graphicsDevice.Clear(GameConstants.DEFAULT_COLOR);
+            _grahpicsDevice.SetRenderTarget(null);
+            _grahpicsDevice.Clear(GameConstants.DEFAULT_COLOR);
         }
     }
 }

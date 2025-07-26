@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.Utils.Math;
+﻿using DungeonCrawler.Code.Utils.MathExtras;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 

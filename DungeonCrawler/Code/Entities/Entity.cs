@@ -33,9 +33,7 @@ namespace DungeonCrawler.Code.Entities
             set
             {
                 _worldPosition = value;
-                _sprite.SetDestinationRectangle(
-                    _camera.WorldPositionToScreenPosition(value)
-                    );
+                _sprite.Position = _camera.WorldPositionToScreenPosition(value);
             }
         }
         public GameConstants.GameLayers Layer
@@ -56,7 +54,7 @@ namespace DungeonCrawler.Code.Entities
         public void Move(Point moveVector)
         {
             WorldPosition += moveVector;
-            _sprite.SetDestinationRectangle(WorldPosition);
+            _sprite.Position = _camera.WorldPositionToScreenPosition(_worldPosition);
         }
 
         public void SetSpriteName(string name)

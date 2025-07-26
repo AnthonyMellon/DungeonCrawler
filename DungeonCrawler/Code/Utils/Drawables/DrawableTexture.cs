@@ -5,41 +5,32 @@ namespace DungeonCrawler.Code.Utils.Drawables
 {
     internal class DrawableTexture : Drawable
     {
-        public Texture2D Texture { get; set; }
-        public Rectangle DestinationRectangle { get; set; }
-        public GameConstants.GameLayers Layer { get; set; }
+        public Texture2D Texture { get; set; }        
 
         public DrawableTexture(
             Texture2D texture,
-            Rectangle destinationRectangle,
+            Point position,
             Color color, GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
             base(drawTarget, visible)
         {
             Texture = texture;
-            DestinationRectangle = destinationRectangle;
+            Position = position;
             Color = color;
             Layer = layer;
-        }
-        public DrawableTexture(
-            Texture2D texture,
-            GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget,
-            bool visible = true) :
-            base(drawTarget, visible)
-        {
-            Texture = texture;
-            Layer = layer;
+
+            if (texture == null) Size = Point.Zero;
+            else Size = texture.Bounds.Size;
         }
 
-        public override void Draw(SpriteBatch spritebatch, GameTime gameTime)
+        public override void Draw(SpriteBatch spritebatch)
         {
             if (Texture == null) return;
 
             spritebatch.Draw(
                 Texture,
-                DestinationRectangle,
+                Rectangle,
                 Texture.Bounds,
                 Color,
                 0,

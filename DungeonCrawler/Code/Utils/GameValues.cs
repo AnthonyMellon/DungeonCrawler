@@ -7,6 +7,7 @@ namespace DungeonCrawler.Code.Utils
     internal static class GameValues
     {
         public static GraphicsDevice GraphicsDevice;
+        public static SpriteBatch SpriteBatch;
         public static ContentManager GameContent;
         public static Point ScreenSize = new Point(0, 0);
     }

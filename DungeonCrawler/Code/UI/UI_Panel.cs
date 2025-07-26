@@ -15,15 +15,20 @@ namespace DungeonCrawler.Code.UI
             Texture2D texture,
             Color color,
             GameConstants.GameLayers layer = GameConstants.GameLayers.Bottom,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             FitTypes fitType = FitTypes.Parent) :
             base(anchorPoints, padding, offset, fitType)
         {
-            _backgroundSprite = new DrawableTexture(
-                texture == null ? DefaultContent.DefaultRectangle : texture,
-                DrawRectangle,
+            if (texture == null) texture = DefaultContent.DefaultRectangle;
+
+            _backgroundTexture = new DrawableTexture(
+                texture,
+                DrawRectangle.Location,
                 color,
-                layer);
-            OnDrawRectangleUpdated += UpdateDestinationRectangle;
+                layer,
+                drawTarget
+                );
+            OnDrawRectangleUpdated += UpdateDrawRectangle;
         }
 
         public UI_Panel(
@@ -33,26 +38,27 @@ namespace DungeonCrawler.Code.UI
             FitTypes fitType = FitTypes.Parent) :
             base(anchorPoints, padding, offset, fitType)
         {
-            _backgroundSprite = null;
-            OnDrawRectangleUpdated += UpdateDestinationRectangle;
+            _backgroundTexture = null;
+            OnDrawRectangleUpdated += UpdateDrawRectangle;
         }
         #endregion
 
         #region privates
-        private DrawableTexture _backgroundSprite;
+        private DrawableTexture _backgroundTexture;
 
-        private void UpdateDestinationRectangle()
+        private void UpdateDrawRectangle()
         {
-            if (_backgroundSprite == null) return;
+            if (_backgroundTexture == null) return;
 
-            _backgroundSprite.DestinationRectangle = DrawRectangle;
+            _backgroundTexture.Position = DrawRectangle.Location;
+            _backgroundTexture.Size = DrawRectangle.Size;
         }
 
         protected override void Draw(GameTime gametime, Camera camera)
         {
-            if (_backgroundSprite != null)
+            if (_backgroundTexture != null)
             {
-                camera.DrawTexture(_backgroundSprite);
+                camera.DrawTexture(_backgroundTexture);
             }
         }
         #endregion
