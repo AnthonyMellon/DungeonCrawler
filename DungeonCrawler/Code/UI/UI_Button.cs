@@ -105,7 +105,8 @@ namespace DungeonCrawler.Code.UI
 
         private void Highlight()
         {
-            _backgroundTexture.Color = _isHovering ? _hoverColor : _baseColor;
+            Color highlightColor = _isHovering ? _hoverColor : _baseColor;
+            if(_backgroundTexture.Color != highlightColor) _backgroundTexture.Color = highlightColor;
         }
 
         private void CheckForClick()
