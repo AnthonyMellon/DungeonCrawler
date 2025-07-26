@@ -68,6 +68,8 @@ namespace DungeonCrawler.Code
 
         public static void RegisterComplexDrawable(ComplexDrawable complexDrawable)
         {
+            if (_complexDrawables.Contains(complexDrawable)) return;
+
             _complexDrawables.Add(complexDrawable);
         }
 
