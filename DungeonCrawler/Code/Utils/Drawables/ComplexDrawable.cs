@@ -39,17 +39,14 @@ namespace DungeonCrawler.Code.Utils.Drawables
         private RenderTarget2D _renderTarget;
         private List<Drawable> _drawables = new List<Drawable>();
         private GraphicsDevice _grahpicsDevice;
-        private SpriteBatch _spriteBatch;
 
         public ComplexDrawable(
             GraphicsDevice graphicsDevice,
-            SpriteBatch spritebatch,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
             base(drawTarget, visible)
         {
             _grahpicsDevice = graphicsDevice;
-            _spriteBatch = spritebatch;
             BuildTexture();
         }
 
@@ -58,16 +55,18 @@ namespace DungeonCrawler.Code.Utils.Drawables
             if (Rectangle.Width == 0 || Rectangle.Height == 0) return;
 
             _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, Rectangle.Width, Rectangle.Height);
+            SpriteBatch spriteBatch = new SpriteBatch(_grahpicsDevice);
 
             _grahpicsDevice.SetRenderTarget(_renderTarget);
             _grahpicsDevice.Clear(Color.Transparent);
 
-            _spriteBatch.Begin();
+            spriteBatch.Begin();
             for (int i = 0; i < _drawables.Count; i++)
             {
-                _drawables[i].Draw(_spriteBatch);
+                _drawables[i].Draw(spriteBatch);
             }
-            _spriteBatch.End();
+            spriteBatch.End();
+            spriteBatch.Dispose();
 
             _grahpicsDevice.SetRenderTarget(null);
             _grahpicsDevice.Clear(GameConstants.DEFAULT_COLOR);
