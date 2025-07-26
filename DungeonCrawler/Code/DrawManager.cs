@@ -117,7 +117,7 @@ namespace DungeonCrawler.Code
             List<Drawable> drawList = _drawTargetToDrawList[drawTarget];
 
             graphicsDevice.SetRenderTarget(renderTarget);
-            graphicsDevice.Clear(GameConstants.DEFAULT_COLOR);
+            graphicsDevice.Clear(Color.Transparent);
 
             spriteBatch.Begin();
             for (int i = 0; i < drawList.Count; i++)
@@ -127,7 +127,6 @@ namespace DungeonCrawler.Code
             spriteBatch.End();
 
             graphicsDevice.SetRenderTarget(null);
-            graphicsDevice.Clear(GameConstants.DEFAULT_COLOR);
         }
 
         private static void GenerateAllLayerTextures(SpriteBatch spritebatch, GraphicsDevice graphicsDevice, GameTime gametime)
