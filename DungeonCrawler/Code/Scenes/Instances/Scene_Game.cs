@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DebugTools;
+﻿//using DungeonCrawler.Code.DebugTools;
 using DungeonCrawler.Code.Dungeons;
 using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
@@ -30,7 +30,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
             BuildUI();
 
 #if DEVELOPMENT
-            BuildDebugMenu();
+            //BuildDebugMenu();
 #endif
 
             _currentDungeon = AddChild(new Dungeon()) as Dungeon;
@@ -100,14 +100,14 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
 
 #if DEVELOPMENT
-        private void BuildDebugMenu()
-        {
-            AddChild(new DebugMenu(
-                new Vector4(0, 0.25f, 0, 0),
-                new Point4(0, 0, 0, 100),
-                new Point(0, 0)
-                ));
-        }
+        /*        private void BuildDebugMenu()
+                {
+                    AddChild(new DebugMenu(
+                        new Vector4(0, 0.25f, 0, 0),
+                        new Point4(0, 0, 0, 100),
+                        new Point(0, 0)
+                        ));
+                }*/
 #endif
     }
 }

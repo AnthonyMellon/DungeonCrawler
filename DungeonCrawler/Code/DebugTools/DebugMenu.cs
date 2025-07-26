@@ -1,4 +1,4 @@
-﻿#if DEVELOPMENT
+﻿/*#if DEVELOPMENT
 using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
@@ -60,3 +60,4 @@ namespace DungeonCrawler.Code.DebugTools
 }
 
 #endif
+*/
