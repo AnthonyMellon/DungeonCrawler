@@ -50,6 +50,13 @@ namespace DungeonCrawler.Code.UI
                 font,
                 layer,
                 DrawTarget);
+
+            OnDrawRectangleUpdated += UpdateDrawRectangle;
+        }
+
+        private void UpdateDrawRectangle()
+        {
+            _text.Position = new Point(DrawRectangle.X, DrawRectangle.Y - _text.Size.Y);
         }
     }
 }
