@@ -34,15 +34,15 @@ namespace DungeonCrawler.Code.UI
             }
         }
 
-        public Point Offset
+        public Offset MyOffset
         {
             get
             {
-                return _offset;
+                return _myOffset;
             }
             set
             {
-                _offset = value;
+                _myOffset = value;
                 UpdateDrawRectangle();
             }
         }
@@ -78,7 +78,7 @@ namespace DungeonCrawler.Code.UI
         public UIComponent(
             AnchorPoints anchorPoints,
             Padding padding,
-            Point offset,
+            Offset offset,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             FitTypes fitType = FitTypes.Parent,
             bool enabled = true) :
@@ -88,7 +88,7 @@ namespace DungeonCrawler.Code.UI
 
             MyAnchorPoints = anchorPoints;
             MyPadding = padding;
-            Offset = offset;
+            MyOffset = offset;
             FitType = fitType;
             DrawTarget = drawTarget;
 
@@ -99,7 +99,7 @@ namespace DungeonCrawler.Code.UI
         #region privates
         private AnchorPoints _myAnchorPoints = AnchorPoints.Center;
         private Padding _myPadding = Padding.Zero;
-        private Point _offset = new Point(0, 0);
+        private Offset _myOffset = Offset.Zero;
         private bool _autoUpdateScreenRectangle = true;        
 
         // Potential optimisation here to only update the draw rectangle here if the fit mode is parent
@@ -166,8 +166,8 @@ namespace DungeonCrawler.Code.UI
             newRectangle.Width = newRectangle.Width + MyPadding.X + MyPadding.Y;
             newRectangle.Height = newRectangle.Height + MyPadding.Z + MyPadding.W;
 
-            newRectangle.X = newRectangle.X - MyPadding.X + Offset.X;
-            newRectangle.Y = newRectangle.Y - MyPadding.Z + Offset.Y;
+            newRectangle.X = newRectangle.X - MyPadding.X + MyOffset.X;
+            newRectangle.Y = newRectangle.Y - MyPadding.Z + MyOffset.Y;
 
             DrawRectangle = newRectangle;
             OnDrawRectangleUpdated?.Invoke();
@@ -188,10 +188,10 @@ namespace DungeonCrawler.Code.UI
             newRectangle.Height = newRectangle.Height + MyPadding.Z + MyPadding.W;
 
             newRectangle.X = parentRectangle.X + (int)(parentRectangle.Width * MyAnchorPoints.X);
-            newRectangle.X = newRectangle.X - MyPadding.X + Offset.X;
+            newRectangle.X = newRectangle.X - MyPadding.X + MyOffset.X;
 
             newRectangle.Y = parentRectangle.Y + (int)(parentRectangle.Height * MyAnchorPoints.Z);
-            newRectangle.Y = newRectangle.Y - MyPadding.Z + Offset.Y;
+            newRectangle.Y = newRectangle.Y - MyPadding.Z + MyOffset.Y;
 
 
             DrawRectangle = newRectangle;

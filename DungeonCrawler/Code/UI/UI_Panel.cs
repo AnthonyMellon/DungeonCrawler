@@ -12,7 +12,7 @@ namespace DungeonCrawler.Code.UI
         public UI_Panel(
             AnchorPoints anchorPoints,
             Padding padding,
-            Point offset,
+            Offset offset,
             Texture2D texture,
             Color color,
             GameConstants.GameLayers layer = GameConstants.GameLayers.Bottom,
@@ -35,7 +35,7 @@ namespace DungeonCrawler.Code.UI
         public UI_Panel(
             AnchorPoints anchorPoints,
             Padding padding,
-            Point offset,
+            Offset offset,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             FitTypes fitType = FitTypes.Parent) :
             base(anchorPoints, padding, offset, drawTarget, fitType)

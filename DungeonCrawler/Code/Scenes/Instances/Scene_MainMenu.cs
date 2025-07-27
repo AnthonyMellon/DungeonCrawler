@@ -43,7 +43,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 (
                     anchorPoints: AnchorPoints.Fill,
                     padding: Padding.Zero,
-                    offset: new Point(0, 0),
+                    offset: Offset.Zero,
                     texture: _background,
                     color: Color.White,
                     layer: GameConstants.GameLayers.Bottom,
@@ -59,7 +59,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Panel menuButtonPanel = new UI_Panel(
                 anchorPoints: AnchorPoints.LeftStretch,
                 padding: new Padding(0, 300, 0, 0),
-                offset: new Point(0, 0),
+                offset: Offset.Zero,
                 texture: DefaultContent.DefaultRectangle,
                 color: new Color(Color.Gray, 100),
                 drawTarget: DrawManager.DrawTargets.UI);
@@ -69,7 +69,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 (
                     anchorPoints: AnchorPoints.Center,
                     padding: new Padding(128, 32),
-                    offset: new Point(-16, -40),
+                    offset: new Offset(-16, -40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
                     "Play Game",
@@ -83,7 +83,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 (
                     anchorPoints: AnchorPoints.Center,
                     padding: new Padding(128, 32),
-                    offset: new Point(-16, 40),
+                    offset: new Offset(-16, 40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
                     "Quit Game",

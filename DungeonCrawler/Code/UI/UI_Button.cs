@@ -18,7 +18,7 @@ namespace DungeonCrawler.Code.UI
         public UI_Button(
             AnchorPoints anchorPoints,
             Padding padding,
-            Point offset,
+            Offset offset,
             Color baseColor,
             Color hoverColor,
             Texture2D texture,
@@ -39,7 +39,7 @@ namespace DungeonCrawler.Code.UI
         public UI_Button(
             AnchorPoints anchorPoints,
             Padding padding,
-            Point offset,
+            Offset offset,
             Color baseColor,
             Color hoverColor,
             string text,

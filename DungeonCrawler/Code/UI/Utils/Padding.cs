@@ -1,5 +1,4 @@
 ﻿using DungeonCrawler.Code.Utils;
-using System.Threading;
 
 namespace DungeonCrawler.Code.UI.Utils
 {
@@ -34,24 +33,24 @@ namespace DungeonCrawler.Code.UI.Utils
             _padding = padding;
         }
 
+        public static Padding operator *(int multiplier, Padding padding)
+        {
+            return new Padding(
+                padding.X * multiplier,
+                padding.Y * multiplier,
+                padding.Z * multiplier,
+                padding.W * multiplier);
+        }
+
+        public static Padding operator *(Padding padding, int multiplier)
+        {
+            return new Padding(
+                padding.X * multiplier,
+                padding.Y * multiplier,
+                padding.Z * multiplier,
+                padding.W * multiplier);
+        }
+
         private Point4 _padding;
-
-        public static Padding operator * (int multiplier, Padding padding)
-        {
-            return new Padding(
-                padding.X * multiplier,
-                padding.Y * multiplier,
-                padding.Z * multiplier,
-                padding.W * multiplier);
-        }
-
-        public static Padding operator * (Padding padding, int multiplier)
-        {
-            return new Padding(
-                padding.X * multiplier,
-                padding.Y * multiplier,
-                padding.Z * multiplier,
-                padding.W * multiplier);
-        }
     }
 }

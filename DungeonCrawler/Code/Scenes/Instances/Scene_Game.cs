@@ -57,7 +57,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 (
                     anchorPoints: AnchorPoints.Fill,
                     padding: Padding.Zero,
-                    offset: new Point(0, 0),
+                    offset: Offset.Zero,
                     fitType: UIComponent.FitTypes.Screen
                 )) as UI_Panel;
 
@@ -69,7 +69,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Panel menuBar = new UI_Panel(
                 anchorPoints: AnchorPoints.TopStretch,
                 padding: new Padding(0, 0, 0, 50),
-                offset: new Point(0, 0),
+                offset: Offset.Zero,
                 texture: DefaultContent.DefaultRectangle,
                 color: new Color(Color.Gray, 100),
                 layer: GameConstants.GameLayers.UI_Texutre);
@@ -79,7 +79,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 (
                     anchorPoints: AnchorPoints.CenterRight,
                     padding: new Padding(160, 0, 20, 20),
-                    offset: new Point(-10, 0),
+                    offset: new Offset(-10, 0),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
                     "Main Menu",
