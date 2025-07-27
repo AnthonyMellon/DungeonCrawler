@@ -30,10 +30,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
             //
             BuildUI();
 
-#if DEVELOPMENT
-            //BuildDebugMenu();
-#endif
-
             _currentDungeon = AddChild(new Dungeon()) as Dungeon;
             _currentDungeon.BuildDungeon();
         }

@@ -3,6 +3,7 @@ using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.Scenes.Instances;
 using DungeonCrawler.Code.UI;
+using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,6 +14,11 @@ namespace DungeonCrawler
 {
     public class Game1 : Game
     {
+
+#if DEVELOPMENT
+        private UI_Panel _developmentPanel;
+#endif
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Camera _mainCamera;
@@ -71,6 +77,10 @@ namespace DungeonCrawler
             ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
 
             DrawManager.Setup(GraphicsDevice);
+
+#if DEVELOPMENT
+            BuildDevelopmentStuff();
+#endif
         }
 
         protected override void Update(GameTime gameTime)
@@ -81,7 +91,11 @@ namespace DungeonCrawler
 
             InputProvider.CheckInputs();
 
-            // Update State Manager
+#if DEVELOPMENT
+            _developmentPanel?.DoUpdate(gameTime);
+#endif
+
+            // Update Scene Manager
             SceneManager.UpdateScene(Content, this);
             SceneManager.Update(gameTime);
 
@@ -95,16 +109,42 @@ namespace DungeonCrawler
             DrawManager.PreDraw();
             DrawManager.Draw(_spriteBatch, GraphicsDevice, gameTime);
 
-            //SceneManager.Draw(gameTime, _mainCamera, GraphicsDevice, _spriteBatch);
-
-
-#if DEVELOPMENT            
-
-            _spriteBatch.Begin();
-            _spriteBatch.DrawString(DefaultContent.DefaultFont, "DEVELOPMENT BUILD", new Vector2(5, _graphics.PreferredBackBufferHeight - 20), Color.White);
-            _spriteBatch.End();
-#endif
             base.Draw(gameTime);
+        }
+
+        private void BuildDevelopmentStuff()
+        {
+            _developmentPanel = new UI_Panel(
+                AnchorPoints.Center,
+                Padding.Positive * 250,
+                Offset.Zero,
+                null,
+                new Color(0, 255, 0, 150),
+                GameConstants.GameLayers.Bottom,
+                DrawManager.DrawTargets.Development,
+                UIComponent.FitTypes.Screen);
+
+            UI_Text developmentBuildText = new UI_Text(
+                "Development Build",
+                Color.White,
+                AnchorPoints.BottomLeft,
+                Padding.Zero,
+                Offset.Zero,
+                GameConstants.GameLayers.Top,
+                DrawManager.DrawTargets.Development,
+                UIComponent.FitTypes.Parent);
+            _developmentPanel.AddChild(developmentBuildText);
+
+            UI_Button testButton = new UI_Button(
+                AnchorPoints.BottomRight,
+                new Padding(128, 32),
+                new Offset(-128, -32),
+                new Color(255, 0, 0),
+                new Color(0, 255, 0),
+                "Test Button",
+                DrawManager.DrawTargets.Development,
+                UIComponent.FitTypes.Parent);
+            //_developmentPanel.AddChild(testButton);
         }
     }
 }

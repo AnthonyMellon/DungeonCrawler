@@ -12,6 +12,7 @@ namespace DungeonCrawler.Code
         {
             World,
             UI,
+            Development,
             None
         }
 
@@ -84,22 +85,26 @@ namespace DungeonCrawler.Code
 
         private static List<Drawable> _worldLayer = new List<Drawable>();
         private static List<Drawable> _uiLayer = new List<Drawable>();
+        private static List<Drawable> _developmentLayer = new List<Drawable>();
         private static List<Drawable> _noneLayer = new List<Drawable>();
 
         private static RenderTarget2D _worldRenderTarget;
         private static RenderTarget2D _uiRenderTarget;
+        private static RenderTarget2D _developmentRenderTarget;
         private static RenderTarget2D _noneRenderTarget;
 
         private static List<DrawTargets> _drawOrder = new List<DrawTargets>()
         {
             DrawTargets.World,
-            DrawTargets.UI
+            DrawTargets.UI,
+            DrawTargets.Development,
         };
 
         private static Dictionary<DrawTargets, List<Drawable>> _drawTargetToDrawList = new Dictionary<DrawTargets, List<Drawable>>()
         {
             { DrawTargets.World, _worldLayer },
             { DrawTargets.UI, _uiLayer },
+            { DrawTargets.Development,  _developmentLayer},
             { DrawTargets.None, _noneLayer }
         };
 
@@ -107,6 +112,7 @@ namespace DungeonCrawler.Code
         {
             { DrawTargets.World, _worldRenderTarget },
             { DrawTargets.UI, _uiRenderTarget },
+            { DrawTargets.Development, _developmentRenderTarget },
             { DrawTargets.None, _noneRenderTarget }
         };
 
