@@ -19,13 +19,9 @@ namespace DungeonCrawler.Code.DrawManagement
         public static void Setup(GraphicsDevice graphicsDevice)
         {
             _graphicsDevice = graphicsDevice;
-            BuildRenderTargets(GameValues.ScreenSize.X, GameValues.ScreenSize.Y);
-            GameEvents.OnScreenSizeChange += BuildRenderTargets;
-        }
-
-        public static void OnScreenSizeChanged(int width, int height)
-        {
-            BuildRenderTargets(width, height);
+            InitDrawTargets();
+            ResizeDrawTargets(GameValues.ScreenSize.X, GameValues.ScreenSize.Y);
+            GameEvents.OnScreenSizeChange += ResizeDrawTargets;
         }
 
         public static void Draw(SpriteBatch spritebatch, GraphicsDevice graphicsDevice, GameTime gametime)
@@ -35,9 +31,9 @@ namespace DungeonCrawler.Code.DrawManagement
             spritebatch.Begin(blendState: BlendState.NonPremultiplied);
             for (int i = 0; i < _drawOrder.Count; i++)
             {
-                DrawTargets target = _drawOrder[i];
+                DrawTarget target = _drawOrder[i];
 
-                RenderTarget2D renderTarget = _drawTargetToRenderTarget[target];
+                RenderTarget2D renderTarget = target.RenderTarget;
                 if (renderTarget == null) continue;
                 spritebatch.Draw(
                     renderTarget,
@@ -56,15 +52,15 @@ namespace DungeonCrawler.Code.DrawManagement
         }
 
         public static void RegisterDrawable(DrawTargets drawTarget, Drawable drawable)
-        {
-            List<Drawable> drawList = _drawTargetToDrawList[drawTarget];
-            drawList.Add(drawable);
+        {            
+            DrawTarget target = _getDrawTarget[drawTarget];
+            target.RegisterDrawable(drawable);
         }
 
         public static void DeregisterDrawable(DrawTargets drawTarget, Drawable drawable)
         {
-            List<Drawable> drawList = _drawTargetToDrawList[drawTarget];
-            drawList.Remove(drawable);
+            DrawTarget target = _getDrawTarget[drawTarget];
+            target.DeregisterDrawable(drawable);
         }
 
         public static void RegisterComplexDrawable(ComplexDrawable complexDrawable)
@@ -81,34 +77,21 @@ namespace DungeonCrawler.Code.DrawManagement
 
         private static GraphicsDevice _graphicsDevice;
 
-        private static List<ComplexDrawable> _complexDrawables = new List<ComplexDrawable>();
+        private static List<ComplexDrawable> _complexDrawables = new List<ComplexDrawable>();        
 
-        private static List<Drawable> _worldLayer = new List<Drawable>();
-        private static List<Drawable> _uiLayer = new List<Drawable>();
-        private static List<Drawable> _developmentLayer = new List<Drawable>();
-        private static List<Drawable> _noneLayer = new List<Drawable>();
+        private static DrawTarget _worldRenderTarget = new DrawTarget();
+        private static DrawTarget _uiRenderTarget = new DrawTarget();
+        private static DrawTarget _developmentRenderTarget = new DrawTarget();
+        private static DrawTarget _noneRenderTarget = new DrawTarget();
 
-        private static RenderTarget2D _worldRenderTarget;
-        private static RenderTarget2D _uiRenderTarget;
-        private static RenderTarget2D _developmentRenderTarget;
-        private static RenderTarget2D _noneRenderTarget;
-
-        private static List<DrawTargets> _drawOrder = new List<DrawTargets>()
+        private static List<DrawTarget> _drawOrder = new List<DrawTarget>()
         {
-            DrawTargets.World,
-            DrawTargets.UI,
-            DrawTargets.Development,
-        };
+            _worldRenderTarget,
+            _uiRenderTarget,
+            _developmentRenderTarget,
+        };        
 
-        private static Dictionary<DrawTargets, List<Drawable>> _drawTargetToDrawList = new Dictionary<DrawTargets, List<Drawable>>()
-        {
-            { DrawTargets.World, _worldLayer },
-            { DrawTargets.UI, _uiLayer },
-            { DrawTargets.Development,  _developmentLayer},
-            { DrawTargets.None, _noneLayer }
-        };
-
-        private static Dictionary<DrawTargets, RenderTarget2D> _drawTargetToRenderTarget = new Dictionary<DrawTargets, RenderTarget2D>()
+        private static Dictionary<DrawTargets, DrawTarget> _getDrawTarget = new Dictionary<DrawTargets, DrawTarget>()
         {
             { DrawTargets.World, _worldRenderTarget },
             { DrawTargets.UI, _uiRenderTarget },
@@ -116,10 +99,10 @@ namespace DungeonCrawler.Code.DrawManagement
             { DrawTargets.None, _noneRenderTarget }
         };
 
-        private static void GenerateLayerTexture(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GameTime gameTime, DrawTargets drawTarget)
+        private static void GenerateLayerTexture(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GameTime gameTime, DrawTarget drawTarget)
         {
-            RenderTarget2D renderTarget = _drawTargetToRenderTarget[drawTarget];
-            List<Drawable> drawList = _drawTargetToDrawList[drawTarget];
+            RenderTarget2D renderTarget = drawTarget.RenderTarget;
+            List<Drawable> drawList = drawTarget.DrawList;
 
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(Color.Transparent);
@@ -142,22 +125,19 @@ namespace DungeonCrawler.Code.DrawManagement
             }
         }
 
-        private static void BuildRenderTargets(int width, int height)
+        private static void InitDrawTargets()
         {
-            for (int i = 0; i < _drawOrder.Count; i++)
+            for(int i = 0; i < _drawOrder.Count; i++)
             {
-                BuildRenderTarget(_drawOrder[i], width, height);
+                _drawOrder[i].Init(_graphicsDevice);
             }
         }
-
-        private static void BuildRenderTarget(DrawTargets drawTarget, int width, int height)
+        private static void ResizeDrawTargets(int width, int height)
         {
-            RenderTarget2D renderTarget = _drawTargetToRenderTarget[drawTarget];
-
-            renderTarget?.Dispose();
-            renderTarget = new RenderTarget2D(_graphicsDevice, width, height);
-
-            _drawTargetToRenderTarget[drawTarget] = renderTarget;
-        }
+            for (int i = 0; i < _drawOrder.Count; i++)
+            {                
+                _drawOrder[i].Resize(width, height);
+            }
+        }        
     }
 }
