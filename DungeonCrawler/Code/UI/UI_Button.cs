@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using DungeonCrawler.Code.UI.Utils;
+using DungeonCrawler.Code.DrawManagement;
 
 namespace DungeonCrawler.Code.UI
 {

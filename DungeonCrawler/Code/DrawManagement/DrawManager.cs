@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace DungeonCrawler.Code
+namespace DungeonCrawler.Code.DrawManagement
 {
     internal static class DrawManager
     {

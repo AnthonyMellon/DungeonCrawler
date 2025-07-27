@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code;
+﻿using DungeonCrawler.Code.DrawManagement;
 using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.Scenes.Instances;

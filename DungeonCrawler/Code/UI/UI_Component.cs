@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.UI.Utils;
+﻿using DungeonCrawler.Code.DrawManagement;
+using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 
