@@ -54,7 +54,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
-                    anchorPoints: new Vector4(0f, 1f, 0f, 1f),
+                    anchorPoints: UI.Utils.AnchorPoints.Fill,
                     padding: new Point4(0, 0, 0, 0),
                     offset: new Point(0, 0),
                     fitType: UIComponent.FitTypes.Screen
@@ -66,7 +66,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private UI_Panel BuildMenuBar()
         {
             UI_Panel menuBar = new UI_Panel(
-                anchorPoints: new Vector4(0f, 1f, 0f, 0f),
+                anchorPoints: UI.Utils.AnchorPoints.TopStretch,
                 padding: new Point4(0, 0, 0, 50),
                 offset: new Point(0, 0),
                 texture: DefaultContent.DefaultRectangle,
@@ -76,13 +76,14 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Button menuButton = menuBar.AddChild(
                 new UI_Button
                 (
-                    anchorPoints: new Vector4(1f, 1f, 0.5f, 0.5f),
+                    anchorPoints: UI.Utils.AnchorPoints.CenterRight,
                     padding: new Point4(160, 0, 20, 20),
                     offset: new Point(-10, 0),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
                     "Main Menu",
-                    DrawManager.DrawTargets.UI
+                    DrawManager.DrawTargets.UI,
+                    UIComponent.FitTypes.Parent
                 )) as UI_Button;
             menuButton.OnClick += QuitToMainMenu;
 
@@ -96,17 +97,5 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         protected override void Update(GameTime gametime) { }
         #endregion
-
-
-#if DEVELOPMENT
-        /*        private void BuildDebugMenu()
-                {
-                    AddChild(new DebugMenu(
-                        new Vector4(0, 0.25f, 0, 0),
-                        new Point4(0, 0, 0, 100),
-                        new Point(0, 0)
-                        ));
-                }*/
-#endif
     }
 }

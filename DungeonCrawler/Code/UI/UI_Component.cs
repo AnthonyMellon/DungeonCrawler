@@ -1,20 +1,22 @@
-﻿using DungeonCrawler.Code.Utils;
+﻿using DungeonCrawler.Code.UI.Utils;
+using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 
 namespace DungeonCrawler.Code.UI
 {
     internal class UIComponent : Dynamic
     {
-        #region publics       
-        public Vector4 AnchorPoints
-        {
+        #region publics
+
+        public AnchorPoints MyAnchorPoints
+        { 
             get
             {
-                return _anchorPoints;
+                return _myAnchorPoints;
             }
             set
             {
-                _anchorPoints = value;
+                _myAnchorPoints = value;
                 UpdateDrawRectangle();
             }
         }
@@ -74,7 +76,7 @@ namespace DungeonCrawler.Code.UI
         protected DrawManager.DrawTargets DrawTarget;
 
         public UIComponent(
-            Vector4 anchorPoints,
+            AnchorPoints anchorPoints,
             Point4 padding,
             Point offset,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
@@ -84,7 +86,7 @@ namespace DungeonCrawler.Code.UI
         {
             AllowScreenRectangleUpdates = false;
 
-            AnchorPoints = anchorPoints;
+            MyAnchorPoints = anchorPoints;
             Padding = padding;
             Offset = offset;
             FitType = fitType;
@@ -95,7 +97,7 @@ namespace DungeonCrawler.Code.UI
         #endregion
 
         #region privates
-        private Vector4 _anchorPoints = new Vector4(0.5f, 0.5f, 0.5f, 0.5f);
+        private AnchorPoints _myAnchorPoints = AnchorPoints.Center;
         private Point4 _padding = new Point4(0, 0, 0, 0);
         private Point _offset = new Point(0, 0);
         private bool _autoUpdateScreenRectangle = true;        
@@ -176,19 +178,19 @@ namespace DungeonCrawler.Code.UI
             Rectangle newRectangle = Rectangle.Empty;
 
             newRectangle.Width =
-                (int)(parentRectangle.Width * AnchorPoints.Y) -
-                (int)(parentRectangle.Width * AnchorPoints.X);
+                (int)(parentRectangle.Width * MyAnchorPoints.Y) -
+                (int)(parentRectangle.Width * MyAnchorPoints.X);
             newRectangle.Width = newRectangle.Width + Padding.X + Padding.Y;
 
             newRectangle.Height =
-                (int)(parentRectangle.Height * AnchorPoints.W) -
-                (int)(parentRectangle.Height * AnchorPoints.Z);
+                (int)(parentRectangle.Height * MyAnchorPoints.W) -
+                (int)(parentRectangle.Height * MyAnchorPoints.Z);
             newRectangle.Height = newRectangle.Height + Padding.Z + Padding.W;
 
-            newRectangle.X = parentRectangle.X + (int)(parentRectangle.Width * AnchorPoints.X);
+            newRectangle.X = parentRectangle.X + (int)(parentRectangle.Width * MyAnchorPoints.X);
             newRectangle.X = newRectangle.X - Padding.X + Offset.X;
 
-            newRectangle.Y = parentRectangle.Y + (int)(parentRectangle.Height * AnchorPoints.Z);
+            newRectangle.Y = parentRectangle.Y + (int)(parentRectangle.Height * MyAnchorPoints.Z);
             newRectangle.Y = newRectangle.Y - Padding.Z + Offset.Y;
 
 

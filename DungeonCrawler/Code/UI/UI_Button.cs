@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
+using DungeonCrawler.Code.UI.Utils;
 
 namespace DungeonCrawler.Code.UI
 {
@@ -15,14 +16,15 @@ namespace DungeonCrawler.Code.UI
 
 
         public UI_Button(
-            Vector4 anchorPoints,
+            AnchorPoints anchorPoints,
             Point4 padding,
             Point offset,
             Color baseColor,
             Color hoverColor,
             Texture2D texture,
             string text,
-            DrawManager.DrawTargets drawTarget) :
+            DrawManager.DrawTargets drawTarget,
+            FitTypes fitType) :
             base(anchorPoints, padding, offset, drawTarget)
         {
             _baseColor = baseColor;
@@ -35,13 +37,14 @@ namespace DungeonCrawler.Code.UI
         }
 
         public UI_Button(
-            Vector4 anchorPoints,
+            AnchorPoints anchorPoints,
             Point4 padding,
             Point offset,
             Color baseColor,
             Color hoverColor,
             string text,
-            DrawManager.DrawTargets drawTarget) :
+            DrawManager.DrawTargets drawTarget,
+            FitTypes fitType) :
             base(anchorPoints, padding, offset, drawTarget)
         {
             _baseColor = baseColor;

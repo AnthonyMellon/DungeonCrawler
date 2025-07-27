@@ -1,4 +1,5 @@
 ﻿using DungeonCrawler.Code.UI;
+using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -40,7 +41,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
-                    anchorPoints: new Vector4(0f, 1f, 0f, 1f),
+                    anchorPoints: AnchorPoints.Fill,
                     padding: new Point4(0, 0, 0, 0),
                     offset: new Point(0, 0),
                     texture: _background,
@@ -56,7 +57,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private UI_Panel BuildMenuButtons()
         {
             UI_Panel menuButtonPanel = new UI_Panel(
-                anchorPoints: new Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+                anchorPoints: AnchorPoints.LeftStretch,
                 padding: new Point4(0, 300, 0, 0),
                 offset: new Point(0, 0),
                 texture: DefaultContent.DefaultRectangle,
@@ -66,26 +67,28 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Button playButton = menuButtonPanel.AddChild(
                 new UI_Button
                 (
-                    anchorPoints: new Vector4(0.5f, 0.5f, 0.5f, 0.5f),
+                    anchorPoints: AnchorPoints.Center,
                     padding: new Point4(128, 128, 32, 32),
                     offset: new Point(-16, -40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
                     "Play Game",
-                    DrawManager.DrawTargets.UI
+                    DrawManager.DrawTargets.UI,
+                    UIComponent.FitTypes.Parent
                 )) as UI_Button;
             playButton.OnClick += EnterGame;
 
             UI_Button quitButton = menuButtonPanel.AddChild(
                 new UI_Button
                 (
-                    anchorPoints: new Vector4(0.5f, 0.5f, 0.5f, 0.5f),
+                    anchorPoints: AnchorPoints.Center,
                     padding: new Point4(128, 128, 32, 32),
                     offset: new Point(-16, 40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
                     "Quit Game",
-                    DrawManager.DrawTargets.UI
+                    DrawManager.DrawTargets.UI,
+                    UIComponent.FitTypes.Parent                    
                 )) as UI_Button;
             quitButton.OnClick += _game.Exit;
 

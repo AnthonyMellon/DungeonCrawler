@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.Utils;
+﻿using DungeonCrawler.Code.UI.Utils;
+using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +10,7 @@ namespace DungeonCrawler.Code.UI
     {
         #region publics        
         public UI_Panel(
-            Vector4 anchorPoints,
+            AnchorPoints anchorPoints,
             Point4 padding,
             Point offset,
             Texture2D texture,
@@ -32,7 +33,7 @@ namespace DungeonCrawler.Code.UI
         }
 
         public UI_Panel(
-            Vector4 anchorPoints,
+            AnchorPoints anchorPoints,
             Point4 padding,
             Point offset,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
