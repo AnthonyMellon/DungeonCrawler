@@ -11,7 +11,7 @@ namespace DungeonCrawler.Code.UI
         #region publics        
         public UI_Panel(
             AnchorPoints anchorPoints,
-            Point4 padding,
+            Padding padding,
             Point offset,
             Texture2D texture,
             Color color,
@@ -34,7 +34,7 @@ namespace DungeonCrawler.Code.UI
 
         public UI_Panel(
             AnchorPoints anchorPoints,
-            Point4 padding,
+            Padding padding,
             Point offset,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             FitTypes fitType = FitTypes.Parent) :

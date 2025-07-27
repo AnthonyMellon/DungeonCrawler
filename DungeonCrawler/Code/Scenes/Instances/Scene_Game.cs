@@ -3,6 +3,7 @@ using DungeonCrawler.Code.Dungeons;
 using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
 using DungeonCrawler.Code.UI;
+using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -54,8 +55,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Panel basePanel = AddChild(
                 new UI_Panel
                 (
-                    anchorPoints: UI.Utils.AnchorPoints.Fill,
-                    padding: new Point4(0, 0, 0, 0),
+                    anchorPoints: AnchorPoints.Fill,
+                    padding: Padding.Zero,
                     offset: new Point(0, 0),
                     fitType: UIComponent.FitTypes.Screen
                 )) as UI_Panel;
@@ -66,8 +67,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private UI_Panel BuildMenuBar()
         {
             UI_Panel menuBar = new UI_Panel(
-                anchorPoints: UI.Utils.AnchorPoints.TopStretch,
-                padding: new Point4(0, 0, 0, 50),
+                anchorPoints: AnchorPoints.TopStretch,
+                padding: new Padding(0, 0, 0, 50),
                 offset: new Point(0, 0),
                 texture: DefaultContent.DefaultRectangle,
                 color: new Color(Color.Gray, 100),
@@ -76,8 +77,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
             UI_Button menuButton = menuBar.AddChild(
                 new UI_Button
                 (
-                    anchorPoints: UI.Utils.AnchorPoints.CenterRight,
-                    padding: new Point4(160, 0, 20, 20),
+                    anchorPoints: AnchorPoints.CenterRight,
+                    padding: new Padding(160, 0, 20, 20),
                     offset: new Point(-10, 0),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,

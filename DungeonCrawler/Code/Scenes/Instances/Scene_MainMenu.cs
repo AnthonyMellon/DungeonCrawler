@@ -42,7 +42,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 new UI_Panel
                 (
                     anchorPoints: AnchorPoints.Fill,
-                    padding: new Point4(0, 0, 0, 0),
+                    padding: Padding.Zero,
                     offset: new Point(0, 0),
                     texture: _background,
                     color: Color.White,
@@ -58,7 +58,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         {
             UI_Panel menuButtonPanel = new UI_Panel(
                 anchorPoints: AnchorPoints.LeftStretch,
-                padding: new Point4(0, 300, 0, 0),
+                padding: new Padding(0, 300, 0, 0),
                 offset: new Point(0, 0),
                 texture: DefaultContent.DefaultRectangle,
                 color: new Color(Color.Gray, 100),
@@ -68,7 +68,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 new UI_Button
                 (
                     anchorPoints: AnchorPoints.Center,
-                    padding: new Point4(128, 128, 32, 32),
+                    padding: new Padding(128, 32),
                     offset: new Point(-16, -40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
@@ -82,13 +82,13 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 new UI_Button
                 (
                     anchorPoints: AnchorPoints.Center,
-                    padding: new Point4(128, 128, 32, 32),
+                    padding: new Padding(128, 32),
                     offset: new Point(-16, 40),
                     baseColor: Color.White,
                     hoverColor: Color.Yellow,
                     "Quit Game",
                     DrawManager.DrawTargets.UI,
-                    UIComponent.FitTypes.Parent                    
+                    UIComponent.FitTypes.Parent
                 )) as UI_Button;
             quitButton.OnClick += _game.Exit;
 
