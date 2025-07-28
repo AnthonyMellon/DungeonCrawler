@@ -52,12 +52,6 @@ namespace DungeonCrawler.Code.Scenes
 
             if (!_currentScene.Initialised) _currentScene.DoInit(content, game);
             _currentScene.IsEnabled = true;
-
-        }
-
-        public static Scene GetCurrentScene()
-        {
-            return _currentScene;
         }
 
         public static void Update(GameTime gametime)

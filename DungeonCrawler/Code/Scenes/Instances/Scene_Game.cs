@@ -34,12 +34,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
             _currentDungeon = AddChild(new Dungeon()) as Dungeon;
             _currentDungeon.BuildDungeon();
         }
-
-        public Scene_Game(SpriteBatch graphics) :
-            base(graphics)
-        {
-
-        }
         #endregion region
 
         #region privates

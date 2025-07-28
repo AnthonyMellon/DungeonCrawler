@@ -28,12 +28,9 @@ namespace DungeonCrawler.Code.Scenes
         /// <param name="game"></param>
         public abstract void Init(ContentManager content, Game game);
 
-        public Scene(SpriteBatch graphics, bool enabled = false) :
+        public Scene(bool enabled = false) :
             base(enabled)
-        {
-            _graphics = graphics;
-        }
-
-        private SpriteBatch _graphics;
+        {            
+        }        
     }
 }

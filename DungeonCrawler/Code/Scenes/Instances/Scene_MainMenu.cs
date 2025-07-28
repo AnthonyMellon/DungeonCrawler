@@ -19,12 +19,6 @@ namespace DungeonCrawler.Code.Scenes.Instances
             LoadContent();
             BuildUI();
         }
-
-        public Scene_MainMenu(SpriteBatch graphics) :
-            base(graphics)
-        {
-
-        }
         #endregion
 
         #region privates

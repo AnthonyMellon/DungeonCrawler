@@ -69,8 +69,8 @@ namespace DungeonCrawler
                 _graphics.PreferredBackBufferHeight);
 
             // Scene Manager (the first scene added will be the default scene)
-            SceneManager.AddedScenes.Add(GameConstants.MainMenu, new Scene_MainMenu(_spriteBatch));
-            SceneManager.AddedScenes.Add(GameConstants.Game, new Scene_Game(_spriteBatch));
+            SceneManager.AddedScenes.Add(GameConstants.MainMenu, new Scene_MainMenu());
+            SceneManager.AddedScenes.Add(GameConstants.Game, new Scene_Game());
             SceneManager.Init(Content, this);
 
             _mainCamera = new Camera(_spriteBatch);
