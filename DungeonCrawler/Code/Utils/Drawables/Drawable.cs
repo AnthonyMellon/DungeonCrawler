@@ -95,7 +95,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public abstract void Draw(SpriteBatch spritebatch);
 
-        public Drawable(DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None, bool visible = true)
+        public Drawable(
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            bool visible = true)
         {
             _drawTarget = drawTarget;
             Visible = visible;

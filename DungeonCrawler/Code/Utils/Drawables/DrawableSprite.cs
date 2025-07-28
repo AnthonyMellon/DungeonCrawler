@@ -45,7 +45,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
             string currentSpriteName,
             Color color,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
             base(drawTarget, visible)
         {
