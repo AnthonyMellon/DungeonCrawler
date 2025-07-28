@@ -34,14 +34,14 @@ namespace DungeonCrawler.Code.UI
             DrawableTexture backgroundTexture = new DrawableTexture(
                 DefaultContent.DefaultRectangle,
                 Point.Zero,
-                Color.White,
+                Color.Blue,
                 GameConstants.GameLayers.Bottom);
             _backgroundTexture = backgroundTexture;
 
             DrawableTexture inputAreaTexture = new DrawableTexture(
                 DefaultContent.DefaultRectangle,
                 Point.Zero,
-                Color.AliceBlue,
+                Color.LightBlue,
                 GameConstants.GameLayers.Bottom);
             _inputAreaTexture = inputAreaTexture;
 

@@ -137,7 +137,7 @@ namespace DungeonCrawler
 
             UI_TextInput testTextInput = new UI_TextInput(
                 AnchorPoints.TopLeft,
-                Padding.Positive * 100,
+                new Padding(128, 32),
                 Offset.Zero,
                 DrawManager.DrawTargets.Development,
                 UIComponent.FitTypes.Parent
