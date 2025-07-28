@@ -63,6 +63,10 @@ namespace DungeonCrawler
                 GameValues.ScreenSize.Y = height;
             };
 
+#if DEVELOPMENT
+            BuildDevelopmentStuff();
+#endif
+
             // Manual invoke of screen size change to get initial screen size
             GameEvents.OnScreenSizeChange?.Invoke(
                 _graphics.PreferredBackBufferWidth,
@@ -77,10 +81,6 @@ namespace DungeonCrawler
             ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
 
             DrawManager.Setup(GraphicsDevice);
-
-#if DEVELOPMENT
-            BuildDevelopmentStuff();
-#endif
         }
 
         protected override void Update(GameTime gameTime)
