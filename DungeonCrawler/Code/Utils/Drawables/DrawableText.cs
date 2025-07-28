@@ -77,9 +77,10 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            string text = Text == null ? string.Empty : Text;
             spriteBatch.DrawString(
                 Font,
-                Text,
+                text,
                 new Vector2(Position.X, Position.Y),
                 Color,
                 0,              // Rotation
