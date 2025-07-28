@@ -135,16 +135,14 @@ namespace DungeonCrawler
                 UIComponent.FitTypes.Parent);
             _developmentPanel.AddChild(developmentBuildText);
 
-            UI_Button testButton = new UI_Button(
-                AnchorPoints.BottomRight,
-                new Padding(128, 32),
-                new Offset(-128, -32),
-                new Color(255, 0, 0),
-                new Color(0, 255, 0),
-                "Test Button",
+            UI_TextInput testTextInput = new UI_TextInput(
+                AnchorPoints.TopLeft,
+                Padding.Positive * 100,
+                Offset.Zero,
                 DrawManager.DrawTargets.Development,
-                UIComponent.FitTypes.Parent);
-            //_developmentPanel.AddChild(testButton);
+                UIComponent.FitTypes.Parent
+                );
+            _developmentPanel.AddChild(testTextInput);
         }
     }
 }
