@@ -43,6 +43,16 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 Color.White);
         }
 
+        public override void Draw(SpriteBatch spritebatch, Rectangle destinationRectangle)
+        {
+            if (_renderTarget == null) return;
+
+            spritebatch.Draw(
+                _renderTarget,
+                destinationRectangle,
+                Color.White);
+        }
+
         public ComplexDrawable(
             GraphicsDevice graphicsDevice,
             GameConstants.GameLayers layer,
@@ -84,7 +94,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
             spriteBatch.Begin();
             for (int i = 0; i < _drawables.Count; i++)
             {
-                _drawables[i].Draw(spriteBatch);
+                _drawables[i].Draw(spriteBatch, _renderTarget.Bounds);
             }
             spriteBatch.End();
             spriteBatch.Dispose();

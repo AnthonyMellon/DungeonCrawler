@@ -69,6 +69,20 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 GameConstants.GameLayerToLayer(Layer)
             );
         }
+
+        public override void Draw(SpriteBatch spritebatch, Rectangle destinationRectangle)
+        {
+            spritebatch.Draw(
+                SpriteSheet.Sheet,
+                destinationRectangle,
+                SourceRectangle,
+                Color,
+                0,              // Rotation
+                Vector2.Zero,   // Origin       currently no use for these values  
+                        SpriteEffects.None,
+                GameConstants.GameLayerToLayer(Layer)
+            );
+        }
         #endregion
 
         #region privates

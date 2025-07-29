@@ -92,6 +92,22 @@ namespace DungeonCrawler.Code.Utils.Drawables
             );
         }
 
+        public override void Draw(SpriteBatch spritebatch, Rectangle destinationRectangle)
+        {
+            string text = Text == null ? string.Empty : Text;
+            spritebatch.DrawString(
+                Font,
+                text,
+                new Vector2(Position.X, Position.Y),
+                Color,
+                0,              // Rotation
+                Vector2.Zero,   // Origin
+                1,              // Scale        currently no use for these values
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(Layer)
+            );            
+        }
+
         private string _text;
         private SpriteFont _font;
 

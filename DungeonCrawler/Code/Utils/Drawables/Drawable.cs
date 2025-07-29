@@ -94,6 +94,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public Action<bool> OnVisabilitySet;
 
         public abstract void Draw(SpriteBatch spritebatch);
+        public abstract void Draw(SpriteBatch spritebatch, Rectangle destinationRectangle);
 
         public Drawable(
             GameConstants.GameLayers layer,

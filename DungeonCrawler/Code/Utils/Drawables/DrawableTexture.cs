@@ -40,5 +40,21 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 GameConstants.GameLayerToLayer(Layer)
             );
         }
+
+        public override void Draw(SpriteBatch spritebatch, Rectangle destinationRectangle)
+        {
+            if (Texture == null) return;
+
+            spritebatch.Draw(
+                Texture,
+                destinationRectangle,
+                Texture.Bounds,
+                Color,
+                0,
+                Vector2.Zero,
+                SpriteEffects.None,
+                GameConstants.GameLayerToLayer(Layer)
+            );
+        }
     }
 }

@@ -89,7 +89,7 @@ namespace DungeonCrawler.Code.UI
                 Point.Zero,
                 Color.Black,
                 GameConstants.GameLayers.Bottom);
-            buttonText.CenterTextToRectangle(buttonBackground.Rectangle);
+            buttonText.CenterTextToRectangle(Rectangle.Rectangle);
 
             ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, DrawTarget);
             drawTexture.AddDrawables(new List<Drawable>
