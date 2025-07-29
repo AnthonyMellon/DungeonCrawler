@@ -10,26 +10,20 @@ namespace DungeonCrawler.Code.UI
     internal class UI_TextInput : UIComponent
     {
         public UI_TextInput(
+            GameConstants.GameLayers layer,
             AnchorPoints anchorPoints,
-            Padding padding, Offset offset,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
-            FitTypes fitType = FitTypes.Parent,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
+            DrawManager.DrawTargets drawTarget,
             bool enabled = true) :
-            base(anchorPoints, padding, offset, drawTarget, fitType, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
         {
-            OnDrawRectangleUpdated += UpdateDrawRectangle;
-            BuildTextInput();
+            BuildTextInput(layer);
         }
 
-        private void UpdateDrawRectangle()
-        {
-            if (_finalTexture == null) return;
-
-            _finalTexture.Position = DrawRectangle.Location;
-            _finalTexture.Size = DrawRectangle.Size;
-        }
-
-        private void BuildTextInput()
+        private void BuildTextInput(GameConstants.GameLayers layer)
         {
             DrawableTexture backgroundTexture = new DrawableTexture(
                 DefaultContent.DefaultRectangle,
@@ -48,17 +42,19 @@ namespace DungeonCrawler.Code.UI
             DrawableText text = new DrawableText(
                 "Test Text",
                 Point.Zero,
-                Color.Black);
+                Color.Black,
+                GameConstants.GameLayers.Bottom);
             text.CenterTextToRectangle(inputAreaTexture.Rectangle);
             _text = text;
 
-            _finalTexture = new ComplexDrawable(GameValues.GraphicsDevice, DrawTarget);
-            _finalTexture.AddDrawables(new List<Drawable>
+            ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, DrawTarget);
+            drawTexture.AddDrawables(new List<Drawable>
             {
                 backgroundTexture,
                 inputAreaTexture,
                 text
             });
+            DrawTexture = drawTexture;
         }
 
         private DrawableTexture _backgroundTexture;

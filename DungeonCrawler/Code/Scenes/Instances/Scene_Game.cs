@@ -1,5 +1,4 @@
-﻿//using DungeonCrawler.Code.DebugTools;
-using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.DrawManagement;
 using DungeonCrawler.Code.Dungeons;
 using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
@@ -8,7 +7,6 @@ using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonCrawler.Code.Scenes.Instances
 {
@@ -44,38 +42,42 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private void BuildUI()
         {
             UI_Panel basePanel = AddChild(
-                new UI_Panel
-                (
-                    anchorPoints: AnchorPoints.Fill,
-                    padding: Padding.Zero,
-                    offset: Offset.Zero,
-                    fitType: UIComponent.FitTypes.Screen
-                )) as UI_Panel;
+                new UI_Panel(
+                    AnchorPoints.Fill,
+                    Size.Zero,
+                    Offset.Zero,
+                    DynamicRectangle.FitTypes.Screen,
+                    DynamicRectangle.GrowFroms.Auto,
+                    DrawManager.DrawTargets.None
+                    )) as UI_Panel;
 
             basePanel.AddChild(BuildMenuBar());
         }
-
         private UI_Panel BuildMenuBar()
         {
             UI_Panel menuBar = new UI_Panel(
-                anchorPoints: AnchorPoints.TopStretch,
-                padding: new Padding(0, 0, 0, 50),
-                offset: Offset.Zero,
-                texture: DefaultContent.DefaultRectangle,
-                color: new Color(Color.Gray, 100),
-                layer: GameConstants.GameLayers.UI_Texutre);
-
+                DefaultContent.DefaultRectangle,
+                new Color(Color.Gray, 100),
+                GameConstants.GameLayers.UI_Background,
+                AnchorPoints.TopStretch,
+                new Size(0, 100),
+                Offset.Zero,
+                DynamicRectangle.FitTypes.Parent,
+                DynamicRectangle.GrowFroms.Auto,
+                DrawManager.DrawTargets.UI);
+            
             UI_Button menuButton = menuBar.AddChild(
-                new UI_Button
-                (
-                    anchorPoints: AnchorPoints.CenterRight,
-                    padding: new Padding(160, 0, 20, 20),
-                    offset: new Offset(-10, 0),
-                    baseColor: Color.White,
-                    hoverColor: Color.Yellow,
+                new UI_Button(
+                    Color.White,
+                    Color.Yellow,
                     "Main Menu",
-                    DrawManager.DrawTargets.UI,
-                    UIComponent.FitTypes.Parent
+                    GameConstants.GameLayers.UI_Foregound,
+                    AnchorPoints.CenterRight,
+                    new Size(256, 64),
+                    new Offset(-10, 0),
+                    DynamicRectangle.FitTypes.Parent,
+                    DynamicRectangle.GrowFroms.Auto,
+                    DrawManager.DrawTargets.UI
                 )) as UI_Button;
             menuButton.OnClick += QuitToMainMenu;
 

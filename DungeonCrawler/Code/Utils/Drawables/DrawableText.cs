@@ -44,7 +44,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
             GameConstants.GameLayers layer,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
-            base(drawTarget, visible)
+            base(layer, drawTarget, visible)
         {
             Text = text;
             Position = position;
@@ -57,9 +57,10 @@ namespace DungeonCrawler.Code.Utils.Drawables
             string text,
             Point position,
             Color color,
+            GameConstants.GameLayers layer,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
-            base(drawTarget, visible)
+            base(layer, drawTarget, visible)
         {
             Text = text;
             Position = position;

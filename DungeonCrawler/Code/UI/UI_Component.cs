@@ -1,212 +1,84 @@
 ﻿using DungeonCrawler.Code.DrawManagement;
 using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
+using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace DungeonCrawler.Code.UI
 {
     internal class UIComponent : Dynamic
     {
         #region publics
-
-        public AnchorPoints MyAnchorPoints
-        { 
-            get
-            {
-                return _myAnchorPoints;
-            }
-            set
-            {
-                _myAnchorPoints = value;
-                UpdateDrawRectangle();
-            }
-        }
-
-        public Padding MyPadding
-        {
-            get
-            {
-                return _myPadding;
-            }
-            set
-            {
-                _myPadding = value;
-                UpdateDrawRectangle();
-            }
-        }
-
-        public Offset MyOffset
-        {
-            get
-            {
-                return _myOffset;
-            }
-            set
-            {
-                _myOffset = value;
-                UpdateDrawRectangle();
-            }
-        }
-
-        public bool AllowScreenRectangleUpdates
-        {
-            get
-            {
-                return _autoUpdateScreenRectangle;
-            }
-            set
-            {
-                _autoUpdateScreenRectangle = value;
-                UpdateDrawRectangle();
-            }
-        }
-
-        public enum FitTypes
-        {
-            Parent,
-            Screen,
-            None
-        }
-        public FitTypes FitType { get; set; }
-
-        public Rectangle DrawRectangle { get; set; }
-
-        public delegate void DrawRectangleUpdatedHandler();
-        public DrawRectangleUpdatedHandler OnDrawRectangleUpdated;
-
+        public DynamicRectangle Rectangle;
         protected DrawManager.DrawTargets DrawTarget;
+        protected Drawable DrawTexture;
+
+        public UIComponent(
+            DynamicRectangle rectangle,
+            DrawManager.DrawTargets drawTarget,
+            bool enabled = true) :
+            base (enabled)
+        {
+            Rectangle = rectangle;
+            DrawTarget = drawTarget;
+            Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
+        }
 
         public UIComponent(
             AnchorPoints anchorPoints,
-            Padding padding,
+            Size size,
             Offset offset,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
-            FitTypes fitType = FitTypes.Parent,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
+            DrawManager.DrawTargets drawTarget,
             bool enabled = true) :
             base(enabled)
         {
-            AllowScreenRectangleUpdates = false;
-
-            MyAnchorPoints = anchorPoints;
-            MyPadding = padding;
-            MyOffset = offset;
-            FitType = fitType;
+            Rectangle = new DynamicRectangle(
+                anchorPoints,
+                size,
+                offset,
+                fitType,
+                growFrom,
+                null);
             DrawTarget = drawTarget;
-
-            AllowScreenRectangleUpdates = true;
+            Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
         }
         #endregion
 
-        #region privates
-        private AnchorPoints _myAnchorPoints = AnchorPoints.Center;
-        private Padding _myPadding = Padding.Zero;
-        private Offset _myOffset = Offset.Zero;
-        private bool _autoUpdateScreenRectangle = true;        
-
-        // Potential optimisation here to only update the draw rectangle here if the fit mode is parent
-        // but I dont think it's worth worrying about (I can't be bothered doing it)
+        #region privates        
         protected override void OnParentSet(Dynamic oldParent, Dynamic newParent)
         {
-            UIComponent olduiParent = oldParent as UIComponent;
-            if (olduiParent != null) olduiParent.OnDrawRectangleUpdated -= UpdateDrawRectangle;
-
-            UIComponent newUIParent = newParent as UIComponent;
-            if (newUIParent != null) newUIParent.OnDrawRectangleUpdated += UpdateDrawRectangle;
-
-            UpdateDrawRectangle();
-        }
-
-        // Same optimisation deal as above
-        private void OnScreenSizeChange(int width, int height)
-        {
-            UpdateDrawRectangle();
-        }
-
-        private void UpdateDrawRectangle()
-        {
-            if (!AllowScreenRectangleUpdates || !IsEnabled) return;
-
-            switch (FitType)
+            UIComponent uiParent = newParent as UIComponent;
+            if (uiParent != null)
+            {                
+                Rectangle.ParentRectangle = uiParent.Rectangle;
+            }
+            else
             {
-                case FitTypes.Parent:
-                    FitDawRectangleToParent();
-                    break;
-
-                case FitTypes.Screen:
-                    FitDrawRectanlgeToScreen();
-                    break;
-                case FitTypes.None:
-                default:
-                    FitDrawRectangleToNone();
-                    break;
+                Rectangle.ParentRectangle = null;
             }
         }
 
-        private void FitDrawRectanlgeToScreen()
+        private void UpdateTextureRectangle()
         {
-            Rectangle screenRectangle = new Rectangle(
-                Point.Zero,
-                GameValues.ScreenSize
-                );
+            if (DrawTexture == null) return;
 
-            FitToRectangle(screenRectangle);
-        }
-
-        private void FitDawRectangleToParent()
-        {
-            UIComponent UIParent = Parent as UIComponent;
-            if (UIParent == null) return;
-
-            FitToRectangle(UIParent.DrawRectangle);
-        }
-
-        private void FitDrawRectangleToNone()
-        {
-            Rectangle newRectangle = Rectangle.Empty;
-
-            newRectangle.Width = newRectangle.Width + MyPadding.X + MyPadding.Y;
-            newRectangle.Height = newRectangle.Height + MyPadding.Z + MyPadding.W;
-
-            newRectangle.X = newRectangle.X - MyPadding.X + MyOffset.X;
-            newRectangle.Y = newRectangle.Y - MyPadding.Z + MyOffset.Y;
-
-            DrawRectangle = newRectangle;
-            OnDrawRectangleUpdated?.Invoke();
-        }
-
-        private void FitToRectangle(Rectangle parentRectangle)
-        {
-            Rectangle newRectangle = Rectangle.Empty;
-
-            newRectangle.Width =
-                (int)(parentRectangle.Width * MyAnchorPoints.Y) -
-                (int)(parentRectangle.Width * MyAnchorPoints.X);
-            newRectangle.Width = newRectangle.Width + MyPadding.X + MyPadding.Y;
-
-            newRectangle.Height =
-                (int)(parentRectangle.Height * MyAnchorPoints.W) -
-                (int)(parentRectangle.Height * MyAnchorPoints.Z);
-            newRectangle.Height = newRectangle.Height + MyPadding.Z + MyPadding.W;
-
-            newRectangle.X = parentRectangle.X + (int)(parentRectangle.Width * MyAnchorPoints.X);
-            newRectangle.X = newRectangle.X - MyPadding.X + MyOffset.X;
-
-            newRectangle.Y = parentRectangle.Y + (int)(parentRectangle.Height * MyAnchorPoints.Z);
-            newRectangle.Y = newRectangle.Y - MyPadding.Z + MyOffset.Y;
-
-
-            DrawRectangle = newRectangle;
-            OnDrawRectangleUpdated?.Invoke();
+            DrawTexture.Position = Rectangle.ScreenLocation;
+            DrawTexture.Size = Rectangle.ScreenSize;
         }
 
         protected override void OnEnable()
         {
-            GameEvents.OnScreenSizeChange += OnScreenSizeChange;
+            if(Rectangle != null) Rectangle.AllowRectangleUpdates = true;
+
         }
 
         protected override void OnDisable()
         {
-            GameEvents.OnScreenSizeChange -= OnScreenSizeChange;
+            if (Rectangle != null) Rectangle.AllowRectangleUpdates = false;
         }
         #endregion
     }

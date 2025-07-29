@@ -45,9 +45,10 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public ComplexDrawable(
             GraphicsDevice graphicsDevice,
+            GameConstants.GameLayers layer,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
-            base(drawTarget, visible)
+            base(layer, drawTarget, visible)
         {
             _grahpicsDevice = graphicsDevice;
             RegisterToPreDraw(Visible);

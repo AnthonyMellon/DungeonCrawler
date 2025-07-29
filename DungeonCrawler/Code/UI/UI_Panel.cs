@@ -9,52 +9,54 @@ namespace DungeonCrawler.Code.UI
 {
     internal class UI_Panel : UIComponent
     {
-        #region publics        
+        #region publics
         public UI_Panel(
-            AnchorPoints anchorPoints,
-            Padding padding,
-            Offset offset,
             Texture2D texture,
             Color color,
-            GameConstants.GameLayers layer = GameConstants.GameLayers.Bottom,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
-            FitTypes fitType = FitTypes.Parent) :
-            base(anchorPoints, padding, offset, drawTarget, fitType)
+            GameConstants.GameLayers layer,
+            AnchorPoints anchorPoints,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
+            DrawManager.DrawTargets drawTarget,
+            bool enabled = true) :
+            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
         {
-            if (texture == null) texture = DefaultContent.DefaultRectangle;
+            Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
 
-            _backgroundTexture = new DrawableTexture(
+            DrawTexture = new DrawableTexture(
                 texture,
-                DrawRectangle.Location,
+                Rectangle.ScreenLocation,
                 color,
                 layer,
-                drawTarget
-                );
-            OnDrawRectangleUpdated += UpdateDrawRectangle;
+                drawTarget);
+            DrawTexture.Size = Rectangle.ScreenSize;
         }
 
         public UI_Panel(
             AnchorPoints anchorPoints,
-            Padding padding,
+            Size size,
             Offset offset,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
-            FitTypes fitType = FitTypes.Parent) :
-            base(anchorPoints, padding, offset, drawTarget, fitType)
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
+            DrawManager.DrawTargets drawTarget,
+            bool enabled = true) :
+            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
         {
-            _backgroundTexture = null;
-            OnDrawRectangleUpdated += UpdateDrawRectangle;
+            Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
+
+            DrawTexture = null;
         }
         #endregion
 
         #region privates
-        private DrawableTexture _backgroundTexture;
-
-        private void UpdateDrawRectangle()
+        private void UpdateTextureRectangle()
         {
-            if (_backgroundTexture == null) return;
+            if (DrawTexture == null) return;
 
-            _backgroundTexture.Position = DrawRectangle.Location;
-            _backgroundTexture.Size = DrawRectangle.Size;
+            DrawTexture.Position = Rectangle.ScreenLocation;
+            DrawTexture.Size = Rectangle.ScreenSize;
         }
         #endregion
     }

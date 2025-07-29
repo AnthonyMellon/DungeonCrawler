@@ -25,6 +25,7 @@ namespace DungeonCrawler.Code.UI.Utils
         public float Y => _anchorPoints.Y;
         public float Z => _anchorPoints.Z;
         public float W => _anchorPoints.W;
+        public Vector4 AsVector => new Vector4(X, Y, Z, W);
 
         public AnchorPoints(Vector4 anchorPoints)
         {
@@ -36,6 +37,6 @@ namespace DungeonCrawler.Code.UI.Utils
             _anchorPoints = new Vector4(x, y, z, w);
         }
 
-        private Vector4 _anchorPoints;
+        public Vector4 _anchorPoints;
     }
 }

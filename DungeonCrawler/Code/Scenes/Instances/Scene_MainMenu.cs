@@ -34,17 +34,17 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private void BuildUI()
         {
             UI_Panel basePanel = AddChild(
-                new UI_Panel
-                (
-                    anchorPoints: AnchorPoints.Fill,
-                    padding: Padding.Zero,
-                    offset: Offset.Zero,
-                    texture: _background,
-                    color: Color.White,
-                    layer: GameConstants.GameLayers.Bottom,
-                    DrawManager.DrawTargets.UI,
-                    UIComponent.FitTypes.Screen
-                )) as UI_Panel;
+                new UI_Panel(
+                    _background,
+                    Color.White,
+                    GameConstants.GameLayers.Bottom,
+                    AnchorPoints.Fill,
+                    Size.Zero,
+                    Offset.Zero,
+                    DynamicRectangle.FitTypes.Screen,
+                    DynamicRectangle.GrowFroms.Edges,
+                    DrawManager.DrawTargets.UI
+                    )) as UI_Panel;
 
             basePanel.AddChild(BuildMenuButtons());
         }
@@ -52,38 +52,43 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private UI_Panel BuildMenuButtons()
         {
             UI_Panel menuButtonPanel = new UI_Panel(
-                anchorPoints: AnchorPoints.LeftStretch,
-                padding: new Padding(0, 300, 0, 0),
-                offset: Offset.Zero,
-                texture: DefaultContent.DefaultRectangle,
-                color: new Color(Color.Gray, 100),
-                drawTarget: DrawManager.DrawTargets.UI);
-
+                DefaultContent.DefaultRectangle,
+                new Color(Color.Gray, 100),
+                GameConstants.GameLayers.UI_Background,
+                AnchorPoints.LeftStretch,
+                new Size(300, 0),
+                Offset.Zero,
+                DynamicRectangle.FitTypes.Parent,
+                DynamicRectangle.GrowFroms.Auto,
+                DrawManager.DrawTargets.UI);
+            
             UI_Button playButton = menuButtonPanel.AddChild(
-                new UI_Button
-                (
-                    anchorPoints: AnchorPoints.Center,
-                    padding: new Padding(128, 32),
-                    offset: new Offset(-16, -40),
-                    baseColor: Color.White,
-                    hoverColor: Color.Yellow,
+                new UI_Button (
+                    Color.White,
+                    Color.Yellow,
                     "Play Game",
-                    DrawManager.DrawTargets.UI,
-                    UIComponent.FitTypes.Parent
+                    GameConstants.GameLayers.UI_Foregound,
+                    AnchorPoints.Center,
+                    new Size(256, 64),
+                    new Offset(-16, -40),
+                    DynamicRectangle.FitTypes.Parent,
+                    DynamicRectangle.GrowFroms.Auto,
+                    DrawManager.DrawTargets.UI
                 )) as UI_Button;
             playButton.OnClick += EnterGame;
-
+            
             UI_Button quitButton = menuButtonPanel.AddChild(
-                new UI_Button
-                (
-                    anchorPoints: AnchorPoints.Center,
-                    padding: new Padding(128, 32),
-                    offset: new Offset(-16, 40),
-                    baseColor: Color.White,
-                    hoverColor: Color.Yellow,
+                new UI_Button(
+                    Color.White,
+                    Color.Yellow,
                     "Quit Game",
-                    DrawManager.DrawTargets.UI,
-                    UIComponent.FitTypes.Parent
+                    GameConstants.GameLayers.UI_Foregound,
+                    AnchorPoints.Center,
+                    new Size(256, 64),
+                    new Offset(-16, 40),
+                    DynamicRectangle.FitTypes.Parent,
+                    DynamicRectangle.GrowFroms.Auto,
+                    DrawManager.DrawTargets.UI
                 )) as UI_Button;
             quitButton.OnClick += _game.Exit;
 

@@ -9,18 +9,35 @@ namespace DungeonCrawler.Code.UI
 {
     internal class UI_Text : UIComponent
     {
+        /*        public UI_Text(
+                    string text,
+                    SpriteFont font,
+                    Color color,
+                    AnchorPoints anchorPoints,
+                    Size padding,
+                    Offset offset,
+                    GameConstants.GameLayers layer,
+                    DrawManager.DrawTargets drawTarget,
+                    FitTypes fitType = FitTypes.Parent,
+                    bool enabled = true) :
+                    base(anchorPoints, padding, offset, drawTarget, fitType, enabled)
+                {
+                    BuildText(text, font, color, layer);
+                }*/
+
         public UI_Text(
             string text,
             SpriteFont font,
             Color color,
-            AnchorPoints anchorPoints,
-            Padding padding,
-            Offset offset,
             GameConstants.GameLayers layer,
+            AnchorPoints anchorPoints,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
             DrawManager.DrawTargets drawTarget,
-            FitTypes fitType = FitTypes.Parent,
             bool enabled = true) :
-            base(anchorPoints, padding, offset, drawTarget, fitType, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
         {
             BuildText(text, font, color, layer);
         }
@@ -28,14 +45,15 @@ namespace DungeonCrawler.Code.UI
         public UI_Text(
             string text,
             Color color,
-            AnchorPoints anchorPoints,
-            Padding padding,
-            Offset offset,
             GameConstants.GameLayers layer,
+            AnchorPoints anchorPoints,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
             DrawManager.DrawTargets drawTarget,
-            FitTypes fitType = FitTypes.Parent,
             bool enabled = true) :
-            base(anchorPoints, padding, offset, drawTarget, fitType, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
         {
             BuildText(text, DefaultContent.DefaultFont, color, layer);
         }
@@ -46,18 +64,11 @@ namespace DungeonCrawler.Code.UI
         {
             _text = new DrawableText(
                 text,
-                DrawRectangle.Location,
+                Rectangle.ScreenLocation,
                 color,
                 font,
                 layer,
                 DrawTarget);
-
-            OnDrawRectangleUpdated += UpdateDrawRectangle;
-        }
-
-        private void UpdateDrawRectangle()
-        {
-            _text.Position = new Point(DrawRectangle.X, DrawRectangle.Y - _text.Size.Y);
         }
     }
 }

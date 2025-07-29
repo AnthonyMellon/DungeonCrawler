@@ -15,46 +15,49 @@ namespace DungeonCrawler.Code.UI
         #region publics
         public Action OnClick;
 
-
         public UI_Button(
-            AnchorPoints anchorPoints,
-            Padding padding,
-            Offset offset,
             Color baseColor,
             Color hoverColor,
             Texture2D texture,
             string text,
+            GameConstants.GameLayers layer,
+            AnchorPoints anchorPoints,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
             DrawManager.DrawTargets drawTarget,
-            FitTypes fitType) :
-            base(anchorPoints, padding, offset, drawTarget)
+            bool enabled = true) :
+            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
         {
             _baseColor = baseColor;
             _hoverColor = hoverColor;
             _texture = texture;
-            _text = text;            
+            _text = text;
 
-            OnDrawRectangleUpdated += UpdateDrawRectangle;
-            BuildButton();
+            BuildButton(layer);
         }
 
         public UI_Button(
-            AnchorPoints anchorPoints,
-            Padding padding,
-            Offset offset,
             Color baseColor,
             Color hoverColor,
             string text,
+            GameConstants.GameLayers layer,
+            AnchorPoints anchorPoints,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
             DrawManager.DrawTargets drawTarget,
-            FitTypes fitType) :
-            base(anchorPoints, padding, offset, drawTarget)
+            bool enabled = true) :
+            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
         {
             _baseColor = baseColor;
             _hoverColor = hoverColor;
             _texture = DefaultContent.DefaultCapsule;
             _text = text;
 
-            OnDrawRectangleUpdated += UpdateDrawRectangle;
-            BuildButton();
+            BuildButton(layer);
         }
         #endregion
 
@@ -70,43 +73,37 @@ namespace DungeonCrawler.Code.UI
         private string _text;
         
         private DrawableTexture _backgroundTexture;
-        private ComplexDrawable _buttonTexture;
 
-        private void BuildButton()
-        {
+        private void BuildButton(GameConstants.GameLayers layer)
+        {            
             DrawableTexture buttonBackground = new DrawableTexture(
                 _texture,
                 Point.Zero,
                 Color.White,
-                GameConstants.GameLayers.UI_Texutre);
+                GameConstants.GameLayers.Bottom,
+                DrawManager.DrawTargets.None);
             _backgroundTexture = buttonBackground;
 
             DrawableText buttonText = new DrawableText(
                 _text,
                 Point.Zero,
-                Color.Black);
+                Color.Black,
+                GameConstants.GameLayers.Bottom);
             buttonText.CenterTextToRectangle(buttonBackground.Rectangle);
 
-            _buttonTexture = new ComplexDrawable(GameValues.GraphicsDevice, DrawTarget);
-            _buttonTexture.AddDrawables(new List<Drawable>
+            ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, DrawTarget);
+            drawTexture.AddDrawables(new List<Drawable>
             {
                 buttonBackground,
                 buttonText
             });
-        }
-
-        private void UpdateDrawRectangle()
-        {
-            if (_backgroundTexture == null) return;
-
-            _buttonTexture.Position = DrawRectangle.Location;
-            _buttonTexture.Size = DrawRectangle.Size;
+            DrawTexture = drawTexture;
         }
 
         private void CheckForHover()
         {
             Rectangle mouseRectangle = new Rectangle(InputProvider.MousePosition, new Point(1, 1));
-            _isHovering = InputProvider.IsMouseInWindow && DrawRectangle.Intersects(mouseRectangle);
+            _isHovering = InputProvider.IsMouseInWindow && Rectangle.Rectangle.Intersects(mouseRectangle);
         }
 
         private void Highlight()

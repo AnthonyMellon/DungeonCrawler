@@ -14,7 +14,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Color color, GameConstants.GameLayers layer,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
-            base(drawTarget, visible)
+            base(layer, drawTarget, visible)
         {
             Texture = texture;
             Position = position;
