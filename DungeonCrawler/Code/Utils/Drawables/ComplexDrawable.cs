@@ -39,7 +39,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
             spritebatch.Draw(
                 _renderTarget,
-                Rectangle,
+                Rectangle.Rectangle,
                 Color.White);
         }
 
@@ -83,9 +83,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         protected void BuildTexture()
         {
-            if (Rectangle.Width == 0 || Rectangle.Height == 0) return;
+            if (Rectangle.ScreenSize.X == 0 || Rectangle.ScreenSize.Y == 0) return;
 
-            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, Rectangle.Width, Rectangle.Height);
+            _renderTarget = new RenderTarget2D(GameValues.GraphicsDevice, Rectangle.ScreenSize.X, Rectangle.ScreenSize.Y);
             SpriteBatch spriteBatch = new SpriteBatch(_grahpicsDevice);
 
             _grahpicsDevice.SetRenderTarget(_renderTarget);

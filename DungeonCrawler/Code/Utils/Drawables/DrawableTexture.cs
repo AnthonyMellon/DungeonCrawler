@@ -31,7 +31,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
             spritebatch.Draw(
                 Texture,
-                Rectangle,
+                Rectangle.Rectangle,
                 Texture.Bounds,
                 Color,
                 0,

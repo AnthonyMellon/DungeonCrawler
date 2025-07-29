@@ -60,7 +60,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
         {
             spritebatch.Draw(
                 SpriteSheet.Sheet,
-                Rectangle,
+                Rectangle.Rectangle,
                 SourceRectangle,
                 Color,
                 0,              // Rotation

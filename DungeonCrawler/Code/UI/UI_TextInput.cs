@@ -44,7 +44,7 @@ namespace DungeonCrawler.Code.UI
                 Point.Zero,
                 Color.Black,
                 GameConstants.GameLayers.Bottom);
-            text.CenterTextToRectangle(inputAreaTexture.Rectangle);
+            text.CenterTextToRectangle(inputAreaTexture.Rectangle.Rectangle);
             _text = text;
 
             ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, DrawTarget);

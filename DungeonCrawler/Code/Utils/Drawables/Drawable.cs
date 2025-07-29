@@ -1,4 +1,5 @@
 ﻿using DungeonCrawler.Code.DrawManagement;
+using DungeonCrawler.Code.UI.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +9,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
     internal abstract class Drawable
     {
         public Action OnChange;
-        public Rectangle Rectangle
+        public DynamicRectangle Rectangle
         {
             get
             {
@@ -36,30 +37,30 @@ namespace DungeonCrawler.Code.Utils.Drawables
         {
             get
             {
-                return Rectangle.Location;
+                return Rectangle.ScreenLocation;
             }
             set
             {
                 Rectangle newRectangle = new Rectangle(
                     value,
-                    Rectangle.Size
+                    Rectangle == null ? new Point(0, 0) : Rectangle.ScreenSize
                     );
-                Rectangle = newRectangle;
+                Rectangle = new DynamicRectangle(newRectangle);
             }
         }
         public Point Size
         {
             get
             {
-                return Rectangle.Size;
+                return Rectangle.ScreenSize;
             }
             set
             {
                 Rectangle newRectangle = new Rectangle(
-                    Rectangle.Location,
+                    Rectangle == null ? new Point(0, 0) : Rectangle.ScreenLocation,
                     value
                     );
-                Rectangle = newRectangle;
+                Rectangle = new DynamicRectangle(newRectangle);
             }
         }
         public bool Visible
@@ -108,7 +109,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         private bool _visible;
         private DrawManager.DrawTargets _drawTarget;
-        private Rectangle _destinationRectangle;
+        private DynamicRectangle _destinationRectangle;
         private Color _color;
         private GameConstants.GameLayers _layer;
     }
