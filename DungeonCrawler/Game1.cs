@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Diagnostics;
 
 namespace DungeonCrawler
 {
@@ -73,13 +72,13 @@ namespace DungeonCrawler
                 _graphics.PreferredBackBufferWidth,
                 _graphics.PreferredBackBufferHeight);
 
+            _mainCamera = new Camera(_spriteBatch);
+            ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
+
             // Scene Manager (the first scene added will be the default scene)
             SceneManager.AddedScenes.Add(GameConstants.MainMenu, new Scene_MainMenu());
             SceneManager.AddedScenes.Add(GameConstants.Game, new Scene_Game());
             SceneManager.Init(Content, this);
-
-            _mainCamera = new Camera(_spriteBatch);
-            ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
 
             DrawManager.Setup(GraphicsDevice);
         }
