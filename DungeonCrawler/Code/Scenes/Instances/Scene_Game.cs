@@ -43,12 +43,15 @@ namespace DungeonCrawler.Code.Scenes.Instances
         {
             UI_Panel basePanel = AddChild(
                 new UI_Panel(
+                    DefaultContent.DefaultRectangle,
+                    Color.CornflowerBlue,
+                    GameConstants.GameLayers.Bottom,
                     AnchorPoints.Fill,
                     Size.Zero,
                     Offset.Zero,
                     DynamicRectangle.FitTypes.Screen,
-                    DynamicRectangle.GrowFroms.Auto,
-                    DrawManager.DrawTargets.None
+                    DynamicRectangle.GrowFroms.Edges,
+                    DrawManager.DrawTargets.World
                     )) as UI_Panel;
 
             basePanel.AddChild(BuildMenuBar());
@@ -65,7 +68,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 DynamicRectangle.FitTypes.Parent,
                 DynamicRectangle.GrowFroms.Auto,
                 DrawManager.DrawTargets.UI);
-            
+
             UI_Button menuButton = menuBar.AddChild(
                 new UI_Button(
                     Color.White,

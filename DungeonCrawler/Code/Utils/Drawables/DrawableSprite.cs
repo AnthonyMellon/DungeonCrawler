@@ -58,16 +58,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(
-                SpriteSheet.Sheet,
-                Rectangle.Rectangle,
-                SourceRectangle,
-                Color,
-                0,              // Rotation
-                Vector2.Zero,   // Origin       currently no use for these values  
-                        SpriteEffects.None,
-                GameConstants.GameLayerToLayer(Layer)
-            );
+            Draw(spritebatch, Rectangle.Rectangle);
         }
 
         public override void Draw(SpriteBatch spritebatch, Rectangle destinationRectangle)

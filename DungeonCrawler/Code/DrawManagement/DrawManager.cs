@@ -27,7 +27,7 @@ namespace DungeonCrawler.Code.DrawManagement
         public static void Draw(SpriteBatch spritebatch, GraphicsDevice graphicsDevice, GameTime gametime)
         {
             GenerateAllLayerTextures(spritebatch, graphicsDevice, gametime);
-            
+
             spritebatch.Begin(blendState: BlendState.NonPremultiplied);
             for (int i = 0; i < _drawOrder.Count; i++)
             {
@@ -52,7 +52,7 @@ namespace DungeonCrawler.Code.DrawManagement
         }
 
         public static void RegisterDrawable(DrawTargets drawTarget, Drawable drawable)
-        {            
+        {
             DrawTarget target = _getDrawTarget[drawTarget];
             target.RegisterDrawable(drawable);
         }
@@ -77,7 +77,7 @@ namespace DungeonCrawler.Code.DrawManagement
 
         private static GraphicsDevice _graphicsDevice;
 
-        private static List<ComplexDrawable> _complexDrawables = new List<ComplexDrawable>();        
+        private static List<ComplexDrawable> _complexDrawables = new List<ComplexDrawable>();
 
         private static DrawTarget _worldRenderTarget = new DrawTarget();
         private static DrawTarget _uiRenderTarget = new DrawTarget();
@@ -89,7 +89,7 @@ namespace DungeonCrawler.Code.DrawManagement
             _worldRenderTarget,
             _uiRenderTarget,
             _developmentRenderTarget,
-        };        
+        };
 
         private static Dictionary<DrawTargets, DrawTarget> _getDrawTarget = new Dictionary<DrawTargets, DrawTarget>()
         {
@@ -127,7 +127,7 @@ namespace DungeonCrawler.Code.DrawManagement
 
         private static void InitDrawTargets()
         {
-            for(int i = 0; i < _drawOrder.Count; i++)
+            for (int i = 0; i < _drawOrder.Count; i++)
             {
                 _drawOrder[i].Init(_graphicsDevice);
             }
@@ -135,9 +135,9 @@ namespace DungeonCrawler.Code.DrawManagement
         private static void ResizeDrawTargets(int width, int height)
         {
             for (int i = 0; i < _drawOrder.Count; i++)
-            {                
+            {
                 _drawOrder[i].Resize(width, height);
             }
-        }        
+        }
     }
 }
