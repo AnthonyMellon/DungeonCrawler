@@ -72,12 +72,14 @@ namespace DungeonCrawler.Code.UI
 
         protected override void OnEnable()
         {
+            if (DrawTexture != null) DrawTexture.Visible = true;
             if(Rectangle != null) Rectangle.AllowRectangleUpdates = true;
 
         }
 
         protected override void OnDisable()
         {
+            if (DrawTexture != null) DrawTexture.Visible = false;
             if (Rectangle != null) Rectangle.AllowRectangleUpdates = false;
         }
         #endregion

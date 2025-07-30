@@ -1,5 +1,4 @@
-﻿using DungeonCrawler.Code.UI;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -20,6 +19,8 @@ namespace DungeonCrawler.Code
 
                 if (value == true) OnEnable();
                 else OnDisable();
+
+                EnableChildren(_isEnabled);
             }
         }
 
@@ -55,6 +56,17 @@ namespace DungeonCrawler.Code
                 if (child == null) continue;
 
                 child.DoUpdate(gametime);
+            }
+        }
+
+        public void EnableChildren(bool enable)
+        {
+            for (int i = 0; i < Children.Count; i++)
+            {
+                Dynamic child = Children[i];
+                if (child == null) continue;
+
+                child.IsEnabled = enable;
             }
         }
 
