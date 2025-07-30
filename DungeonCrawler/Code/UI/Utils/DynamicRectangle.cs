@@ -117,6 +117,26 @@ namespace DungeonCrawler.Code.UI.Utils
             }
         }
 
+        public struct Arguments
+        {
+            public AnchorPoints AnchorPoints;
+            public Size Size;
+            public Offset Offset;
+            public FitTypes FitType;
+            public GrowFroms GrowFrom;
+            public DynamicRectangle Parent;
+
+            public Arguments(AnchorPoints anchorPoints, Size size, Offset offset, FitTypes fitType, GrowFroms growfrom, DynamicRectangle parent)
+            {
+                AnchorPoints = anchorPoints;
+                Size = size;
+                Offset = offset;
+                FitType = fitType;
+                GrowFrom = growfrom;
+                Parent = parent;
+            }
+        }
+
         public DynamicRectangle ParentRectangle
         {
             get
@@ -141,18 +161,19 @@ namespace DungeonCrawler.Code.UI.Utils
             GrowFroms growFrom,
             DynamicRectangle parent)
         {
-            AllowRectangleUpdates = false;
+            Create(new Arguments(
+                anchorPoints,
+                size,
+                offset,
+                fitType,
+                growFrom,
+                parent
+                ));
+        }
 
-            _anchorPoints = anchorPoints;
-            _size = size;
-            _offset = offset;
-            _fitType = fitType;
-            _growFrom = growFrom;
-            _parentRectangle = parent;
-
-            AllowRectangleUpdates = true;
-
-            GameEvents.OnScreenSizeChange += OnScreenSizeChange;
+        public DynamicRectangle(Arguments args)
+        {
+            Create(args);
         }
 
         public DynamicRectangle(Rectangle rectangle)
@@ -188,6 +209,22 @@ namespace DungeonCrawler.Code.UI.Utils
             { AnchorPoints.BottomRight.AsVector, GrowFroms.BottomRight },
             { AnchorPoints.Fill.AsVector, GrowFroms.Edges },
         };
+
+        private void Create(Arguments args)
+        {
+            AllowRectangleUpdates = false;
+
+            _anchorPoints = args.AnchorPoints;
+            _size = args.Size;
+            _offset = args.Offset;
+            _fitType = args.FitType;
+            _growFrom = args.GrowFrom;
+            _parentRectangle = args.Parent;
+
+            AllowRectangleUpdates = true;
+
+            GameEvents.OnScreenSizeChange += OnScreenSizeChange;
+        }
 
         private void OnScreenSizeChange(int width, int height)
         {
@@ -252,7 +289,7 @@ namespace DungeonCrawler.Code.UI.Utils
 
         private void FitToRectangle(Rectangle fitToRectangle)
         {
-            GrowFroms growFrom = GrowFrom == GrowFroms.Auto ? 
+            GrowFroms growFrom = GrowFrom == GrowFroms.Auto ?
                 AnchorVectorToGrowFrom[AnchorPoints.AsVector] :
                 GrowFrom;
 

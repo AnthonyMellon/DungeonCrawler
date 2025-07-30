@@ -110,7 +110,9 @@ namespace DungeonCrawler.Code.DrawManagement
             spriteBatch.Begin(blendState: BlendState.AlphaBlend, sortMode: SpriteSortMode.BackToFront);
             for (int i = 0; i < drawList.Count; i++)
             {
-                drawList[i].Draw(spriteBatch);
+                Drawable drawable = drawList[i];
+                if (!drawable.Visible) continue;
+                drawable.Draw(spriteBatch);
             }
             spriteBatch.End();
 

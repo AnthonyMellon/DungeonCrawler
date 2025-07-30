@@ -73,9 +73,6 @@ namespace DungeonCrawler.Code.Utils.Drawables
             {
                 _visible = value;
 
-                if (_visible) DrawManager.RegisterDrawable(_drawTarget, this);
-                if (!_visible) DrawManager.DeregisterDrawable(_drawTarget, this);
-
                 OnChange?.Invoke();
                 OnVisabilitySet?.Invoke(_visible);
             }
@@ -102,9 +99,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true)
         {
-            _layer = layer;
-            _drawTarget = drawTarget;
-            Visible = visible;
+            CreateDrawable(layer, drawTarget, visible, null);
         }
 
         public Drawable(
@@ -118,16 +113,15 @@ namespace DungeonCrawler.Code.Utils.Drawables
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true)
         {
-            _layer = layer;
-            _drawTarget = drawTarget;
-            Visible = visible;
-            Rectangle = new DynamicRectangle(
-                    anchorPoints,
-                    size,
-                    offset,
-                    fitType,
-                    growFrom,
-                    parent);
+            DynamicRectangle.Arguments arguments = new DynamicRectangle.Arguments(
+                anchorPoints,
+                size,
+                offset,
+                fitType,
+                growFrom,
+                parent);
+
+            CreateDrawable(layer, drawTarget, visible, arguments);
         }
 
         private bool _visible;
@@ -135,5 +129,18 @@ namespace DungeonCrawler.Code.Utils.Drawables
         private DynamicRectangle _destinationRectangle;
         private Color _color;
         private GameConstants.GameLayers _layer;
+
+        private void CreateDrawable(GameConstants.GameLayers layer, DrawManager.DrawTargets drawTarget, bool visible, DynamicRectangle.Arguments? args)
+        {      
+            _layer = layer;
+            _drawTarget = drawTarget;
+            Visible = visible;
+
+            if(args.HasValue) Rectangle = new DynamicRectangle(args.Value);
+
+            DrawManager.RegisterDrawable(_drawTarget, this);
+        }
+
+        
     }
 }
