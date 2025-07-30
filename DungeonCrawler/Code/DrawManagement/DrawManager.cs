@@ -107,7 +107,7 @@ namespace DungeonCrawler.Code.DrawManagement
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(Color.Transparent);
 
-            spriteBatch.Begin(blendState: BlendState.NonPremultiplied, sortMode: SpriteSortMode.BackToFront);
+            spriteBatch.Begin(blendState: BlendState.AlphaBlend, sortMode: SpriteSortMode.BackToFront);
             for (int i = 0; i < drawList.Count; i++)
             {
                 drawList[i].Draw(spriteBatch);
