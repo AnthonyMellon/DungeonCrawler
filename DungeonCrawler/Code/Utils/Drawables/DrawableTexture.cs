@@ -1,4 +1,5 @@
 ﻿using DungeonCrawler.Code.DrawManagement;
+using DungeonCrawler.Code.UI.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,18 +12,36 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public DrawableTexture(
             Texture2D texture,
             Point position,
-            Color color, GameConstants.GameLayers layer,
+            Color color,
+            GameConstants.GameLayers layer,
             DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
             bool visible = true) :
             base(layer, drawTarget, visible)
         {
             Texture = texture;
             Position = position;
-            Color = color;
-            Layer = layer;
+            Color = color;            
 
             if (texture == null) Size = Point.Zero;
             else Size = texture.Bounds.Size;
+        }
+
+        public DrawableTexture(
+            Texture2D texture,
+            Color color,
+            GameConstants.GameLayers layer,
+            AnchorPoints anchorPoints,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
+            DynamicRectangle parent,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            bool visible = true) :
+            base(layer, anchorPoints, size, offset, fitType, growFrom, parent, drawTarget, visible)
+        {
+            Texture = texture;
+            Color = color;            
         }
 
         public override void Draw(SpriteBatch spritebatch)

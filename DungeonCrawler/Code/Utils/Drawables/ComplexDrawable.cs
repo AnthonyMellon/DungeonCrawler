@@ -94,7 +94,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
             spriteBatch.Begin();
             for (int i = 0; i < _drawables.Count; i++)
             {
-                _drawables[i].Draw(spriteBatch, _renderTarget.Bounds);
+                _drawables[i].Draw(spriteBatch, _drawables[i].Rectangle.Rectangle);
             }
             spriteBatch.End();
             spriteBatch.Dispose();

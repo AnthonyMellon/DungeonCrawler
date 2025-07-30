@@ -15,13 +15,13 @@ namespace DungeonCrawler.Code.Utils.Drawables
             {
                 return _destinationRectangle;
             }
-            private set
+            set
             {
                 _destinationRectangle = value;
                 OnChange?.Invoke();
             }
         }
-        public Color Color 
+        public Color Color
         {
             get
             {
@@ -75,7 +75,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
 
                 if (_visible) DrawManager.RegisterDrawable(_drawTarget, this);
                 if (!_visible) DrawManager.DeregisterDrawable(_drawTarget, this);
-                
+
                 OnChange?.Invoke();
                 OnVisabilitySet?.Invoke(_visible);
             }
@@ -105,6 +105,29 @@ namespace DungeonCrawler.Code.Utils.Drawables
             _layer = layer;
             _drawTarget = drawTarget;
             Visible = visible;
+        }
+
+        public Drawable(
+            GameConstants.GameLayers layer,
+            AnchorPoints anchorPoints,
+            Size size,
+            Offset offset,
+            DynamicRectangle.FitTypes fitType,
+            DynamicRectangle.GrowFroms growFrom,
+            DynamicRectangle parent,
+            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            bool visible = true)
+        {
+            _layer = layer;
+            _drawTarget = drawTarget;
+            Visible = visible;
+            Rectangle = new DynamicRectangle(
+                    anchorPoints,
+                    size,
+                    offset,
+                    fitType,
+                    growFrom,
+                    parent);
         }
 
         private bool _visible;

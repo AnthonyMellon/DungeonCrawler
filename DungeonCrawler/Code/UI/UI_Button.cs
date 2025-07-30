@@ -83,6 +83,18 @@ namespace DungeonCrawler.Code.UI
                 GameConstants.GameLayers.Bottom,
                 DrawManager.DrawTargets.None);
             _backgroundTexture = buttonBackground;
+            
+            DrawableTexture foregroundTexture = new DrawableTexture(
+                _texture,
+                Color.White,
+                GameConstants.GameLayers.Bottom,
+                AnchorPoints.Fill,
+                Size.Negative * 10,
+                Offset.Zero,
+                DynamicRectangle.FitTypes.Parent,
+                DynamicRectangle.GrowFroms.Auto,
+                buttonBackground.Rectangle);
+
 
             DrawableText buttonText = new DrawableText(
                 _text,
@@ -95,6 +107,7 @@ namespace DungeonCrawler.Code.UI
             drawTexture.AddDrawables(new List<Drawable>
             {
                 buttonBackground,
+                foregroundTexture,
                 buttonText
             });
             DrawTexture = drawTexture;
