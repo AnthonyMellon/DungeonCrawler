@@ -21,7 +21,8 @@ namespace DungeonCrawler.Code.Entities
                     SpriteSheet,
                     _camera.WorldPositionToScreenPosition(WorldPosition),
                     GameConstants.EntityDirections.FOWARD,
-                    GameConstants.GameLayers.World_Background);
+                    GameConstants.GameLayers.World_Player,
+                    DrawManagement.DrawManager.DrawTargets.World);
             }
         }
         public Point WorldPosition
