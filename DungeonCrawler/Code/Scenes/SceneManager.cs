@@ -9,6 +9,15 @@ namespace DungeonCrawler.Code.Scenes
 {
     internal static class SceneManager
     {
+        public static Dictionary<string, Scene> AddedScenes { get; private set; } = new Dictionary<string, Scene>()
+        {
+#if DEVELOPMENT
+            { GameConstants.SceneNames.DevMenu, new Scene_DevMenu() },
+#endif
+            { GameConstants.SceneNames.MainMenu, new Scene_MainMenu() },
+            { GameConstants.SceneNames.GameUI, new Scene_GameUI() },
+            { GameConstants.SceneNames.Game, new Scene_Game() },
+        };
         public static List<Scene> ActiveScenes { get; private set; } = new List<Scene>();
 
         public static void Init(ContentManager content, Game game)
@@ -29,15 +38,21 @@ namespace DungeonCrawler.Code.Scenes
 
         public static void ToggleScene(string sceneName)
         {
-            if (ActiveScenes.Contains(_scenes[sceneName])) ToggleScene(sceneName, false);
+            if (ActiveScenes.Contains(AddedScenes[sceneName])) ToggleScene(sceneName, false);
             else ToggleScene(sceneName, true);
-        }
+        }        
 
         public static void ToggleScene(string sceneName, bool toggle)
         {
             if (toggle) QueueSceneToLoad(sceneName);
             else QueueSceneToUnload(sceneName);
         }
+
+        public static void LoadSceneNonAdditive(string sceneName)
+        {
+            UnloadAllActiveScenes();
+            _scenesToLoad.Add(AddedScenes[sceneName]);
+        }        
 
         public static void Update(GameTime gametime)
         {
@@ -50,16 +65,7 @@ namespace DungeonCrawler.Code.Scenes
             }
         }
 
-        private static Dictionary<string, Scene> _scenes = new Dictionary<string, Scene>()
-        {
-            { GameConstants.SceneNames.MainMenu, new Scene_MainMenu() },
-            { GameConstants.SceneNames.Game, new Scene_Game() },
-
-#if DEVELOPMENT
-            { GameConstants.SceneNames.DevMenu, new Scene_DevMenu() },
-#endif
-        };
-        private static Scene _defaultScene = _scenes[GameConstants.SceneNames.MainMenu];
+        private static Scene _defaultScene = AddedScenes[GameConstants.SceneNames.MainMenu];
 
         private static List<Scene> _scenesToLoad = new List<Scene>();
         private static List<Scene> _scenesToUnload = new List<Scene>();
@@ -69,16 +75,16 @@ namespace DungeonCrawler.Code.Scenes
 
         private static void QueueSceneToLoad(string sceneName)
         {
-            if (ActiveScenes.Contains(_scenes[sceneName])) return;
+            if (ActiveScenes.Contains(AddedScenes[sceneName])) return;
 
-            _scenesToUnload.Remove(_scenes[sceneName]);
-            _scenesToLoad.Add(_scenes[sceneName]);
+            _scenesToUnload.Remove(AddedScenes[sceneName]);
+            _scenesToLoad.Add(AddedScenes[sceneName]);
         }
 
         private static void QueueSceneToUnload(string sceneName)
         {
-            _scenesToLoad.Remove(_scenes[sceneName]);
-            _scenesToUnload.Add(_scenes[sceneName]);
+            _scenesToLoad.Remove(AddedScenes[sceneName]);
+            _scenesToUnload.Add(AddedScenes[sceneName]);
         }
 
         private static void UnloadScenes()
@@ -100,12 +106,21 @@ namespace DungeonCrawler.Code.Scenes
             {
                 Scene currentScene = _scenesToLoad[i];
 
+                currentScene.OnEnter();
                 if (!currentScene.Initialised) currentScene.DoInit(_contentManager, _game);
                 ActiveScenes.Add(currentScene);
 
                 currentScene.IsEnabled = true;
             }
             _scenesToLoad.Clear();
+        }
+
+        private static void UnloadAllActiveScenes()
+        {
+            for (int i = 0; i < ActiveScenes.Count; i++)
+            {
+                _scenesToUnload.Add(ActiveScenes[i]);
+            }
         }
     }
 }

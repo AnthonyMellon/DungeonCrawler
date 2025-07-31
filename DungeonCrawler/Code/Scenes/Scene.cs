@@ -61,5 +61,8 @@ namespace DungeonCrawler.Code.Scenes
             base(enabled)
         {
         }
+
+        public virtual void OnEnter() { }
+        public virtual void OnExit() { }
     }
 }

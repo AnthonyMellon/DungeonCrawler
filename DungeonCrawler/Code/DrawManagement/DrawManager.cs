@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonCrawler.Code.DrawManagement
 {
@@ -45,12 +46,14 @@ namespace DungeonCrawler.Code.DrawManagement
             GenerateAllActiveSceneTextures(spritebatch, graphicsDevice, gametime);
 
             spritebatch.Begin(blendState: BlendState.NonPremultiplied);
-            for (int i = 0; i < SceneManager.ActiveScenes.Count; i++)
+            for (int i = SceneManager.AddedScenes.Count - 1; i >= 0; i--) // looping backwards so scenes get drawn from bottm to top (makes things nicer in the DrawManager)
             {
-                Scene scene = SceneManager.ActiveScenes[i];
+                Scene currentScene = SceneManager.AddedScenes.ElementAt(i).Value;
+                if (!SceneManager.ActiveScenes.Contains(currentScene)) continue;
+                
                 spritebatch.Draw(
-                    scene.RenderTarget,
-                    scene.ScreenRectangle.Rectangle,
+                    currentScene.RenderTarget,
+                    currentScene.ScreenRectangle.Rectangle,
                     Color.White);
             }
             spritebatch.End();

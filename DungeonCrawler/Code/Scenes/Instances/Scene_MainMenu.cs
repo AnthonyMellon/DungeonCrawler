@@ -96,8 +96,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private void EnterGame()
         {
-            SceneManager.ToggleScene(GameConstants.SceneNames.MainMenu, false);
-            SceneManager.ToggleScene(GameConstants.SceneNames.Game, true);
+            SceneManager.LoadSceneNonAdditive(GameConstants.SceneNames.Game);
         }
 
         protected override void Update(GameTime gametime) { }

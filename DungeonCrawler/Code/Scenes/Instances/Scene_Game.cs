@@ -2,7 +2,6 @@
 using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
 using DungeonCrawler.Code.UI;
-using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -25,72 +24,32 @@ namespace DungeonCrawler.Code.Scenes.Instances
             BasicEnemy enemy2 = _entityManager.BuildNewEnemy() as BasicEnemy;
             enemy2.WorldPosition = new Point(-100, -200);
             //TEMP ENEMIES
-            //
-            BuildUI();
+            //            
 
             _currentDungeon = AddChild(new Dungeon(this)) as Dungeon;
             _currentDungeon.BuildDungeon();
         }
+
+        public override void OnEnter()
+        {
+            SceneManager.ToggleScene(GameConstants.SceneNames.GameUI, true);
+
+            base.OnEnter();
+        }
+
+        public override void OnExit()
+        {
+            SceneManager.ToggleScene(GameConstants.SceneNames.GameUI, false);
+
+            base.OnExit();
+        }
+
         #endregion region
 
         #region privates
         private Camera _camera;
         private EntityManager _entityManager;
         private Dungeon _currentDungeon;
-
-        private void BuildUI()
-        {
-            UI_Panel basePanel = AddChild(
-                new UI_Panel(
-                    DefaultContent.DefaultRectangle,
-                    Color.CornflowerBlue,
-                    GameConstants.GameLayers.Bottom,
-                    AnchorPoints.Fill,
-                    Size.Zero,
-                    Offset.Zero,
-                    DynamicRectangle.FitTypes.Screen,
-                    DynamicRectangle.GrowFroms.Edges,
-                    this
-                    )) as UI_Panel;
-
-            basePanel.AddChild(BuildMenuBar());
-        }
-        private UI_Panel BuildMenuBar()
-        {
-            UI_Panel menuBar = new UI_Panel(
-                DefaultContent.DefaultRectangle,
-                new Color(Color.Gray, 100),
-                GameConstants.GameLayers.UI_Background,
-                AnchorPoints.TopStretch,
-                new Size(0, 100),
-                Offset.Zero,
-                DynamicRectangle.FitTypes.Parent,
-                DynamicRectangle.GrowFroms.Auto,
-                this);
-
-            UI_Button menuButton = menuBar.AddChild(
-                new UI_Button(
-                    Color.White,
-                    Color.Yellow,
-                    "Main Menu",
-                    GameConstants.GameLayers.UI_Foregound,
-                    AnchorPoints.CenterRight,
-                    new Size(256, 64),
-                    new Offset(-10, 0),
-                    DynamicRectangle.FitTypes.Parent,
-                    DynamicRectangle.GrowFroms.Auto,
-                    this
-                )) as UI_Button;
-            menuButton.OnClick += QuitToMainMenu;
-
-            return menuBar;
-        }
-
-        private void QuitToMainMenu()
-        {
-            SceneManager.ToggleScene(GameConstants.SceneNames.Game, false);
-            SceneManager.ToggleScene(GameConstants.SceneNames.MainMenu, true);
-        }
 
         protected override void Update(GameTime gametime) { }
         #endregion
