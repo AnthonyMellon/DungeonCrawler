@@ -9,6 +9,8 @@ namespace DungeonCrawler.Code.Scenes
 {
     internal static class SceneManager
     {
+        public static List<Scene> ActiveScenes { get; private set; } = new List<Scene>();
+
         public static void Init(ContentManager content, Game game)
         {
             _contentManager = content;
@@ -20,14 +22,14 @@ namespace DungeonCrawler.Code.Scenes
             }
 
             // Default to the first scene
-            _activeScenes.Add(_defaultScene);
-            _activeScenes[0].IsEnabled = true;
-            _activeScenes[0].DoInit(_contentManager, _game);
+            ActiveScenes.Add(_defaultScene);
+            ActiveScenes[0].IsEnabled = true;
+            ActiveScenes[0].DoInit(_contentManager, _game);
         }
 
         public static void ToggleScene(string sceneName)
         {
-            if (_activeScenes.Contains(_scenes[sceneName])) ToggleScene(sceneName, false);
+            if (ActiveScenes.Contains(_scenes[sceneName])) ToggleScene(sceneName, false);
             else ToggleScene(sceneName, true);
         }
 
@@ -42,9 +44,9 @@ namespace DungeonCrawler.Code.Scenes
             UnloadScenes();
             LoadScenes();
 
-            for (int i = 0; i < _activeScenes.Count; i++)
+            for (int i = 0; i < ActiveScenes.Count; i++)
             {
-                _activeScenes[i].DoUpdate(gametime);
+                ActiveScenes[i].DoUpdate(gametime);
             }
         }
 
@@ -59,7 +61,6 @@ namespace DungeonCrawler.Code.Scenes
         };
         private static Scene _defaultScene = _scenes[GameConstants.SceneNames.MainMenu];
 
-        private static List<Scene> _activeScenes = new List<Scene>();
         private static List<Scene> _scenesToLoad = new List<Scene>();
         private static List<Scene> _scenesToUnload = new List<Scene>();
 
@@ -68,7 +69,7 @@ namespace DungeonCrawler.Code.Scenes
 
         private static void QueueSceneToLoad(string sceneName)
         {
-            if (_activeScenes.Contains(_scenes[sceneName])) return;
+            if (ActiveScenes.Contains(_scenes[sceneName])) return;
 
             _scenesToUnload.Remove(_scenes[sceneName]);
             _scenesToLoad.Add(_scenes[sceneName]);
@@ -86,7 +87,7 @@ namespace DungeonCrawler.Code.Scenes
             {
                 Scene currentScene = _scenesToUnload[i];
 
-                _activeScenes.Remove(currentScene);
+                ActiveScenes.Remove(currentScene);
 
                 currentScene.IsEnabled = false;
             }
@@ -100,7 +101,7 @@ namespace DungeonCrawler.Code.Scenes
                 Scene currentScene = _scenesToLoad[i];
 
                 if (!currentScene.Initialised) currentScene.DoInit(_contentManager, _game);
-                _activeScenes.Add(currentScene);
+                ActiveScenes.Add(currentScene);
 
                 currentScene.IsEnabled = true;
             }

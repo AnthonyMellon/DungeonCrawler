@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
@@ -16,9 +16,9 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, scene, enabled)
         {
             BuildTextInput(layer);
         }
@@ -29,25 +29,28 @@ namespace DungeonCrawler.Code.UI
                 DefaultContent.DefaultRectangle,
                 Point.Zero,
                 Color.Blue,
-                GameConstants.GameLayers.Bottom);
+                GameConstants.GameLayers.Bottom,
+                null);
             _backgroundTexture = backgroundTexture;
 
             DrawableTexture inputAreaTexture = new DrawableTexture(
                 DefaultContent.DefaultRectangle,
                 Point.Zero,
                 Color.LightBlue,
-                GameConstants.GameLayers.Bottom);
+                GameConstants.GameLayers.Bottom,
+                null);
             _inputAreaTexture = inputAreaTexture;
 
             DrawableText text = new DrawableText(
                 "Test Text",
                 Point.Zero,
                 Color.Black,
-                GameConstants.GameLayers.Bottom);
+                GameConstants.GameLayers.Bottom,
+                null);
             text.CenterTextToRectangle(inputAreaTexture.Rectangle.Rectangle);
             _text = text;
 
-            ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, DrawTarget);
+            ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, Scene);
             drawTexture.AddDrawables(new List<Drawable>
             {
                 backgroundTexture,

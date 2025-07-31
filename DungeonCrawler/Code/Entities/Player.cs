@@ -1,4 +1,5 @@
 ﻿using DungeonCrawler.Code.Input;
+using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.MathExtras;
@@ -8,8 +9,8 @@ namespace DungeonCrawler.Code.Entities
 {
     internal class Player : Entity
     {
-        public Player(Camera camera, EntityManager entityManager)
-            : base(camera, entityManager)
+        public Player(Camera camera, EntityManager entityManager, Scene scene)
+            : base(camera, entityManager, scene)
         {
             SpriteSheet = new SpriteSheet(
                 GameConstants.PLAYER_SPRITESHEET_PATH,
@@ -35,7 +36,7 @@ namespace DungeonCrawler.Code.Entities
             if (InputProvider.IsKeyDown(InputMap.MoveRight)) moveVector += PointExtras.Right;
             moveVector = new Point(moveVector.X * MoveSpeed, moveVector.Y * MoveSpeed);
             Move(moveVector);
-            if(moveVector != Point.Zero) SetSpriteName(GameConstants.PointToDirection(moveVector));
-        }        
+            if (moveVector != Point.Zero) SetSpriteName(GameConstants.PointToDirection(moveVector));
+        }
     }
 }

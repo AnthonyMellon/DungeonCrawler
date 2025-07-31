@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,20 +7,20 @@ namespace DungeonCrawler.Code.Utils.Drawables
 {
     internal class DrawableTexture : Drawable
     {
-        public Texture2D Texture { get; set; }        
+        public Texture2D Texture { get; set; }
 
         public DrawableTexture(
             Texture2D texture,
             Point position,
             Color color,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            Scene scene,
             bool visible = true) :
-            base(layer, drawTarget, visible)
+            base(layer, scene, visible)
         {
             Texture = texture;
             Position = position;
-            Color = color;            
+            Color = color;
 
             if (texture == null) Size = Point.Zero;
             else Size = texture.Bounds.Size;
@@ -36,12 +36,12 @@ namespace DungeonCrawler.Code.Utils.Drawables
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
             DynamicRectangle parent,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            Scene scene,
             bool visible = true) :
-            base(layer, anchorPoints, size, offset, fitType, growFrom, parent, drawTarget, visible)
+            base(layer, anchorPoints, size, offset, fitType, growFrom, parent, scene, visible)
         {
             Texture = texture;
-            Color = color;            
+            Color = color;
         }
 
         public override void Draw(SpriteBatch spritebatch)

@@ -1,10 +1,6 @@
-﻿using DungeonCrawler.Code.Utils.Drawables;
+﻿using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonCrawler.Code.Utils.TileMaps
 {
@@ -22,13 +18,15 @@ namespace DungeonCrawler.Code.Utils.TileMaps
             SpriteSheet sheet,
             Point position,
             string tileName,
+            Scene scene,
             GameConstants.GameLayers layer = GameConstants.GameLayers.World_Background)
         {
             Sprite = new DrawableSprite(
                 sheet,
                 position,
                 tileName,
-                layer);
+                layer,
+                scene);
         }
         #endregion
 

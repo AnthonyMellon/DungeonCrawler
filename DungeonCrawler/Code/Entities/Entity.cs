@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.UI;
+﻿using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
@@ -21,8 +22,8 @@ namespace DungeonCrawler.Code.Entities
                     SpriteSheet,
                     _camera.WorldPositionToScreenPosition(WorldPosition),
                     GameConstants.EntityDirections.FOWARD,
-                    GameConstants.GameLayers.World_Player,
-                    DrawManagement.DrawManager.DrawTargets.World);
+                    GameConstants.GameLayers.Top,
+                    _scene);
             }
         }
         public Point WorldPosition
@@ -68,10 +69,11 @@ namespace DungeonCrawler.Code.Entities
             _sprite.Color = color;
         }
 
-        public Entity(Camera camera, EntityManager entityManager, bool enabled = true) :
+        public Entity(Camera camera, EntityManager entityManager, Scene scene, bool enabled = true) :
             base(enabled)
         {
             _camera = camera;
+            _scene = scene;
             EntityManager = entityManager;
         }
         #endregion
@@ -81,6 +83,7 @@ namespace DungeonCrawler.Code.Entities
         private DrawableSprite _sprite;
         private Camera _camera;
         private Point _worldPosition;
+        private Scene _scene;
         #endregion
     }
 }

@@ -1,12 +1,12 @@
 ﻿using DungeonCrawler.Code.Input;
+using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
-using DungeonCrawler.Code.UI.Utils;
-using DungeonCrawler.Code.DrawManagement;
+using System.Collections.Generic;
 
 namespace DungeonCrawler.Code.UI
 {
@@ -26,9 +26,9 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, scene, enabled)
         {
             _baseColor = baseColor;
             _hoverColor = hoverColor;
@@ -48,9 +48,9 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, scene, enabled)
         {
             _baseColor = baseColor;
             _hoverColor = hoverColor;
@@ -71,19 +71,19 @@ namespace DungeonCrawler.Code.UI
 
         private Texture2D _texture;
         private string _text;
-        
+
         private DrawableTexture _backgroundTexture;
 
         private void BuildButton(GameConstants.GameLayers layer)
-        {            
+        {
             DrawableTexture buttonBackground = new DrawableTexture(
                 _texture,
                 Point.Zero,
                 Color.White,
                 GameConstants.GameLayers.Bottom,
-                DrawManager.DrawTargets.None);
+                null);
             _backgroundTexture = buttonBackground;
-            
+
             DrawableTexture foregroundTexture = new DrawableTexture(
                 _texture,
                 Color.White,
@@ -93,17 +93,19 @@ namespace DungeonCrawler.Code.UI
                 Offset.Zero,
                 DynamicRectangle.FitTypes.Parent,
                 DynamicRectangle.GrowFroms.Auto,
-                buttonBackground.Rectangle);
+                buttonBackground.Rectangle,
+                null);
 
 
             DrawableText buttonText = new DrawableText(
                 _text,
                 Point.Zero,
                 Color.Black,
-                GameConstants.GameLayers.Bottom);
+                GameConstants.GameLayers.Bottom,
+                null);
             buttonText.CenterTextToRectangle(Rectangle.Rectangle);
 
-            ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, DrawTarget);
+            ComplexDrawable drawTexture = new ComplexDrawable(GameValues.GraphicsDevice, layer, Scene);
             drawTexture.AddDrawables(new List<Drawable>
             {
                 buttonBackground,
@@ -122,7 +124,7 @@ namespace DungeonCrawler.Code.UI
         private void Highlight()
         {
             Color highlightColor = _isHovering ? _hoverColor : _baseColor;
-            if(_backgroundTexture.Color != highlightColor) _backgroundTexture.Color = highlightColor;
+            if (_backgroundTexture.Color != highlightColor) _backgroundTexture.Color = highlightColor;
         }
 
         private void CheckForClick()

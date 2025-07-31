@@ -1,5 +1,6 @@
 ﻿using DungeonCrawler.Code.Entities.Pathing;
 using DungeonCrawler.Code.Entities.Pathing.TargetFinders;
+using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
@@ -10,8 +11,8 @@ namespace DungeonCrawler.Code.Entities.Enemies
     internal class BasicEnemy : Entity
     {
         #region publics
-        public BasicEnemy(Camera camera, EntityManager entityManager)
-            : base(camera, entityManager)
+        public BasicEnemy(Camera camera, EntityManager entityManager, Scene scene)
+            : base(camera, entityManager, scene)
         {
             SpriteSheet = new SpriteSheet(
                 GameConstants.ENEMY_SPRITESHEET_PATH,
@@ -54,7 +55,7 @@ namespace DungeonCrawler.Code.Entities.Enemies
             _pathFinder.FindPath(WorldPosition, _pathingTarget);
             Point moveVector = _pathFinder.GetMoveVectorToNextPathPoint(WorldPosition);
             Move(moveVector);
-            if(moveVector != Point.Zero) SetSpriteName(GameConstants.PointToDirection(moveVector));
+            if (moveVector != Point.Zero) SetSpriteName(GameConstants.PointToDirection(moveVector));
 
             base.Update(gametime);
         }

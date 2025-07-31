@@ -1,5 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
-using DungeonCrawler.Code.UI;
+﻿using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
@@ -43,7 +42,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     Offset.Zero,
                     DynamicRectangle.FitTypes.Screen,
                     DynamicRectangle.GrowFroms.Edges,
-                    DrawManager.DrawTargets.UI
+                    this
                     )) as UI_Panel;
 
             basePanel.AddChild(BuildMenuButtons());
@@ -60,10 +59,10 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 Offset.Zero,
                 DynamicRectangle.FitTypes.Parent,
                 DynamicRectangle.GrowFroms.Auto,
-                DrawManager.DrawTargets.UI);
-            
+                this);
+
             UI_Button playButton = menuButtonPanel.AddChild(
-                new UI_Button (
+                new UI_Button(
                     Color.White,
                     Color.Yellow,
                     "Play Game",
@@ -73,10 +72,10 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     new Offset(-16, -40),
                     DynamicRectangle.FitTypes.Parent,
                     DynamicRectangle.GrowFroms.Auto,
-                    DrawManager.DrawTargets.UI
+                    this
                 )) as UI_Button;
             playButton.OnClick += EnterGame;
-            
+
             UI_Button quitButton = menuButtonPanel.AddChild(
                 new UI_Button(
                     Color.White,
@@ -88,7 +87,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     new Offset(-16, 40),
                     DynamicRectangle.FitTypes.Parent,
                     DynamicRectangle.GrowFroms.Auto,
-                    DrawManager.DrawTargets.UI
+                    this
                 )) as UI_Button;
             quitButton.OnClick += _game.Exit;
 

@@ -1,8 +1,8 @@
 ﻿using DungeonCrawler.Code.DrawManagement;
+using DungeonCrawler.Code.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace DungeonCrawler.Code.Utils.Drawables
 {
@@ -56,9 +56,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public ComplexDrawable(
             GraphicsDevice graphicsDevice,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            Scene scene,
             bool visible = true) :
-            base(layer, drawTarget, visible)
+            base(layer, scene, visible)
         {
             _grahpicsDevice = graphicsDevice;
             DrawManager.RegisterComplexDrawable(this);

@@ -137,6 +137,8 @@ namespace DungeonCrawler.Code.UI.Utils
             }
         }
 
+        public static DynamicRectangle FillScreen => new DynamicRectangle(AnchorPoints.Fill, Size.Zero, Offset.Zero, FitTypes.Screen, GrowFroms.Edges, null);
+
         public DynamicRectangle ParentRectangle
         {
             get

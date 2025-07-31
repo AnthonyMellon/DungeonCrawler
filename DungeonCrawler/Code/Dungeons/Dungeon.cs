@@ -1,36 +1,35 @@
-﻿using DungeonCrawler.Code.UI;
+﻿using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.TileMaps;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonCrawler.Code.Dungeons
 {
     internal class Dungeon : Dynamic
     {
         #region publics
-        public Dungeon(bool enabled = true) :
+        public Dungeon(Scene scene, bool enabled = true) :
             base(enabled)
         {
+            _scene = scene;
+
             _tileMap = new TileMap(
                 new SpriteSheet(
                     GameConstants.TILES_SPRITESHEET_PATH,
-                    GameConstants.TILE_SPRITE_RECTANGLES));
+                    GameConstants.TILE_SPRITE_RECTANGLES),
+                _scene);
         }
 
         public void BuildDungeon()
         {
-            LoadTiles();            
+            LoadTiles();
         }
         #endregion
 
         #region privates
         private TileMap _tileMap;
+        private Scene _scene;
 
         private void LoadTiles()
         {
@@ -48,7 +47,7 @@ namespace DungeonCrawler.Code.Dungeons
 
         protected override void Update(GameTime gametime)
         {
-            
+
         }
         #endregion
     }

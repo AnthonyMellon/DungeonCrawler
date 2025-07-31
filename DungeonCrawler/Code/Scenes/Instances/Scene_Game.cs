@@ -1,5 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
-using DungeonCrawler.Code.Dungeons;
+﻿using DungeonCrawler.Code.Dungeons;
 using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
 using DungeonCrawler.Code.UI;
@@ -17,7 +16,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
         {
             _camera = ObjectBin.GetObject(GameConstants.MAIN_CAMERA) as Camera;
 
-            _entityManager = AddChild(new EntityManager(_camera)) as EntityManager;
+            _entityManager = AddChild(new EntityManager(_camera, this)) as EntityManager;
             _entityManager.BuildPlayer();
 
             //TEMP ENEMIES
@@ -29,7 +28,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
             //
             BuildUI();
 
-            _currentDungeon = AddChild(new Dungeon()) as Dungeon;
+            _currentDungeon = AddChild(new Dungeon(this)) as Dungeon;
             _currentDungeon.BuildDungeon();
         }
         #endregion region
@@ -51,7 +50,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     Offset.Zero,
                     DynamicRectangle.FitTypes.Screen,
                     DynamicRectangle.GrowFroms.Edges,
-                    DrawManager.DrawTargets.World
+                    this
                     )) as UI_Panel;
 
             basePanel.AddChild(BuildMenuBar());
@@ -67,7 +66,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                 Offset.Zero,
                 DynamicRectangle.FitTypes.Parent,
                 DynamicRectangle.GrowFroms.Auto,
-                DrawManager.DrawTargets.UI);
+                this);
 
             UI_Button menuButton = menuBar.AddChild(
                 new UI_Button(
@@ -80,7 +79,7 @@ namespace DungeonCrawler.Code.Scenes.Instances
                     new Offset(-10, 0),
                     DynamicRectangle.FitTypes.Parent,
                     DynamicRectangle.GrowFroms.Auto,
-                    DrawManager.DrawTargets.UI
+                    this
                 )) as UI_Button;
             menuButton.OnClick += QuitToMainMenu;
 

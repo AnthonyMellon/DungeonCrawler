@@ -1,10 +1,6 @@
-﻿using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI.Utils;
-using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace DungeonCrawler.Code.UI
 {
@@ -12,17 +8,17 @@ namespace DungeonCrawler.Code.UI
     {
         #region publics
         public DynamicRectangle Rectangle;
-        protected DrawManager.DrawTargets DrawTarget;
+        protected Scene Scene;
         protected Drawable DrawTexture;
 
         public UIComponent(
             DynamicRectangle rectangle,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base (enabled)
+            base(enabled)
         {
             Rectangle = rectangle;
-            DrawTarget = drawTarget;
+            Scene = scene;
             Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
         }
 
@@ -32,7 +28,7 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
             base(enabled)
         {
@@ -43,7 +39,7 @@ namespace DungeonCrawler.Code.UI
                 fitType,
                 growFrom,
                 null);
-            DrawTarget = drawTarget;
+            Scene = scene;
             Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
         }
         #endregion
@@ -53,7 +49,7 @@ namespace DungeonCrawler.Code.UI
         {
             UIComponent uiParent = newParent as UIComponent;
             if (uiParent != null)
-            {                
+            {
                 Rectangle.ParentRectangle = uiParent.Rectangle;
             }
             else
@@ -73,7 +69,7 @@ namespace DungeonCrawler.Code.UI
         protected override void OnEnable()
         {
             if (DrawTexture != null) DrawTexture.Visible = true;
-            if(Rectangle != null) Rectangle.AllowRectangleUpdates = true;
+            if (Rectangle != null) Rectangle.AllowRectangleUpdates = true;
 
         }
 

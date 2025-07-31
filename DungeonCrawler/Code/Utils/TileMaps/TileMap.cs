@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.UI;
+﻿using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -28,6 +29,7 @@ namespace DungeonCrawler.Code.Utils.TileMaps
                         _spriteSheet,
                         tilePosition,
                         rowAsText[y],
+                        _scene,
                         _layer));
                 }
                 _tiles.Add(rowAsTiles);
@@ -47,10 +49,11 @@ namespace DungeonCrawler.Code.Utils.TileMaps
             }
         }
 
-        public TileMap(SpriteSheet spriteSheet)
+        public TileMap(SpriteSheet spriteSheet, Scene scene)
         {
             _spriteSheet = spriteSheet;
             _tiles = new List<List<Tile>>();
+            _scene = scene;
         }
         #endregion
 
@@ -60,6 +63,7 @@ namespace DungeonCrawler.Code.Utils.TileMaps
         private GameConstants.GameLayers _layer = GameConstants.GameLayers.World_Background;
         private Camera _camera;
         private int _tileSize = 256;
+        private Scene _scene;
 
         private Camera Camera
         {

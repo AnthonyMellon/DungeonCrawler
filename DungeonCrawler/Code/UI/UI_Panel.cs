@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
@@ -19,9 +19,9 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, scene, enabled)
         {
             Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
 
@@ -30,7 +30,7 @@ namespace DungeonCrawler.Code.UI
                 Rectangle.ScreenLocation,
                 color,
                 layer,
-                drawTarget);
+                scene);
             DrawTexture.Size = Rectangle.ScreenSize;
         }
 
@@ -40,9 +40,9 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, scene, enabled)
         {
             Rectangle.OnRectangleUpdated += UpdateTextureRectangle;
 

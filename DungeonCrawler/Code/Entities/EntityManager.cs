@@ -1,22 +1,20 @@
-﻿using DungeonCrawler.Code.UI;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using DungeonCrawler.Code.Entities.Enemies;
+using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.UI;
 using System.Collections.Generic;
-using DungeonCrawler.Code.Entities.Enemies;
 
 namespace DungeonCrawler.Code.Entities
 {
     internal class EntityManager : Dynamic
     {
-        private Camera _camera;
-
         public Player Player { get; private set; }
         public List<Entity> Enemies { get; private set; } = new List<Entity>();
 
-        public EntityManager(Camera camera, bool enabled = true) :
+        public EntityManager(Camera camera, Scene scene, bool enabled = true) :
             base(enabled)
         {
             _camera = camera;
+            _scene = scene;
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace DungeonCrawler.Code.Entities
             Player?.Destroy();
 
             // Build the new player
-            Player = AddChild(new Player(_camera, this)) as Player;
+            Player = AddChild(new Player(_camera, this, _scene)) as Player;
         }
 
         /// <summary>
@@ -36,9 +34,12 @@ namespace DungeonCrawler.Code.Entities
         /// </summary>
         public Entity BuildNewEnemy()
         {
-            BasicEnemy enemy = RegisterNewEnemy(new BasicEnemy(_camera, this)) as BasicEnemy;
+            BasicEnemy enemy = RegisterNewEnemy(new BasicEnemy(_camera, this, _scene)) as BasicEnemy;
             return enemy;
         }
+
+        private Camera _camera;
+        private Scene _scene;
 
         /// <summary>
         /// Register a new enemy to the enemy list and as a child

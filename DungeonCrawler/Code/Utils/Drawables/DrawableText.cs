@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -34,7 +34,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 UpdateTextSize();
                 OnChange?.Invoke();
             }
-        }                
+        }
 
         public DrawableText(
             string text,
@@ -42,9 +42,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Color color,
             SpriteFont font,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            Scene scene,
             bool visible = true) :
-            base(layer, drawTarget, visible)
+            base(layer, scene, visible)
         {
             Text = text;
             Position = position;
@@ -58,9 +58,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Point position,
             Color color,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            Scene scene,
             bool visible = true) :
-            base(layer, drawTarget, visible)
+            base(layer, scene, visible)
         {
             Text = text;
             Position = position;
@@ -105,7 +105,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
                 1,              // Scale        currently no use for these values
                 SpriteEffects.None,
                 GameConstants.GameLayerToLayer(Layer)
-            );            
+            );
         }
 
         private string _text;

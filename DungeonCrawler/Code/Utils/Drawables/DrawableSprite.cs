@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,7 +8,7 @@ namespace DungeonCrawler.Code.Utils.Drawables
     {
         #region publics
         public SpriteSheet SpriteSheet { get; private set; }
-        public Rectangle SourceRectangle { get; private set; }        
+        public Rectangle SourceRectangle { get; private set; }
         public string CurrentSpriteName
         {
             get
@@ -28,9 +28,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
             Point position,
             string currentSpriteName,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            Scene scene,
             bool visible = true) :
-            base(layer, drawTarget, visible)
+            base(layer, scene, visible)
         {
             SpriteSheet = spriteSheet;
             CurrentSpriteName = currentSpriteName;
@@ -45,9 +45,9 @@ namespace DungeonCrawler.Code.Utils.Drawables
             string currentSpriteName,
             Color color,
             GameConstants.GameLayers layer,
-            DrawManager.DrawTargets drawTarget = DrawManager.DrawTargets.None,
+            Scene scene,
             bool visible = true) :
-            base(layer, drawTarget, visible)
+            base(layer, scene, visible)
         {
             SpriteSheet = spriteSheet;
             CurrentSpriteName = currentSpriteName;

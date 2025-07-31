@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.DrawManagement;
+﻿using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.Drawables;
@@ -9,22 +9,6 @@ namespace DungeonCrawler.Code.UI
 {
     internal class UI_Text : UIComponent
     {
-        /*        public UI_Text(
-                    string text,
-                    SpriteFont font,
-                    Color color,
-                    AnchorPoints anchorPoints,
-                    Size padding,
-                    Offset offset,
-                    GameConstants.GameLayers layer,
-                    DrawManager.DrawTargets drawTarget,
-                    FitTypes fitType = FitTypes.Parent,
-                    bool enabled = true) :
-                    base(anchorPoints, padding, offset, drawTarget, fitType, enabled)
-                {
-                    BuildText(text, font, color, layer);
-                }*/
-
         public UI_Text(
             string text,
             SpriteFont font,
@@ -35,9 +19,9 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, scene, enabled)
         {
             BuildText(text, font, color, layer);
         }
@@ -51,9 +35,9 @@ namespace DungeonCrawler.Code.UI
             Offset offset,
             DynamicRectangle.FitTypes fitType,
             DynamicRectangle.GrowFroms growFrom,
-            DrawManager.DrawTargets drawTarget,
+            Scene scene,
             bool enabled = true) :
-            base(anchorPoints, size, offset, fitType, growFrom, drawTarget, enabled)
+            base(anchorPoints, size, offset, fitType, growFrom, scene, enabled)
         {
             BuildText(text, DefaultContent.DefaultFont, color, layer);
         }
@@ -68,7 +52,7 @@ namespace DungeonCrawler.Code.UI
                 color,
                 font,
                 layer,
-                DrawTarget);
+                Scene);
         }
     }
 }
