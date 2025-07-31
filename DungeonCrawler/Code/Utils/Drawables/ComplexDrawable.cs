@@ -61,20 +61,13 @@ namespace DungeonCrawler.Code.Utils.Drawables
             base(layer, drawTarget, visible)
         {
             _grahpicsDevice = graphicsDevice;
-            RegisterToPreDraw(Visible);
-            OnVisabilitySet += RegisterToPreDraw;
+            DrawManager.RegisterComplexDrawable(this);
         }
 
         private RenderTarget2D _renderTarget;
         private List<Drawable> _drawables = new List<Drawable>();
         private GraphicsDevice _grahpicsDevice;
         private bool _hasChanged = true;
-
-        private void RegisterToPreDraw(bool visable)
-        {
-            if(visable) DrawManager.RegisterComplexDrawable(this);
-            else DrawManager.DeregisterComplexDrawable(this);
-        }
 
         private void MarkForTextureRebuild()
         {
