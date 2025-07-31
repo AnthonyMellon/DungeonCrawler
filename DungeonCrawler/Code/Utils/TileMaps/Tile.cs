@@ -1,5 +1,5 @@
-﻿using DungeonCrawler.Code.Scenes;
-using DungeonCrawler.Code.Utils.Drawables;
+﻿using DungeonCrawler.Code.DrawManagement;
+using DungeonCrawler.Code.Scenes;
 using Microsoft.Xna.Framework;
 
 namespace DungeonCrawler.Code.Utils.TileMaps

@@ -1,5 +1,4 @@
 ﻿using DungeonCrawler.Code.Scenes;
-using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

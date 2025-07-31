@@ -1,9 +1,10 @@
 ﻿using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace DungeonCrawler.Code.Utils.Drawables
+namespace DungeonCrawler.Code.DrawManagement
 {
     internal class DrawableText : Drawable
     {
@@ -71,8 +72,8 @@ namespace DungeonCrawler.Code.Utils.Drawables
         public void CenterTextToRectangle(Rectangle targetRectangle)
         {
             Vector2 newPosition = new Vector2(
-                targetRectangle.Center.X - (Size.X / 2),
-                targetRectangle.Center.Y - (Size.Y / 2));
+                targetRectangle.Center.X - Size.X / 2,
+                targetRectangle.Center.Y - Size.Y / 2);
             Position = new Point((int)newPosition.X, (int)newPosition.Y);
         }
 

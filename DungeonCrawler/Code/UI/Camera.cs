@@ -1,7 +1,7 @@
 ﻿using DungeonCrawler.Code.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using DungeonCrawler.Code.Utils.Drawables;
+using DungeonCrawler.Code.DrawManagement;
 
 namespace DungeonCrawler.Code.UI
 {

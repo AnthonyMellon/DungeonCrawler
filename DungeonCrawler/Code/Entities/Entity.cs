@@ -1,7 +1,7 @@
-﻿using DungeonCrawler.Code.Scenes;
+﻿using DungeonCrawler.Code.DrawManagement;
+using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
-using DungeonCrawler.Code.Utils.Drawables;
 using Microsoft.Xna.Framework;
 
 namespace DungeonCrawler.Code.Entities

@@ -1,11 +1,12 @@
 ﻿using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI.Utils;
+using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
 
-namespace DungeonCrawler.Code.Utils.Drawables
+namespace DungeonCrawler.Code.DrawManagement
 {
     internal abstract class Drawable
     {
