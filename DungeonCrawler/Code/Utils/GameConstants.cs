@@ -86,6 +86,10 @@ namespace DungeonCrawler.Code.Utils
         {
             public static readonly string MainMenu = "MainMenu";
             public static readonly string Game = "Game";
+
+#if DEVELOPMENT
+            public static readonly string DevMenu = "DevMenu";
+#endif
         }        
         #endregion
 

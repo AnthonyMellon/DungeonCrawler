@@ -1,9 +1,7 @@
 ﻿using DungeonCrawler.Code.DrawManagement;
 using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.Scenes;
-using DungeonCrawler.Code.Scenes.Instances;
 using DungeonCrawler.Code.UI;
-using DungeonCrawler.Code.UI.Utils;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,11 +12,6 @@ namespace DungeonCrawler
 {
     public class Game1 : Game
     {
-
-#if DEVELOPMENT
-        private UI_Panel _developmentPanel;
-#endif
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Camera _mainCamera;
@@ -68,10 +61,6 @@ namespace DungeonCrawler
                 GameValues.ScreenSize.Y = height;
             };
 
-#if DEVELOPMENT
-            BuildDevelopmentStuff();
-#endif
-
             // Manual invoke of screen size change to get initial screen size
             GameEvents.OnScreenSizeChange?.Invoke(
                 _graphics.PreferredBackBufferWidth,
@@ -82,6 +71,10 @@ namespace DungeonCrawler
 
             SceneManager.Init(Content, this);
             DrawManager.Setup(GraphicsDevice);
+
+#if DEVELOPMENT            
+            InputProvider.RegisterActionToKeyTap(Keys.F3, () => { SceneManager.ToggleScene(GameConstants.SceneNames.DevMenu); });
+#endif
         }
 
         protected override void Update(GameTime gameTime)
@@ -92,10 +85,6 @@ namespace DungeonCrawler
 
             InputProvider.CheckInputs();
 
-#if DEVELOPMENT
-            _developmentPanel?.DoUpdate(gameTime);
-#endif
-            
             SceneManager.Update(gameTime);
 
             base.Update(gameTime);
@@ -109,52 +98,6 @@ namespace DungeonCrawler
             DrawManager.Draw(_spriteBatch, GraphicsDevice, gameTime);
 
             base.Draw(gameTime);
-        }
-
-        private void BuildDevelopmentStuff()
-        {
-            _developmentPanel = new UI_Panel(
-                DefaultContent.DefaultRectangle,
-                new Color(0, 255, 0, 150),
-                GameConstants.GameLayers.Top,
-                AnchorPoints.Center,
-                new Size(250, 250),
-                Offset.Zero,
-                DynamicRectangle.FitTypes.Screen,
-                DynamicRectangle.GrowFroms.Auto,
-                DrawManager.DrawTargets.Development);
-
-            UI_Panel testPanel = new UI_Panel(
-                DefaultContent.DefaultRectangle,
-                new Color(255, 0, 0, 150),
-                GameConstants.GameLayers.Top,
-                AnchorPoints.BottomLeft,
-                new Size(50, 50),
-                Offset.Zero,
-                DynamicRectangle.FitTypes.Parent,
-                DynamicRectangle.GrowFroms.Center,
-                DrawManager.DrawTargets.Development);
-            _developmentPanel.AddChild(testPanel);
-
-            /*            UI_Text developmentBuildText = new UI_Text(
-                            "Development Build",
-                            Color.White,
-                            AnchorPoints.BottomLeft,
-                            Size.Zero,
-                            Offset.Zero,
-                            GameConstants.GameLayers.Top,
-                            DrawManager.DrawTargets.Development,
-                            UIComponent.FitTypes.Parent);
-                        _developmentPanel.AddChild(developmentBuildText);
-
-                        UI_TextInput testTextInput = new UI_TextInput(
-                            AnchorPoints.TopLeft,
-                            new Size(128, 32),
-                            Offset.Zero,
-                            DrawManager.DrawTargets.Development,
-                            UIComponent.FitTypes.Parent
-                            );
-                        _developmentPanel.AddChild(testTextInput);*/
         }
     }
 }

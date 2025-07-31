@@ -51,7 +51,11 @@ namespace DungeonCrawler.Code.Scenes
         private static Dictionary<string, Scene> _scenes = new Dictionary<string, Scene>()
         {
             { GameConstants.SceneNames.MainMenu, new Scene_MainMenu() },
-            { GameConstants.SceneNames.Game, new Scene_Game() }
+            { GameConstants.SceneNames.Game, new Scene_Game() },
+
+#if DEVELOPMENT
+            { GameConstants.SceneNames.DevMenu, new Scene_DevMenu() },
+#endif
         };
         private static Scene _defaultScene = _scenes[GameConstants.SceneNames.MainMenu];
 
