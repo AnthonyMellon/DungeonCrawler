@@ -103,5 +103,7 @@ namespace DungeonCrawler.Code.Utils
         #region Colors
         public static readonly Color DEFAULT_COLOR = Color.CornflowerBlue;
         #endregion
+
+        public static readonly string WindowTitle = "Dunugeon Crawller Game";
     }
 }

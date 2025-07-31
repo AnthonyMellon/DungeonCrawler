@@ -32,6 +32,11 @@ namespace DungeonCrawler
 
         protected override void Initialize()
         {
+            Window.Title = GameConstants.WindowTitle;
+#if DEVELOPMENT
+            Window.Title = $"{GameConstants.WindowTitle} - DEVELOPMENT BUILD";
+#endif
+
             Window.AllowUserResizing = true;
 
             GameValues.GameContent = Content;
