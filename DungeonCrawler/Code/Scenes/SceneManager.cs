@@ -25,30 +25,22 @@ namespace DungeonCrawler.Code.Scenes
             _activeScenes[0].DoInit(_contentManager, _game);
         }
 
-        public static void ToggleScene(string SceneName)
+        public static void ToggleScene(string sceneName)
         {
-            if (_activeScenes.Contains(_scenes[SceneName])) QueueSceneToUnload(SceneName);
-            else QueueSceneToLoad(SceneName);
+            if (_activeScenes.Contains(_scenes[sceneName])) ToggleScene(sceneName, false);
+            else ToggleScene(sceneName, true);
         }
 
-        public static void QueueSceneToLoad(string sceneName)
+        public static void ToggleScene(string sceneName, bool toggle)
         {
-            if (_activeScenes.Contains(_scenes[sceneName])) return;
-
-            _scenesToUnload.Remove(_scenes[sceneName]);
-            _scenesToLoad.Add(_scenes[sceneName]);
-        }
-
-        public static void QueueSceneToUnload(string sceneName)
-        {
-            _scenesToLoad.Remove(_scenes[sceneName]);
-            _scenesToUnload.Add(_scenes[sceneName]);
+            if (toggle) QueueSceneToLoad(sceneName);
+            else QueueSceneToUnload(sceneName);
         }
 
         public static void Update(GameTime gametime)
         {
-            DeActivateScens();
-            ActivateScenes();
+            UnloadScenes();
+            LoadScenes();
 
             for (int i = 0; i < _activeScenes.Count; i++)
             {
@@ -70,7 +62,21 @@ namespace DungeonCrawler.Code.Scenes
         private static ContentManager _contentManager;
         private static Game _game;
 
-        private static void DeActivateScens()
+        private static void QueueSceneToLoad(string sceneName)
+        {
+            if (_activeScenes.Contains(_scenes[sceneName])) return;
+
+            _scenesToUnload.Remove(_scenes[sceneName]);
+            _scenesToLoad.Add(_scenes[sceneName]);
+        }
+
+        private static void QueueSceneToUnload(string sceneName)
+        {
+            _scenesToLoad.Remove(_scenes[sceneName]);
+            _scenesToUnload.Add(_scenes[sceneName]);
+        }
+
+        private static void UnloadScenes()
         {
             for (int i = 0; i < _scenesToUnload.Count; i++)
             {
@@ -83,7 +89,7 @@ namespace DungeonCrawler.Code.Scenes
             _scenesToUnload.Clear();
         }
 
-        private static void ActivateScenes()
+        private static void LoadScenes()
         {
             for (int i = 0; i < _scenesToLoad.Count; i++)
             {
