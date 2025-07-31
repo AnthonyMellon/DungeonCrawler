@@ -1,8 +1,9 @@
 ﻿using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DungeonCrawler.Code.Utils.Drawables
+namespace DungeonCrawler.Code.DrawManagement
 {
     internal class DrawableSprite : Drawable
     {
