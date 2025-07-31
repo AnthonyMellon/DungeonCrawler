@@ -1,10 +1,10 @@
-﻿using DungeonCrawler.Code.DrawManagement;
-using DungeonCrawler.Code.Scenes;
+﻿using DungeonCrawler.Code.Scenes;
+using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace DungeonCrawler.Code.Utils.Drawables
+namespace DungeonCrawler.Code.DrawManagement
 {
     internal class ComplexDrawable : Drawable
     {
