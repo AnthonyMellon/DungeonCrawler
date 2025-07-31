@@ -75,11 +75,7 @@ namespace DungeonCrawler
             _mainCamera = new Camera(_spriteBatch);
             ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
 
-            // Scene Manager (the first scene added will be the default scene)
-            SceneManager.AddedScenes.Add(GameConstants.MainMenu, new Scene_MainMenu());
-            SceneManager.AddedScenes.Add(GameConstants.Game, new Scene_Game());
             SceneManager.Init(Content, this);
-
             DrawManager.Setup(GraphicsDevice);
         }
 
@@ -94,9 +90,7 @@ namespace DungeonCrawler
 #if DEVELOPMENT
             _developmentPanel?.DoUpdate(gameTime);
 #endif
-
-            // Update Scene Manager
-            SceneManager.UpdateScene(Content, this);
+            
             SceneManager.Update(gameTime);
 
             base.Update(gameTime);

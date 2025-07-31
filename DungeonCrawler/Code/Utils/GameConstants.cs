@@ -82,8 +82,11 @@ namespace DungeonCrawler.Code.Utils
         #endregion
 
         #region Scene Strings
-        public static readonly string MainMenu = "MainMenu";
-        public static readonly string Game = "Game";
+        public static class SceneNames
+        {
+            public static readonly string MainMenu = "MainMenu";
+            public static readonly string Game = "Game";
+        }        
         #endregion
 
         #region Object Strings

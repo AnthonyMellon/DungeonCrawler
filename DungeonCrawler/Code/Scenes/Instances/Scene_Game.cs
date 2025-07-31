@@ -89,7 +89,8 @@ namespace DungeonCrawler.Code.Scenes.Instances
 
         private void QuitToMainMenu()
         {
-            SceneManager.SetNextScene(GameConstants.MainMenu);
+            SceneManager.QueueSceneToLoad(GameConstants.SceneNames.MainMenu);
+            SceneManager.QueueSceneToUnload(GameConstants.SceneNames.Game);
         }
 
         protected override void Update(GameTime gametime) { }

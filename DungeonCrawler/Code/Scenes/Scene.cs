@@ -1,7 +1,5 @@
-﻿using DungeonCrawler.Code.UI;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonCrawler.Code.Scenes
 {
@@ -30,7 +28,7 @@ namespace DungeonCrawler.Code.Scenes
 
         public Scene(bool enabled = false) :
             base(enabled)
-        {            
-        }        
+        {
+        }
     }
 }
