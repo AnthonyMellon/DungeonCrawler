@@ -1,7 +1,6 @@
 ﻿using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
-using System.Diagnostics;
 
 namespace DungeonCrawler.Code.UI
 {
@@ -40,12 +39,9 @@ namespace DungeonCrawler.Code.UI
         public void Zoom(int direction)
         {
             _zoomLevel += direction * _zoomSpeed;
-
-            // Clamp zoom level
+            
             if (_zoomLevel < _minZoomLevel) _zoomLevel = _minZoomLevel;
             else if (_zoomLevel > _maxZoomLevel) _zoomLevel = _maxZoomLevel;
-
-            Debug.WriteLine(_zoomLevel);
         }
         #endregion
 
