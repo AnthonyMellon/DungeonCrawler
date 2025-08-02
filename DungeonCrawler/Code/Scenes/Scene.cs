@@ -14,6 +14,7 @@ namespace DungeonCrawler.Code.Scenes
         public RenderTarget2D RenderTarget { get; private set; }
         public List<Drawable> DrawList { get; private set; } = new List<Drawable>();
         public DynamicRectangle ScreenRectangle { get; private set; } = DynamicRectangle.FillScreen;
+        public Matrix TransformMatrix { get; protected set; } = Matrix.Identity;
 
         /// <summary>
         /// To be called when the scene is loaded

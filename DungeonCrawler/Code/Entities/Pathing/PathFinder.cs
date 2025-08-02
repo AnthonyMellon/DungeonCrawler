@@ -11,7 +11,7 @@ namespace DungeonCrawler.Code.Entities.Pathing
         {
             if (target == null) return;
 
-            _currentPathPoint = target.WorldPosition;
+            _currentPathPoint = target.Position;
         }
 
         public Point GetMoveVectorToNextPathPoint(Point currentPosition)

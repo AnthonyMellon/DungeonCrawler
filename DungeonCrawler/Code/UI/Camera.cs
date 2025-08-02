@@ -1,136 +1,59 @@
 ﻿using DungeonCrawler.Code.Entities;
+using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using DungeonCrawler.Code.DrawManagement;
+using System.Diagnostics;
 
 namespace DungeonCrawler.Code.UI
 {
-    internal class Camera        
+    internal class Camera
     {
         #region Publics
 
-        public Point ScreenSize { get; private set; }
-        public Point WorldPosition
+        public Matrix Transform { get; private set; }
+
+        public Matrix TransformToEntity(Entity entity)
         {
-            get
-            {
-                return _trackedEntity == null ?
-                    b_worldPosition :
-                    _trackedEntity.WorldPosition + _trackedEntityOffset;
-            }
-            set
-            {
-                if (_trackedEntity == null)
-                {
-                    b_worldPosition = value;
-                }
-            }
+            return TransformToEntity(entity, Point.Zero);
         }
-        public Rectangle CameraRectangle { get; private set; }
-        public Point CenterPosition => CameraRectangle.Center;
 
-        public OnCameraSizeChangeHandler OnCameraSizeChange { get; set; }        
-
-        public delegate void OnCameraSizeChangeHandler(Rectangle cameraRectangle);
-
-        // Zoom Stuff
-        public float ZoomLevel = 1;
-        public float MinZoomLevel = 0.5f;
-        public float MaxZoomLevel = 5;
-        public float ZoomSpeed = 1;
-
-        public Camera(SpriteBatch graphics)
+        public Matrix TransformToEntity(Entity entity, Point entityOffset)
         {
-            _graphics = graphics;
+            Matrix position = Matrix.CreateTranslation(
+                -(entity.Position.X + entityOffset.X) - (entity.Width / 2),
+                -(entity.Position.Y + entityOffset.Y) - (entity.Height / 2),
+                0);
 
+            Matrix scale = Matrix.CreateScale(
+                _zoomLevel,
+                _zoomLevel,
+                0);
 
+            Matrix screenOffset = Matrix.CreateTranslation(
+                GameValues.ScreenSize.X / 2,
+                GameValues.ScreenSize.Y / 2,
+                0);
+
+            Transform = position * scale * screenOffset;
+            return Transform;
         }
 
-        public void DrawSprite(DrawableSprite sprite)
-        {
-            sprite.Draw(_graphics);
-        }
-
-
-        public void DrawTexture(DrawableTexture texture)
-        {
-            texture.Draw(_graphics);
-        }
-        public void DrawText(DrawableText text)
-        {            
-            text.Draw(_graphics);
-        }
-
-        public void UpdateSize(int width, int height)
-        {
-            ScreenSize = new Point(
-                width,
-                height
-                );
-
-            UpdateCameraRectangle();
-        }
-
-        public void FollowEntity(Entity entity)
-        {
-            FollowEntity(entity, Point.Zero);
-        }
-        public void FollowEntity(Entity entity, Point offset)
-        {
-            _trackedEntity = entity;
-            _trackedEntityOffset = offset;
-        }
-
-        /// <summary>
-        /// Move the camera around the world
-        /// </summary>
-        /// <param name="pannValue">Vector2 to add to current world position</param>
-        public void Pan(Point pannValue)
-        {
-            WorldPosition += pannValue;
-        }
-
-        /// <summary>
-        /// Move the camera in and out of the world
-        /// </summary>
-        /// <param name="direction">Direction to zoom the camera in</param>
         public void Zoom(int direction)
         {
-            ZoomLevel += direction * ZoomSpeed;
+            _zoomLevel += direction * _zoomSpeed;
 
             // Clamp zoom level
-            if (ZoomLevel < MinZoomLevel) ZoomLevel = MinZoomLevel;
-            else if (ZoomLevel > MaxZoomLevel) ZoomLevel = MaxZoomLevel;
-        }
+            if (_zoomLevel < _minZoomLevel) _zoomLevel = _minZoomLevel;
+            else if (_zoomLevel > _maxZoomLevel) _zoomLevel = _maxZoomLevel;
 
-        public Point WorldPositionToScreenPosition(Point worldPosition)
-        {
-            Point screenPosition = (worldPosition - WorldPosition) + CenterPosition;
-            return screenPosition;
+            Debug.WriteLine(_zoomLevel);
         }
-
         #endregion
 
-        #region Privates
-
-        private Entity _trackedEntity;
-        private Point _trackedEntityOffset = Point.Zero;
-        private Point b_worldPosition;
-        private SpriteBatch _graphics;
-
-        private void UpdateCameraRectangle()
-        {
-            Rectangle newRectangle = new Rectangle
-                (
-                0,
-                0,
-                ScreenSize.X,
-                ScreenSize.Y
-                );
-
-            CameraRectangle = newRectangle;
-        }
-
+        #region Privates        
+        private float _zoomLevel = 0.2f;
+        private float _minZoomLevel = 0.15f;
+        private float _maxZoomLevel = 1.5f;
+        private float _zoomSpeed = 0.05f;
         #endregion
     }
 }

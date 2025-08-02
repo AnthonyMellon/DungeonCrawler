@@ -17,7 +17,7 @@ namespace DungeonCrawler.Code.Entities.Pathing.TargetFinders
 
             for (int i = 0; i < _potentialTargets.Count; i++)
             {
-                if (PointExtras.Distance(currentPosition, _potentialTargets[i].WorldPosition) <= _range)
+                if (PointExtras.Distance(currentPosition, _potentialTargets[i].Position) <= _range)
                 {
                     return _potentialTargets[i];
                 }

@@ -38,17 +38,6 @@ namespace DungeonCrawler.Code.Utils.TileMaps
             HasTilesLoaded = true;
         }
 
-        public void DrawAllTiles()
-        {
-            for (int x = 0; x < _tiles.Count; x++)
-            {
-                for (int y = 0; y < _tiles[x].Count; y++)
-                {
-                    Camera.DrawSprite(_tiles[x][y].Sprite);
-                }
-            }
-        }
-
         public TileMap(SpriteSheet spriteSheet, Scene scene)
         {
             _spriteSheet = spriteSheet;

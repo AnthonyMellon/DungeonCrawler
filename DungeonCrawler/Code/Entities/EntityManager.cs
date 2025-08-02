@@ -1,6 +1,5 @@
 ﻿using DungeonCrawler.Code.Entities.Enemies;
 using DungeonCrawler.Code.Scenes;
-using DungeonCrawler.Code.UI;
 using System.Collections.Generic;
 
 namespace DungeonCrawler.Code.Entities
@@ -10,10 +9,9 @@ namespace DungeonCrawler.Code.Entities
         public Player Player { get; private set; }
         public List<Entity> Enemies { get; private set; } = new List<Entity>();
 
-        public EntityManager(Camera camera, Scene scene, bool enabled = true) :
+        public EntityManager(Scene scene, bool enabled = true) :
             base(enabled)
         {
-            _camera = camera;
             _scene = scene;
         }
 
@@ -26,7 +24,7 @@ namespace DungeonCrawler.Code.Entities
             Player?.Destroy();
 
             // Build the new player
-            Player = AddChild(new Player(_camera, this, _scene)) as Player;
+            Player = AddChild(new Player(this, _scene)) as Player;
         }
 
         /// <summary>
@@ -34,11 +32,10 @@ namespace DungeonCrawler.Code.Entities
         /// </summary>
         public Entity BuildNewEnemy()
         {
-            BasicEnemy enemy = RegisterNewEnemy(new BasicEnemy(_camera, this, _scene)) as BasicEnemy;
+            BasicEnemy enemy = RegisterNewEnemy(new BasicEnemy(this, _scene)) as BasicEnemy;
             return enemy;
         }
 
-        private Camera _camera;
         private Scene _scene;
 
         /// <summary>

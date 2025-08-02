@@ -1,6 +1,7 @@
 ﻿using DungeonCrawler.Code.Dungeons;
 using DungeonCrawler.Code.Entities;
 using DungeonCrawler.Code.Entities.Enemies;
+using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
@@ -15,14 +16,16 @@ namespace DungeonCrawler.Code.Scenes.Instances
         {
             _camera = ObjectBin.GetObject(GameConstants.MAIN_CAMERA) as Camera;
 
-            _entityManager = AddChild(new EntityManager(_camera, this)) as EntityManager;
+            _entityManager = AddChild(new EntityManager(this)) as EntityManager;
             _entityManager.BuildPlayer();
 
             //TEMP ENEMIES
             BasicEnemy enemy1 = _entityManager.BuildNewEnemy() as BasicEnemy;
-            enemy1.WorldPosition = new Point(100, 100);
+            enemy1.Position = new Point(100, 100);
+            enemy1.MoveSpeed = 3;
             BasicEnemy enemy2 = _entityManager.BuildNewEnemy() as BasicEnemy;
-            enemy2.WorldPosition = new Point(-100, -200);
+            enemy2.Position = new Point(-100, -200);
+            enemy2.MoveSpeed = 2;
             //TEMP ENEMIES
             //            
 
@@ -51,7 +54,16 @@ namespace DungeonCrawler.Code.Scenes.Instances
         private EntityManager _entityManager;
         private Dungeon _currentDungeon;
 
-        protected override void Update(GameTime gametime) { }
+        private void UpdateCamera()
+        {
+            TransformMatrix = _camera.TransformToEntity(_entityManager.Player);
+            _camera.Zoom((int)InputProvider.MouseScrollDirection);
+        }
+
+        protected override void Update(GameTime gametime)
+        {
+            UpdateCamera();
+        }
         #endregion
     }
 }

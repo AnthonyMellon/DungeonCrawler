@@ -1,6 +1,5 @@
 ﻿using DungeonCrawler.Code.DrawManagement;
 using DungeonCrawler.Code.Scenes;
-using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 
@@ -20,22 +19,22 @@ namespace DungeonCrawler.Code.Entities
                 _spriteSheet = value;
                 _sprite = new DrawableSprite(
                     SpriteSheet,
-                    _camera.WorldPositionToScreenPosition(WorldPosition),
+                    Position,
                     GameConstants.EntityDirections.FOWARD,
                     GameConstants.GameLayers.Top,
                     _scene);
             }
         }
-        public Point WorldPosition
+        public Point Position
         {
             get
             {
-                return _worldPosition;
+                return _position;
             }
             set
             {
-                _worldPosition = value;
-                _sprite.Position = _camera.WorldPositionToScreenPosition(value);
+                _position = value;
+                _sprite.Position = _position;
             }
         }
         public GameConstants.GameLayers Layer
@@ -52,11 +51,14 @@ namespace DungeonCrawler.Code.Entities
 
         public int MoveSpeed { get; set; } = 5;
         public EntityManager EntityManager { get; private set; }
+        public int Width => _sprite.Rectangle.Rectangle.Width;
+        public int Height => _sprite.Rectangle.Rectangle.Height;
 
         public void Move(Point moveVector)
         {
-            WorldPosition += moveVector;
-            _sprite.Position = _camera.WorldPositionToScreenPosition(_worldPosition);
+            Position += new Point(
+                moveVector.X * MoveSpeed,
+                moveVector.Y * MoveSpeed);
         }
 
         public void SetSpriteName(string name)
@@ -69,10 +71,9 @@ namespace DungeonCrawler.Code.Entities
             _sprite.Color = color;
         }
 
-        public Entity(Camera camera, EntityManager entityManager, Scene scene, bool enabled = true) :
+        public Entity(EntityManager entityManager, Scene scene, bool enabled = true) :
             base(enabled)
         {
-            _camera = camera;
             _scene = scene;
             EntityManager = entityManager;
         }
@@ -81,9 +82,8 @@ namespace DungeonCrawler.Code.Entities
         #region privates        
         private SpriteSheet _spriteSheet;
         private DrawableSprite _sprite;
-        private Camera _camera;
-        private Point _worldPosition;
         private Scene _scene;
+        private Point _position;
         #endregion
     }
 }

@@ -134,8 +134,6 @@ namespace DungeonCrawler.Code.DrawManagement
 
         private void CreateDrawable(GameConstants.GameLayers layer, Scene scene, bool visible, DynamicRectangle.Arguments? args)
         {
-            Debug.WriteLine($"Create Drawable {scene}");
-
             _layer = layer;
             _scene = scene;
             Visible = visible;

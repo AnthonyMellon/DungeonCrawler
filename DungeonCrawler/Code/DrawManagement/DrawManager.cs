@@ -50,7 +50,7 @@ namespace DungeonCrawler.Code.DrawManagement
             {
                 Scene currentScene = SceneManager.AddedScenes.ElementAt(i).Value;
                 if (!SceneManager.ActiveScenes.Contains(currentScene)) continue;
-                
+
                 spritebatch.Draw(
                     currentScene.RenderTarget,
                     currentScene.ScreenRectangle.Rectangle,
@@ -78,7 +78,7 @@ namespace DungeonCrawler.Code.DrawManagement
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(Color.Transparent);
 
-            spriteBatch.Begin(blendState: BlendState.AlphaBlend, sortMode: SpriteSortMode.BackToFront);
+            spriteBatch.Begin(blendState: BlendState.AlphaBlend, sortMode: SpriteSortMode.BackToFront, transformMatrix: scene.TransformMatrix);
             for (int i = 0; i < drawList.Count; i++)
             {
                 Drawable drawable = drawList[i];

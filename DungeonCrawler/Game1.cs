@@ -66,7 +66,7 @@ namespace DungeonCrawler
                 _graphics.PreferredBackBufferWidth,
                 _graphics.PreferredBackBufferHeight);
 
-            _mainCamera = new Camera(_spriteBatch);
+            _mainCamera = new Camera();
             ObjectBin.RegisterObject(GameConstants.MAIN_CAMERA, _mainCamera);
 
             SceneManager.Init(Content, this);

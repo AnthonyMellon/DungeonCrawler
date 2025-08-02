@@ -118,6 +118,14 @@ namespace DungeonCrawler.Code.Input
         #region Mouse
 
         #region Scroll
+        public enum MouseScrollDirections
+        {
+            None = 0,
+            Up = 1,
+            Down = -1,
+        }
+
+        public static MouseScrollDirections MouseScrollDirection { get; private set; }
         public delegate void MouseScrollHandler(int value);
         public static MouseScrollHandler OnMouseScroll;
         private static int _lastScrollWheelValue = 0;
@@ -177,9 +185,12 @@ namespace DungeonCrawler.Code.Input
         {
             _lastScrollWheelValue = _currentScrollWheelValue;
             _currentScrollWheelValue = Mouse.GetState().ScrollWheelValue;
+            
+            if (_currentScrollWheelValue < _lastScrollWheelValue) MouseScrollDirection = MouseScrollDirections.Down;
+            else if (_currentScrollWheelValue > _lastScrollWheelValue) MouseScrollDirection = MouseScrollDirections.Up;
+            else MouseScrollDirection = MouseScrollDirections.None;
 
-            if (_currentScrollWheelValue < _lastScrollWheelValue) OnMouseScroll?.Invoke(-1);        // Scroll Down
-            else if (_currentScrollWheelValue > _lastScrollWheelValue) OnMouseScroll?.Invoke(1);    // Scroll Up
+            if (MouseScrollDirection != MouseScrollDirections.None) OnMouseScroll?.Invoke((int)MouseScrollDirection);
         }
 
         private static void CheckMouseMove()

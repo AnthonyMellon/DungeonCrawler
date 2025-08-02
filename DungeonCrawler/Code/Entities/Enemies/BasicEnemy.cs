@@ -11,8 +11,8 @@ namespace DungeonCrawler.Code.Entities.Enemies
     internal class BasicEnemy : Entity
     {
         #region publics
-        public BasicEnemy(Camera camera, EntityManager entityManager, Scene scene)
-            : base(camera, entityManager, scene)
+        public BasicEnemy(EntityManager entityManager, Scene scene)
+            : base(entityManager, scene)
         {
             SpriteSheet = new SpriteSheet(
                 GameConstants.ENEMY_SPRITESHEET_PATH,
@@ -26,8 +26,6 @@ namespace DungeonCrawler.Code.Entities.Enemies
                 );
 
             _pathFinder = new PathFinder();
-
-            MoveSpeed = 3;
         }
         #endregion
 
@@ -43,7 +41,7 @@ namespace DungeonCrawler.Code.Entities.Enemies
         {
             if (_millisecondsSinceLastTargetUpdate <= _millisecondsBetweenTargetUpdates) return;
 
-            _pathingTarget = _targetFinder.FindTarget(WorldPosition);
+            _pathingTarget = _targetFinder.FindTarget(Position);
             _millisecondsSinceLastTargetUpdate = 0;
         }
 
@@ -52,8 +50,8 @@ namespace DungeonCrawler.Code.Entities.Enemies
             _millisecondsSinceLastTargetUpdate += gametime.ElapsedGameTime.Milliseconds;
             TryUpdateTarget(gametime);
 
-            _pathFinder.FindPath(WorldPosition, _pathingTarget);
-            Point moveVector = _pathFinder.GetMoveVectorToNextPathPoint(WorldPosition);
+            _pathFinder.FindPath(Position, _pathingTarget);
+            Point moveVector = _pathFinder.GetMoveVectorToNextPathPoint(Position);
             Move(moveVector);
             if (moveVector != Point.Zero) SetSpriteName(GameConstants.PointToDirection(moveVector));
 
