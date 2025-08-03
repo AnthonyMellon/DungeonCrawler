@@ -29,18 +29,14 @@ namespace DungeonCrawler.Code.Scenes
             {
                 throw new Exception("No default scene :(");
             }
-
-            // Default to the first scene
-            ActiveScenes.Add(_defaultScene);
-            ActiveScenes[0].IsEnabled = true;
-            ActiveScenes[0].DoInit(_contentManager, _game);
+            LoadScene(_defaultScene);
         }
 
         public static void ToggleScene(string sceneName)
         {
             if (ActiveScenes.Contains(AddedScenes[sceneName])) ToggleScene(sceneName, false);
             else ToggleScene(sceneName, true);
-        }        
+        }
 
         public static void ToggleScene(string sceneName, bool toggle)
         {
@@ -52,7 +48,7 @@ namespace DungeonCrawler.Code.Scenes
         {
             UnloadAllActiveScenes();
             _scenesToLoad.Add(AddedScenes[sceneName]);
-        }        
+        }
 
         public static void Update(GameTime gametime)
         {
@@ -65,7 +61,7 @@ namespace DungeonCrawler.Code.Scenes
             }
         }
 
-        private static Scene _defaultScene = AddedScenes[GameConstants.SceneNames.MainMenu];
+        private static Scene _defaultScene = AddedScenes[GameConstants.SceneNames.Game];
 
         private static List<Scene> _scenesToLoad = new List<Scene>();
         private static List<Scene> _scenesToUnload = new List<Scene>();
@@ -104,15 +100,18 @@ namespace DungeonCrawler.Code.Scenes
         {
             for (int i = 0; i < _scenesToLoad.Count; i++)
             {
-                Scene currentScene = _scenesToLoad[i];
-
-                currentScene.OnEnter();
-                if (!currentScene.Initialised) currentScene.DoInit(_contentManager, _game);
-                ActiveScenes.Add(currentScene);
-
-                currentScene.IsEnabled = true;
+                LoadScene(_scenesToLoad[i]);
             }
             _scenesToLoad.Clear();
+        }
+
+        private static void LoadScene(Scene sceneToLoad)
+        {
+            if (!sceneToLoad.Initialised) sceneToLoad.DoInit(_contentManager, _game);
+            sceneToLoad.OnEnter();
+            ActiveScenes.Add(sceneToLoad);
+
+            sceneToLoad.IsEnabled = true;
         }
 
         private static void UnloadAllActiveScenes()
