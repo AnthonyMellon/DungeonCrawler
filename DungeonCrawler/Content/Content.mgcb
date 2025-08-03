@@ -10,8 +10,14 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\bin\Debug\net8.0-windows\DungeonCrawler.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin Data/TileData.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/TileData.xml
 
 #begin Fonts/DefaultFont.spritefont
 /importer:FontDescriptionImporter

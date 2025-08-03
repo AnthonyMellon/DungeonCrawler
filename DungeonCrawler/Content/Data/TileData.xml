@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+	<Asset Type="DungeonCrawler.Code.Utils.TileMaps.TileData[], DungeonCrawler">
+		<Tiles>
+			<TileData>
+				<ID>0</ID>
+				<Name>Tile_Floor</Name>
+				<SpritePosition>
+					<X>0</X>
+					<Y>0</Y>
+				</SpritePosition>
+				<IsCollidable>false</IsCollidable>
+			</TileData>
+			<TileData>
+				<ID>1</ID>
+				<Name>Tile_Wall</Name>
+				<SpritePosition>
+					<X>1</X>
+					<Y>0</Y>
+				</SpritePosition>
+				<IsCollidable>true</IsCollidable>
+			</TileData>
+		</Tiles>
+	</Asset>
+</XnaContent>

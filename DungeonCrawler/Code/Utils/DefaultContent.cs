@@ -1,10 +1,8 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using DungeonCrawler.Code.Utils.TileMaps;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 
 namespace DungeonCrawler.Code.Utils
 {
@@ -17,6 +15,9 @@ namespace DungeonCrawler.Code.Utils
         public static Texture2D DefaultRectangle { get; private set; }
         public static Texture2D DefaultCapsule { get; private set; }
 
+        // Tile Data
+        public static TileData[] TileData { get; private set; }
+
         public static void LoadContent(ContentManager content)
         {
             // Fonts
@@ -25,6 +26,9 @@ namespace DungeonCrawler.Code.Utils
             // Textures
             DefaultRectangle = content.Load<Texture2D>("Images/Textures/DefaultRectangle");
             DefaultCapsule = content.Load<Texture2D>("Images/Textures/DefaultCapsule");
+
+            // TileData
+            //TileData = content.Load<TileData[]>("Data/TileData");
         }
     }
 }
