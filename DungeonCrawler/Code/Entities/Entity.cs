@@ -49,16 +49,20 @@ namespace DungeonCrawler.Code.Entities
             }
         }
 
-        public int MoveSpeed { get; set; } = 5;
+        public int MoveSpeed { get; set; } = 10;
         public EntityManager EntityManager { get; private set; }
         public int Width => _sprite.Rectangle.Rectangle.Width;
         public int Height => _sprite.Rectangle.Rectangle.Height;
 
         public void Move(Point moveVector)
         {
-            Position += new Point(
-                moveVector.X * MoveSpeed,
-                moveVector.Y * MoveSpeed);
+            Vector2 normalisedFloatVector = Vector2.Normalize(new Vector2(moveVector.X, moveVector.Y));
+            int moveX = float.IsNaN(normalisedFloatVector.X) ? 0 : (int)(normalisedFloatVector.X * MoveSpeed);
+            int moveY = float.IsNaN(normalisedFloatVector.Y) ? 0 : (int)(normalisedFloatVector.Y * MoveSpeed);
+
+            Point normalisedMoveVector = new Point(moveX, moveY);
+
+            Position += normalisedMoveVector;
         }
 
         public void SetSpriteName(string name)

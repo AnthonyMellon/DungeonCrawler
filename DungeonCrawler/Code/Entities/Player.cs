@@ -1,6 +1,5 @@
 ﻿using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.Scenes;
-using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using DungeonCrawler.Code.Utils.MathExtras;
 using Microsoft.Xna.Framework;
@@ -33,6 +32,7 @@ namespace DungeonCrawler.Code.Entities
             if (InputProvider.IsKeyDown(InputMap.MoveDown)) moveVector += PointExtras.Down;
             if (InputProvider.IsKeyDown(InputMap.MoveLeft)) moveVector += PointExtras.Left;
             if (InputProvider.IsKeyDown(InputMap.MoveRight)) moveVector += PointExtras.Right;
+
             Move(moveVector);
             if (moveVector != Point.Zero) SetSpriteName(GameConstants.PointToDirection(moveVector));
         }

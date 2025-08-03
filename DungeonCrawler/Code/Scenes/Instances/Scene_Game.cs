@@ -1,11 +1,11 @@
 ﻿using DungeonCrawler.Code.Dungeons;
 using DungeonCrawler.Code.Entities;
-using DungeonCrawler.Code.Entities.Enemies;
 using DungeonCrawler.Code.Input;
 using DungeonCrawler.Code.UI;
 using DungeonCrawler.Code.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using DungeonCrawler.Code.Entities.Enemies;
 
 namespace DungeonCrawler.Code.Scenes.Instances
 {
@@ -20,12 +20,12 @@ namespace DungeonCrawler.Code.Scenes.Instances
             _entityManager.BuildPlayer();
 
             //TEMP ENEMIES
-            BasicEnemy enemy1 = _entityManager.BuildNewEnemy() as BasicEnemy;
+/*            BasicEnemy enemy1 = _entityManager.BuildNewEnemy() as BasicEnemy;
             enemy1.Position = new Point(100, 100);
             enemy1.MoveSpeed = 3;
             BasicEnemy enemy2 = _entityManager.BuildNewEnemy() as BasicEnemy;
             enemy2.Position = new Point(-100, -200);
-            enemy2.MoveSpeed = 2;
+            enemy2.MoveSpeed = 2;*/
             //TEMP ENEMIES
             //            
 
