@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+	<Asset Type="DungeonCrawler.Code.Data.RoomData[], DungeonCrawler">
+		<Item>
+			<ID>0</ID>
+			<Name>TestRoom</Name>
+			<Width>5</Width>
+			<Height>5</Height>
+			<Tiles>				
+				<Item>0</Item>
+				<Item>0</Item>
+				<Item>0</Item>
+				<Item>0</Item>
+				<Item>0</Item>				
+				<Item>0</Item>
+				<Item>1</Item>
+				<Item>1</Item>
+				<Item>1</Item>
+				<Item>0</Item>				
+				<Item>0</Item>
+				<Item>2</Item>
+				<Item>1</Item>
+				<Item>3</Item>
+				<Item>0</Item>				
+				<Item>0</Item>
+				<Item>1</Item>
+				<Item>1</Item>
+				<Item>1</Item>
+				<Item>0</Item>				
+				<Item>0</Item>
+				<Item>0</Item>
+				<Item>0</Item>
+				<Item>0</Item>
+				<Item>0</Item>
+			</Tiles>
+		</Item>
+	</Asset>
+</XnaContent>

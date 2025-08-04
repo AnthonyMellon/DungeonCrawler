@@ -14,6 +14,11 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Data/RoomData.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/RoomData.xml
+
 #begin Data/TileData.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
