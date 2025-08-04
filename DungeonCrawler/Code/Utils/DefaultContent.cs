@@ -1,4 +1,4 @@
-﻿using DungeonCrawler.Code.Utils.TileMaps;
+﻿using DungeonCrawler.Code.Data;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -15,8 +15,8 @@ namespace DungeonCrawler.Code.Utils
         public static Texture2D DefaultRectangle { get; private set; }
         public static Texture2D DefaultCapsule { get; private set; }
 
-        // Tile Data
-        public static TileData[] TileData { get; private set; }
+        // Tile Data        
+        public static TileData[] GetTileData => GameValues.GameContent.Load<TileData[]>("Data/TileData");
 
         public static void LoadContent()
         {
@@ -26,9 +26,6 @@ namespace DungeonCrawler.Code.Utils
             // Textures
             DefaultRectangle = GameValues.GameContent.Load<Texture2D>("Images/Textures/DefaultRectangle");
             DefaultCapsule = GameValues.GameContent.Load<Texture2D>("Images/Textures/DefaultCapsule");
-
-            // TileData
-            //TileData = content.Load<TileData[]>("Data/TileData");
         }
     }
 }

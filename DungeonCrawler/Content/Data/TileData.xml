@@ -1,25 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
-	<Asset Type="DungeonCrawler.Code.Utils.TileMaps.TileData[], DungeonCrawler">
-		<Tiles>
-			<TileData>
-				<ID>0</ID>
-				<Name>Tile_Floor</Name>
-				<SpritePosition>
-					<X>0</X>
-					<Y>0</Y>
-				</SpritePosition>
-				<IsCollidable>false</IsCollidable>
-			</TileData>
-			<TileData>
-				<ID>1</ID>
-				<Name>Tile_Wall</Name>
-				<SpritePosition>
-					<X>1</X>
-					<Y>0</Y>
-				</SpritePosition>
-				<IsCollidable>true</IsCollidable>
-			</TileData>
-		</Tiles>
+	<Asset Type="DungeonCrawler.Code.Data.TileData[], DungeonCrawler">
+		<Item>
+			<ID>0</ID>
+			<Name>Floor</Name>
+			<SpritePosition>
+				<X>0</X>
+				<Y>0</Y>
+			</SpritePosition>
+			<IsCollidable>false</IsCollidable>
+		</Item>
+		<Item>
+			<ID>1</ID>
+			<Name>Wall</Name>
+			<SpritePosition>
+				<X>1</X>
+				<Y>0</Y>
+			</SpritePosition>
+			<IsCollidable>false</IsCollidable>
+		</Item>
+		<Item>
+			<ID>2</ID>
+			<Name>HealPad</Name>
+			<SpritePosition>
+				<X>0</X>
+				<Y>1</Y>
+			</SpritePosition>
+			<IsCollidable>false</IsCollidable>
+		</Item>
+		<Item>
+			<ID>3</ID>
+			<Name>DamagePad</Name>
+			<SpritePosition>
+				<X>1</X>
+				<Y>1</Y>
+			</SpritePosition>
+			<IsCollidable>false</IsCollidable>
+		</Item>
 	</Asset>
 </XnaContent>
