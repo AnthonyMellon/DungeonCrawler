@@ -18,14 +18,14 @@ namespace DungeonCrawler.Code.Utils
         // Tile Data
         public static TileData[] TileData { get; private set; }
 
-        public static void LoadContent(ContentManager content)
+        public static void LoadContent()
         {
             // Fonts
-            DefaultFont = content.Load<SpriteFont>("Fonts/DefaultFont");
+            DefaultFont = GameValues.GameContent.Load<SpriteFont>("Fonts/DefaultFont");
 
             // Textures
-            DefaultRectangle = content.Load<Texture2D>("Images/Textures/DefaultRectangle");
-            DefaultCapsule = content.Load<Texture2D>("Images/Textures/DefaultCapsule");
+            DefaultRectangle = GameValues.GameContent.Load<Texture2D>("Images/Textures/DefaultRectangle");
+            DefaultCapsule = GameValues.GameContent.Load<Texture2D>("Images/Textures/DefaultCapsule");
 
             // TileData
             //TileData = content.Load<TileData[]>("Data/TileData");

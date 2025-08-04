@@ -43,7 +43,7 @@ namespace DungeonCrawler
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             GameValues.SpriteBatch = _spriteBatch;
 
-            DefaultContent.LoadContent(Content);
+            DefaultContent.LoadContent();
 
             Setup();
         }
