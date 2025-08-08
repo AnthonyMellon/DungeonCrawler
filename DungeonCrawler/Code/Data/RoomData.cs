@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 
 namespace DungeonCrawler.Code.Data
 {
@@ -8,6 +8,6 @@ namespace DungeonCrawler.Code.Data
         public string Name { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int[] Tiles { get; set; }
+        public List<List<int>> Tiles { get; set; }
     }
 }

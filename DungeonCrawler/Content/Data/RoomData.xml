@@ -6,32 +6,12 @@
 			<Name>TestRoom</Name>
 			<Width>5</Width>
 			<Height>5</Height>
-			<Tiles>				
-				<Item>0</Item>
-				<Item>0</Item>
-				<Item>0</Item>
-				<Item>0</Item>
-				<Item>0</Item>				
-				<Item>0</Item>
-				<Item>1</Item>
-				<Item>1</Item>
-				<Item>1</Item>
-				<Item>0</Item>				
-				<Item>0</Item>
-				<Item>2</Item>
-				<Item>1</Item>
-				<Item>3</Item>
-				<Item>0</Item>				
-				<Item>0</Item>
-				<Item>1</Item>
-				<Item>1</Item>
-				<Item>1</Item>
-				<Item>0</Item>				
-				<Item>0</Item>
-				<Item>0</Item>
-				<Item>0</Item>
-				<Item>0</Item>
-				<Item>0</Item>
+			<Tiles>
+				<Item>1 1 1 1 1</Item>
+				<Item>1 0 0 0 1</Item>
+				<Item>1 2 0 3 1</Item>
+				<Item>1 0 0 0 1</Item>
+				<Item>1 1 1 1 1</Item>
 			</Tiles>
 		</Item>
 	</Asset>
