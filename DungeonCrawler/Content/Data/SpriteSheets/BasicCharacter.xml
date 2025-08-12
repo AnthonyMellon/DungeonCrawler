@@ -5,19 +5,19 @@
 	  <SpriteRectangles>
 		  <Item>
 			  <Key>Foward</Key>
-			  <Value>512, 0, 256, 256</Value>	
+			  <Value>512 0 256 256</Value>	
 		  </Item>
 		  <Item>
 			  <Key>Back</Key>
-			  <Value>0, 0, 256, 256</Value>
+			  <Value>0 0 256 256</Value>
 		  </Item>
 		  <Item>
 			  <Key>Left</Key>
-			  <Value>256, 0, 256, 256</Value>
+			  <Value>256 0 256 256</Value>
 		  </Item>
 		  <Item>
 			  <Key>Right</Key>
-			  <Value>768, 0, 256, 256</Value>
+			  <Value>768 0 256 256</Value>
 		  </Item>
 	  </SpriteRectangles>
   </Asset>
