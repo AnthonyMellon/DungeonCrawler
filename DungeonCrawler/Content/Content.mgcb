@@ -19,6 +19,16 @@
 /processor:PassThroughProcessor
 /build:Data/RoomData.xml
 
+#begin Data/SpriteSheets/BasicCharacter.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/SpriteSheets/BasicCharacter.xml
+
+#begin Data/SpriteSheets/BasicTiles.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/SpriteSheets/BasicTiles.xml
+
 #begin Data/TileData.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor

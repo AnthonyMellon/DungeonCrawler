@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+  <Asset Type="DungeonCrawler.Code.Data.SpriteSheetData">
+	  <Path>Images/Spritesheets/BasicTiles</Path>
+	  <SpriteRectangles>
+		  <Item>
+			  <Key>Floor</Key>
+			  <Value>0, 0, 256, 256</Value>
+		  </Item>
+		  <Item>
+			  <Key>Wall</Key>
+			  <Value>256, 0, 256, 256</Value>
+		  </Item>
+		  <Item>
+			  <Key>Heal</Key>
+			  <Value>0, 256, 256, 256</Value>
+		  </Item>
+		  <Item>
+			  <Key>Damage</Key>
+			  <Value>256, 256, 256, 256</Value>
+		  </Item>
+	  </SpriteRectangles>
+  </Asset>
+</XnaContent>
