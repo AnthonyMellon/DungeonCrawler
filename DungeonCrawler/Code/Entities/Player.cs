@@ -11,9 +11,7 @@ namespace DungeonCrawler.Code.Entities
         public Player(EntityManager entityManager, Scene scene)
             : base(entityManager, scene)
         {
-            SpriteSheet = new SpriteSheet(
-                GameConstants.PLAYER_SPRITESHEET_PATH,
-                GameConstants.PLAYER_SPRITE_RECTANGLES);
+            SpriteSheet = new SpriteSheet(DefaultContent.BasicCharacterSpriteSheetData);
             Layer = GameConstants.GameLayers.World_Player;
             SetSpriteColor(Color.LightGreen);
         }

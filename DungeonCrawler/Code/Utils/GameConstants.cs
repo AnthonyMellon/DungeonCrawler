@@ -23,14 +23,7 @@ namespace DungeonCrawler.Code.Utils
         public static float GameLayerToLayer(GameLayers layer) => (float)layer / _NumberOfGameLayers;
         #endregion
 
-        #region Generic Entities
-        public static class EntityDirections
-        {
-            public static readonly string FOWARD = "Front";
-            public static readonly string BACK = "Back";
-            public static readonly string LEFT = "Left";
-            public static readonly string RIGHT = "Right";
-        }
+        #region Generic Entities        
 
         public static string PointToDirection(Point point)
         {
@@ -46,38 +39,21 @@ namespace DungeonCrawler.Code.Utils
         public static readonly Point TILE_SPRITE_SIZE = new Point(256, 256);
         #endregion
 
-        #region Sprite Sheet Rectangles
+        #region SpritesheetNames
+        public static class EntityDirections
+        {
+            public static readonly string FOWARD = "Front";
+            public static readonly string BACK = "Back";
+            public static readonly string LEFT = "Left";
+            public static readonly string RIGHT = "Right";
+        }
 
-        public static readonly Dictionary<string, Rectangle> PLAYER_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
-        {
-            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 2, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 3, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-        };
-        public static readonly Dictionary<string, Rectangle> ENEMY_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
-        {
-            {EntityDirections.FOWARD, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 2, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.BACK, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 0, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.LEFT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 1, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-            {EntityDirections.RIGHT, new Rectangle(new Point(ENTITY_SPRITE_SIZE.X * 3, ENTITY_SPRITE_SIZE.Y * 0), ENTITY_SPRITE_SIZE) },
-        };
-        public static readonly Dictionary<string, Rectangle> TILE_SPRITE_RECTANGLES = new Dictionary<string, Rectangle>()
-        {
-            {Tiles.FLOOR, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
-            {Tiles.WALL, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 0), TILE_SPRITE_SIZE) },
-            {Tiles.HEAL, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 0, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) },
-            {Tiles.DAMAGE, new Rectangle(new Point(TILE_SPRITE_SIZE.X * 1, TILE_SPRITE_SIZE.Y * 1), TILE_SPRITE_SIZE) }
-        };
-        #endregion
-
-        #region Tiles
         public static class Tiles
         {
-            public static readonly string FLOOR = "Tile_floor";
-            public static readonly string WALL = "Tile_wall";
-            public static readonly string HEAL = "Tile_heal";
-            public static readonly string DAMAGE = "Tile_damage";
+            public static readonly string FLOOR = "Floor";
+            public static readonly string WALL = "Wall";
+            public static readonly string HEAL = "Heal";
+            public static readonly string DAMAGE = "Damage";
         }
         #endregion
 

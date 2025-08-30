@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonCrawler.Code.Data;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DungeonCrawler.Code.Utils
 {
@@ -43,10 +43,10 @@ namespace DungeonCrawler.Code.Utils
         }
 
 
-        public SpriteSheet(string path, Dictionary<string, Rectangle> sprites)
+        public SpriteSheet(SpriteSheetData data)
         {
-            Path = path;
-            Sprites = sprites;
+            Path = data.Path;
+            Sprites = data.SpriteRectangles;
         }
         #endregion
 

@@ -15,9 +15,7 @@ namespace DungeonCrawler.Code.Dungeons
             _scene = scene;
 
             _tileMap = new TileMap(
-                new SpriteSheet(
-                    GameConstants.TILES_SPRITESHEET_PATH,
-                    GameConstants.TILE_SPRITE_RECTANGLES),
+                new SpriteSheet(DefaultContent.BasicTilesSpriteSheetData),
                 _scene);
         }
 

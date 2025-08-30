@@ -15,8 +15,13 @@ namespace DungeonCrawler.Code.Utils
         public static Texture2D DefaultRectangle { get; private set; }
         public static Texture2D DefaultCapsule { get; private set; }
 
-        // Tile Data        
+        // Data      
         public static TileData[] GetTileData => GameValues.GameContent.Load<TileData[]>("Data/TileData");
+        public static RoomData[] GetRoomData => GameValues.GameContent.Load<RoomData[]>("Data/RoomData");
+
+        // Sprite Sheets
+        public static SpriteSheetData BasicCharacterSpriteSheetData { get; private set; }
+        public static SpriteSheetData BasicTilesSpriteSheetData { get; private set; }
 
         public static void LoadContent()
         {
@@ -26,6 +31,10 @@ namespace DungeonCrawler.Code.Utils
             // Textures
             DefaultRectangle = GameValues.GameContent.Load<Texture2D>("Images/Textures/DefaultRectangle");
             DefaultCapsule = GameValues.GameContent.Load<Texture2D>("Images/Textures/DefaultCapsule");
+
+            //Spritesheets
+            BasicCharacterSpriteSheetData = GameValues.GameContent.Load<SpriteSheetData>("Data/SpriteSheets/BasicCharacter");
+            BasicTilesSpriteSheetData = GameValues.GameContent.Load<SpriteSheetData>("Data/SpriteSheets/BasicTiles");
         }
     }
 }

@@ -4,7 +4,7 @@
 	  <Path>Images/Spritesheets/DebugCharacter</Path>
 	  <SpriteRectangles>
 		  <Item>
-			  <Key>Foward</Key>
+			  <Key>Front</Key>
 			  <Value>512 0 256 256</Value>	
 		  </Item>
 		  <Item>
