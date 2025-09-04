@@ -4,8 +4,6 @@
 		<Item>
 			<ID>0</ID>
 			<Name>TestRoom</Name>
-			<Width>5</Width>
-			<Height>5</Height>
 			<Tiles>
 				<Item>1 1 1 1 1</Item>
 				<Item>1 0 0 0 1</Item>
