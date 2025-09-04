@@ -1,4 +1,5 @@
-﻿using DungeonCrawler.Code.Scenes;
+﻿using DungeonCrawler.Code.Data;
+using DungeonCrawler.Code.Scenes;
 using DungeonCrawler.Code.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -10,32 +11,36 @@ namespace DungeonCrawler.Code.Utils.TileMaps
         #region publics
         public bool HasTilesLoaded = false;
 
-        public void LoadTilesFromText(List<List<string>> tileMapText)
+        public void LoadTilesFromRoomData(RoomData roomData)
         {
             _tiles?.Clear();
             HasTilesLoaded = false;
 
-            if (tileMapText == null) return;
+            if (roomData == null) return;
+            if (roomData.Tiles == null) return;
 
-            for (int x = 0; x < tileMapText.Count; x++)
-            {
-                List<string> rowAsText = tileMapText[x];
-                List<Tile> rowAsTiles = new List<Tile>();
-                for (int y = 0; y < rowAsText.Count; y++)
+            List<List<int>> tileData = roomData.Tiles;
+
+            for (int y = 0; y < tileData.Count; y++)
+            {                
+                List<int> rowData = tileData[y];
+                List<Tile> rowTiles = new List<Tile>();
+
+                for (int x = 0; x < rowData.Count; x++)
                 {
-                    Point tilePosition = new Point(x * _tileSize, y * _tileSize);
+                    Point tilePos = new Point(x * _tileSize, y * _tileSize);
 
-                    rowAsTiles.Add(new Tile(
+                    rowTiles.Add(new Tile(
                         _spriteSheet,
-                        tilePosition,
-                        rowAsText[y],
+                        tilePos,
+                        GameConstants.Tiles.TileIDToTileName(rowData[x]),
                         _scene,
-                        _layer));
+                        _layer
+                        ));
                 }
-                _tiles.Add(rowAsTiles);
+                _tiles.Add(rowTiles);
             }
 
-            HasTilesLoaded = true;
         }
 
         public TileMap(SpriteSheet spriteSheet, Scene scene)

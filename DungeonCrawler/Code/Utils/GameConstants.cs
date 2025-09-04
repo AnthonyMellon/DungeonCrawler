@@ -54,6 +54,21 @@ namespace DungeonCrawler.Code.Utils
             public static readonly string WALL = "Wall";
             public static readonly string HEAL = "Heal";
             public static readonly string DAMAGE = "Damage";
+
+            public static string TileIDToTileName(int id)
+            {
+                if (!_tileIdToTileName.ContainsKey(id)) return FLOOR; // Default to floor tile
+
+                return _tileIdToTileName[id];
+
+            }
+            private static Dictionary<int, string> _tileIdToTileName = new Dictionary<int, string>()
+            {
+                {0, FLOOR},
+                {1, WALL},
+                {2, HEAL},
+                {3, DAMAGE}
+            };
         }
         #endregion
 
@@ -67,7 +82,7 @@ namespace DungeonCrawler.Code.Utils
 #if DEVELOPMENT
             public static readonly string DevMenu = "DevMenu";
 #endif
-        }        
+        }
         #endregion
 
         #region Object Strings

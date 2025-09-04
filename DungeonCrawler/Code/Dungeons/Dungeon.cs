@@ -31,16 +31,7 @@ namespace DungeonCrawler.Code.Dungeons
 
         private void LoadTiles()
         {
-            _tileMap.LoadTilesFromText(
-                new List<List<string>>()
-                {
-                    new List<string>() {GameConstants.Tiles.WALL, GameConstants.Tiles.WALL, GameConstants.Tiles.WALL, GameConstants.Tiles.WALL, GameConstants.Tiles.WALL },
-                    new List<string>() {GameConstants.Tiles.WALL, GameConstants.Tiles.FLOOR, GameConstants.Tiles.FLOOR, GameConstants.Tiles.FLOOR, GameConstants.Tiles.WALL },
-                    new List<string>() {GameConstants.Tiles.WALL, GameConstants.Tiles.HEAL, GameConstants.Tiles.FLOOR, GameConstants.Tiles.DAMAGE, GameConstants.Tiles.WALL },
-                    new List<string>() {GameConstants.Tiles.WALL, GameConstants.Tiles.FLOOR, GameConstants.Tiles.FLOOR, GameConstants.Tiles.FLOOR, GameConstants.Tiles.WALL },
-                    new List<string>() {GameConstants.Tiles.WALL, GameConstants.Tiles.WALL, GameConstants.Tiles.WALL, GameConstants.Tiles.WALL, GameConstants.Tiles.WALL }
-                }
-                );
+            _tileMap.LoadTilesFromRoomData(DefaultContent.GetRoomData[0]); //TODO: this is a temp job loading the first roomData, eventually I'll want to pass a name or id or something... 
         }
 
         protected override void Update(GameTime gametime)
